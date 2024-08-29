@@ -2,7 +2,7 @@
 title: Architecture guide
 nextjs:
   metadata:
-    title: Architecture guide
+    title: Architecture guide 123
     description: Quidem magni aut exercitationem maxime rerum eos.
 ---
 
