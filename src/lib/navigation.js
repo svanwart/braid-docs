@@ -1,53 +1,70 @@
 export const navigation = [
   {
-    title: 'Introduction',
+    title: 'How do computers work?',
     links: [
-      { title: 'Getting started', href: '/' },
-      { title: 'Installation', href: '/docs/installation' },
-    ],
-  },
-  {
-    title: 'Core concepts',
-    links: [
-      { title: 'Understanding caching', href: '/docs/understanding-caching' },
+      { title: 'Von Neumann', href: '/' },
       {
-        title: 'Predicting user behavior',
+        title: 'What is a transistor? (Computation)',
         href: '/docs/predicting-user-behavior',
       },
-      { title: 'Basics of time-travel', href: '/docs/basics-of-time-travel' },
       {
-        title: 'Introduction to string theory',
+        title: 'How do circuits work? (Computation)',
+        href: '/docs/understanding-caching',
+      },
+
+      { title: 'Digital and Analog Signals (I/O)', href: '/docs/installation' },
+      {
+        title: 'How does a circuit do math? (Demo)',
         href: '/docs/introduction-to-string-theory',
       },
-      { title: 'The butterfly effect', href: '/docs/the-butterfly-effect' },
-    ],
-  },
-  {
-    title: 'Advanced guides',
-    links: [
-      { title: 'Writing plugins', href: '/docs/writing-plugins' },
-      { title: 'Neuralink integration', href: '/docs/neuralink-integration' },
-      { title: 'Temporal paradoxes', href: '/docs/temporal-paradoxes' },
-      { title: 'Testing', href: '/docs/testing' },
-      { title: 'Compile-time caching', href: '/docs/compile-time-caching' },
       {
-        title: 'Predictive data generation',
-        href: '/docs/predictive-data-generation',
+        title: 'How does zoom work? (Demo)',
+        href: '/docs/the-butterfly-effect',
       },
     ],
   },
   {
-    title: 'API reference',
+    title: 'How does the brain work?',
     links: [
-      { title: 'CacheAdvance.predict()', href: '/docs/cacheadvance-predict' },
-      { title: 'CacheAdvance.flush()', href: '/docs/cacheadvance-flush' },
-      { title: 'CacheAdvance.revert()', href: '/docs/cacheadvance-revert' },
-      { title: 'CacheAdvance.regret()', href: '/docs/cacheadvance-regret' },
+      { title: 'Introduction to the Brain', href: '/docs/writing-plugins' },
+      { title: 'What is a neuron?', href: '/docs/neuralink-integration' },
+      {
+        title: 'How do neurons communicate?',
+        href: '/docs/temporal-paradoxes',
+      },
+      { title: 'How does the brain learn?', href: '/docs/testing' },
+      { title: 'Compile-time caching', href: '/docs/compile-time-caching' },
+      {
+        title: 'How does the cerebellum work?',
+        href: '/docs/predictive-data-generation',
+      },
+      {
+        title: 'How does the cerebellum work?',
+        href: '/docs/predictive-data-generation-aaa',
+      },
+      {
+        title: 'What inpiration are you taking from the cerebellum?',
+        href: '/docs/predictive-data-generation-aaa',
+      },
+      {
+        title: 'Why is this important?',
+        href: '/docs/predictive-data-generation-aaa',
+      },
     ],
   },
   {
-    title: 'Contributing',
+    title: 'How does AI Work?',
     links: [
+      {
+        title: 'High-level overview of AI',
+        href: '/docs/cacheadvance-predict',
+      },
+      { title: 'History of AI', href: '/docs/cacheadvance-flush' },
+      {
+        title: 'What can AI actually do?',
+        href: '/docs/cacheadvance-revert',
+      },
+      { title: 'What is a neural network?', href: '/docs/cacheadvance-regret' },
       { title: 'How to contribute', href: '/docs/how-to-contribute' },
       { title: 'Architecture guide', href: '/docs/architecture-guide' },
       { title: 'Design principles', href: '/docs/design-principles' },
