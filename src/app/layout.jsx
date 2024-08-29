@@ -33,7 +33,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={clsx('h-full antialiased', inter.variable, lexend.variable)}
+      className={
+        clsx('h-full antialiased', inter.variable, lexend.variable) +
+        ' scroll-smooth'
+      }
       suppressHydrationWarning
     >
       <body className="flex min-h-full bg-white dark:bg-slate-900">
