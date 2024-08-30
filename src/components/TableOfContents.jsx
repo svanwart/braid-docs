@@ -9,7 +9,9 @@ export function TableOfContents({ tableOfContents }) {
 
   let getHeadings = useCallback((tableOfContents) => {
     return tableOfContents
-      .flatMap((node) => [node.id, ...node.children.map((child) => child.id)])
+      .flatMap((node) => {
+        return [node.id, ...node.children.map((child) => child.id)]
+      })
       .map((id) => {
         let el = document.getElementById(id)
         if (!el) return null

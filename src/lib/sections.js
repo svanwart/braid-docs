@@ -28,11 +28,46 @@ function getNodeText(node) {
   return text
 }
 
+function collectAllHeadings(nodes) {
+  let headers = []
+  for (const node of nodes) {
+    headers = collectHeadings(node, headers)
+  }
+  return headers
+}
+
+function collectHeadings(node, headers = []) {
+  if (node) {
+    // console.log(node)
+    if (node.type === 'heading') {
+      headers.push(node)
+    }
+    // Match all h1, h2, h3… tags
+    // if (node.name.match(/h\d/)) {
+    //   headers.push(node)
+    // }
+
+    if (node.children) {
+      for (const child of node.children) {
+        // console.log('recurse', child.type)
+        collectHeadings(child, headers)
+      }
+    }
+  }
+
+  return headers
+}
+
 export function collectSections(nodes, slugify = slugifyWithCounter()) {
   let sections = []
+  //   console.log(collectAllHeadings(nodes))
+  const headings = collectAllHeadings(nodes)
+  //   console.log('LENGTH', headings.length)
+  //   return sections
 
-  for (let node of nodes) {
-    if (isH2Node(node) || isH3Node(node)) {
+  for (let node of headings) {
+    if (true) {
+      //isH2Node(node) || isH3Node(node)) {
       let title = getNodeText(node)
       if (title) {
         let id = slugify(title)
@@ -54,7 +89,7 @@ export function collectSections(nodes, slugify = slugifyWithCounter()) {
     }
 
     sections.push(...collectSections(node.children ?? [], slugify))
+    // console.log(sections)
   }
-
   return sections
 }

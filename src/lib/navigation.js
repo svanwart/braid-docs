@@ -1,32 +1,41 @@
 export const navigation = [
   {
+    title: 'Introduction',
+    links: [
+      {
+        title: 'Introduction to Cerebellum-Inspired Circuits',
+        href: '/',
+      },
+    ],
+  },
+  {
     title: 'How do computers work?',
     links: [
-      { title: 'Von Neumann', href: '/' },
+      { title: 'Von Neumann', href: '/docs/von-neumann' },
       {
-        title: 'What is a transistor? (Computation)',
-        href: '/docs/predicting-user-behavior',
+        title: 'What is a transistor?',
+        href: '/docs/transistors',
       },
       {
-        title: 'How do circuits work? (Computation)',
-        href: '/docs/understanding-caching',
+        title: 'How do circuits work?',
+        href: '/docs/circuits',
       },
 
-      { title: 'Digital and Analog Signals (I/O)', href: '/docs/installation' },
+      { title: 'Digital and Analog Signals (I/O)', href: '/docs/signals' },
       {
-        title: 'How does a circuit do math? (Demo)',
-        href: '/docs/introduction-to-string-theory',
+        title: 'Example: How do circuits do math?',
+        href: '/docs/circuits-math',
       },
       {
-        title: 'How does zoom work? (Demo)',
-        href: '/docs/the-butterfly-effect',
+        title: 'Example: How does zoom work?',
+        href: '/docs/zoom',
       },
     ],
   },
   {
     title: 'How does the brain work?',
     links: [
-      { title: 'Introduction to the Brain', href: '/docs/writing-plugins' },
+      { title: 'Introduction to the Brain', href: '/docs/the-brain' },
       { title: 'What is a neuron?', href: '/docs/neuralink-integration' },
       {
         title: 'How do neurons communicate?',
@@ -44,11 +53,11 @@ export const navigation = [
       },
       {
         title: 'What inpiration are you taking from the cerebellum?',
-        href: '/docs/predictive-data-generation-aaa',
+        href: '/docs/predictive-data-generation-aaa-b',
       },
       {
         title: 'Why is this important?',
-        href: '/docs/predictive-data-generation-aaa',
+        href: '/docs/predictive-data-generation-aaa-c',
       },
     ],
   },

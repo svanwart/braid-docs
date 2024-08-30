@@ -23,10 +23,9 @@ const lexend = localFont({
 export const metadata = {
   title: {
     template: '%s - Docs',
-    default: 'CacheAdvance - Never miss the cache again.',
+    default: 'Cerebellum-Inspired Circuits',
   },
-  description:
-    'Cache every single thing your app could ever do ahead of time, so your code never even has to run at all.',
+  description: 'Some sub-description',
 }
 
 export default function RootLayout({ children }) {

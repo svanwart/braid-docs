@@ -1,0 +1,22 @@
+---
+title: The Brain
+nextjs:
+  metadata:
+    title: The Brain
+    description: TBD.
+---
+
+TBD
+
+## Section 1
+Text text texg
+---
+
+## Section 2
+Text text texg
+---
+
+## Section 3
+Text text texg
+---
+

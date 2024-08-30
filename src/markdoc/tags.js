@@ -1,5 +1,6 @@
 import { Callout } from '@/components/Callout'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
+import Card from '@/components/Card'
 
 const tags = {
   callout: {
@@ -40,6 +41,15 @@ const tags = {
       description: { type: String },
       icon: { type: String },
       href: { type: String },
+    },
+  },
+
+  'card': {
+    selfClosing: true,
+    render: Card,
+    attributes: {
+      title: { type: String },
+      description: { type: String },
     },
   },
 }
