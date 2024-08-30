@@ -18,5 +18,7 @@ Text text texg
 
 ## Section 3
 Text text texg
----
 
+* [https://lushprojects.com/absolutebeginners/elecabsbegin.pdf](Electronics for Absolute Beginners)
+
+---

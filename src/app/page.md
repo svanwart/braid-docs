@@ -5,10 +5,12 @@ title: "Introduction to Cerebellum-Inspired Circuits"
 Outline for the introduction to the website.
 ## 1. Big Data
 
+[Goog](https://google.com)
+
 {% card title="Big data is a powerful resource for understanding the world" %}
 * Bullet Point 1
 * Bullet Point 2
-* Bullet Point 3
+* Bullet Point 3: [Von Neumann](/braid-docs/docs/von-neumann)
 {% /card %}
 ---
 
