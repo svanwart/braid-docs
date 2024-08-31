@@ -6,17 +6,13 @@ nextjs:
     description: TBD.
 ---
 
-TBD
+## 1. Overview: how the brain works
 
-## Section 1
-Text text texg
----
 
-## Section 2
-Text text texg
----
-
-## Section 3
-Text text texg
+{% card %}
+* Bullet Point 1
+* Bullet Point 2
+* Bullet Point 3
+{% /card %}
 ---
 

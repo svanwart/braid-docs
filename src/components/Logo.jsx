@@ -1,5 +1,5 @@
 function LogomarkPaths() {
-  return <span>Some Logo</span>
+  return <span>Cerebellum-Inspired Circuits</span>
   //   return (
   //     <g fill="none" stroke="#38BDF8" strokeLinejoin="round" strokeWidth={3}>
   //       <path d="M10.308 5L18 17.5 10.308 30 2.615 17.5 10.308 5z" />
@@ -18,7 +18,7 @@ export function Logomark(props) {
 }
 
 export function Logo(props) {
-  return <span>Some Logo</span>
+  return <span>Cerebellum-Inspired Circuits</span>
   //   return (
   //     <svg aria-hidden="true" viewBox="0 0 227 36" fill="none" {...props}>
   //       <LogomarkPaths />
