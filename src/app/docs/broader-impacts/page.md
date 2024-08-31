@@ -1,8 +1,8 @@
 ---
-title: Transistors
+title: Computation and Society
 nextjs:
   metadata:
-    title: Transistors
+    title: Computation and Society
     description: TBD.
 ---
 

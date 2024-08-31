@@ -1,15 +1,15 @@
 ---
-title: Von Neumann Architecture
+title: "Introduction to Computer Hardware: The Von Neumann Architecture"
 nextjs:
   metadata:
-    title: Von Neumann Architecture
+    title: "Introduction to Computer Hardware: The Von Neumann Architecture"
     description: TBD.
 ---
 
 TBD
 
-## Section 1
-Text text texg
+## 1. Introduction
+* Basic structure of a computer.
 ---
 
 ## Section 2

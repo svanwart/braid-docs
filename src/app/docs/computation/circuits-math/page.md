@@ -6,17 +6,18 @@ nextjs:
     description: TBD.
 ---
 
-TBD
+One thing you might be thinking is how metal and electricity work together to actually do something useful. 
 
-## Section 1
+## 1. Binary
 Text text texg
+
+## 2. The Half Adder
+Text text text
+
+## 3. The Full Adder
+Text text text
 ---
 
-## Section 2
-Text text texg
----
-
-## Section 3
-Text text texg
----
+## References
+* So many! List them here
 

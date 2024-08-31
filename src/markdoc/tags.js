@@ -1,6 +1,8 @@
 import { Callout } from '@/components/Callout'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 import Card from '@/components/Card'
+import CardHorizontal from '@/components/CardHorizontal'
+import CardVertical from '@/components/CardVertical'
 
 const tags = {
   callout: {
@@ -44,13 +46,23 @@ const tags = {
     },
   },
 
-  'card': {
+  card: {
     selfClosing: true,
     render: Card,
     attributes: {
       title: { type: String },
       description: { type: String },
     },
+  },
+
+  'card-horizontal': {
+    selfClosing: true,
+    render: CardHorizontal,
+  },
+
+  'card-vertical': {
+    selfClosing: true,
+    render: CardVertical,
   },
 }
 
