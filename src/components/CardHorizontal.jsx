@@ -10,7 +10,7 @@ export default function Card({
   return (
     <div className="my-6 w-full lg:flex lg:max-w-full">
       <div
-        className={`h-48 flex-none overflow-hidden bg-no-repeat bg-center rounded-r-none ${imgPosition === 'cover' ? 'bg-cover' : 'bg-contain'} text-center lg:h-auto lg:w-48 lg:rounded-l-lg lg:rounded-r-none`}
+        className={`h-48 flex-none overflow-hidden bg-no-repeat bg-center border-slate-200 rounded-r-none ${imgPosition === 'cover' ? 'bg-cover' : 'bg-contain'} text-center border lg:border lg:h-auto lg:w-48 lg:rounded-l-lg lg:rounded-r-none`}
         style={{
           backgroundImage: `url('${img}')`,
           backgroundColor: backgroundColor

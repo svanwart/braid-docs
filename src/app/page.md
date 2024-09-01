@@ -67,14 +67,31 @@ We found that X, Y and X
 This online resource has been created to help you learn more about some of the technical and biological ideas that undergird this research. Please click on a topic below to learn more...
 
 {% card-horizontal 
-    title="1. How Computers Work"
+    title="1. How a Computer Works"
     img="https://picsum.photos/300/300.jpg?a=1"
-    imgPosition="contain" / %}
+/ %}
 
 {% card-horizontal 
-    title="2. How AI Works" 
-    img="https://picsum.photos/300/300.jpg?a=2" / %}
+    title="2. AI Overview" 
+    img="https://picsum.photos/300/300.jpg?a=2" 
+/ %}
 
 {% card-horizontal 
     title="3. How the Brain Works"
-    img="https://picsum.photos/300/300.jpg?a=3" /%}
+    img="https://picsum.photos/300/300.jpg?a=3" 
+/%}
+
+{% card-horizontal 
+    title="4. Neuromorphic Computing"
+    img="https://picsum.photos/300/300.jpg?a=4" 
+/%}
+
+{% card-horizontal 
+    title="5. Cerebellum-Inspired Hardware"
+    img="https://picsum.photos/300/300.jpg?a=5" 
+/%}
+
+{% card-horizontal 
+    title="6. Broader Impacts"
+    img="https://picsum.photos/300/300.jpg?a=6" 
+/%}

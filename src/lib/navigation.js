@@ -1,6 +1,6 @@
 export const navigation = [
   {
-    title: 'I. Introduction',
+    title: 'Introduction',
     links: [
       {
         title: 'Introduction to Cerebellum-Inspired Circuits',
@@ -9,7 +9,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'II. How a Computer Works',
+    title: 'I. How a Computer Works',
     links: [
       { title: 'Von Neumann', href: '/docs/computation' },
 
@@ -37,13 +37,13 @@ export const navigation = [
     ],
   },
   {
-    title: 'III. AI Overview',
+    title: 'II. AI Overview',
     links: [
       { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai' },
     ],
   },
   {
-    title: 'IV. How the Brain Works',
+    title: 'III. How the Brain Works',
     links: [
       { title: 'Introduction to the Brain', href: '/docs/the-brain' },
       {
@@ -57,7 +57,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'V. Neuromorphic Computing',
+    title: 'IV. Neuromorphic Computing',
     links: [
       {
         title: 'Intro to Neuromorphic Computing',
@@ -66,7 +66,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'VI. Cerebellum-Inspired Computer Hardware',
+    title: 'V. Cerebellum-Inspired Computer Hardware',
     links: [
       {
         title: 'Introduction to Cerebellum-Inspired Hardware',
@@ -75,11 +75,11 @@ export const navigation = [
     ],
   },
   {
-    title: 'VII. Computation and Society',
+    title: 'VI. Broader Impacts',
     links: [{ title: 'Introduction', href: '/docs/broader-impacts' }],
   },
   {
     title: 'Widgets',
-    links: [{ title: 'Overview of Widgets', href: '/docs/widgets' }],
+    links: [{ title: 'Overview of Sample Widgets', href: '/docs/widgets' }],
   },
 ]
