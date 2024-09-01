@@ -9,19 +9,19 @@ nextjs:
 Introduction to Binary numbers
 
 ## 1. What is Binary?
-Text text texg
+Text text text...
 
 ## 2. Converting Between Decimal and Binary
-Text text text
+Text text text...
 
 ### Binary to Decimal
-Text text text
+Text text text...
 
 ### Decimal to Binary
-Text text text
+Text text text...
 
 ## 3. Doing Binary Arithmetic
-Text text text
+Text text text...
 ---
 
 ## References

@@ -9,13 +9,13 @@ nextjs:
 One thing you might be thinking is how metal and electricity work together to actually do something useful. 
 
 ## 1. Binary
-Text text texg
+Text text text...
 
 ## 2. The Half Adder
-Text text text
+Text text text...
 
 ## 3. The Full Adder
-Text text text
+Text text text...
 ---
 
 ## References

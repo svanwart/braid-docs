@@ -1,4 +1,6 @@
 import clsx from 'clsx'
+import { LuBrainCircuit } from "react-icons/lu";
+
 
 import { Icon } from '@/components/Icon'
 
@@ -18,7 +20,7 @@ const styles = {
 }
 
 const icons = {
-  note: (props) => <Icon icon="lightbulb" {...props} />,
+  note: (props) => <LuBrainCircuit size="2.5em" />,
   warning: (props) => <Icon icon="warning" color="amber" {...props} />,
 }
 

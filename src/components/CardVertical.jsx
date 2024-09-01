@@ -2,17 +2,19 @@ import Image from 'next/image'
 
 export default function Card() {
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 rounded shadow-lg">
+    <div className="overflow-hidden rounded rounded-xl border border-slate-200 shadow-lg">
       <Image
-        className="w-full m-0"
+        className="m-0 w-full"
         src="https://v1.tailwindcss.com/img/card-top.jpg"
         alt="Sunset in the mountains"
         width={100}
         height={100}
       />
       <div className="px-6 py-4">
-        <div className="mb-2 text-xl font-bold">The Coldest Sunset</div>
-        <p className="text-base text-gray-700">
+        <div className="mb-2 text-xl font-bold dark:text-white">
+          The Coldest Sunset
+        </div>
+        <p className="text-base text-gray-700 dark:text-slate-300">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
           quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
           nihil.

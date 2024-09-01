@@ -9,14 +9,14 @@ nextjs:
 TBD
 
 ## Digital
-Text text texg
+Text text text...
 ---
 
 ## Analog
-Text text texg
+Text text text...
 ---
 
 ## Section 3
-Text text texg
+Text text text...
 ---
 

@@ -58,11 +58,19 @@ const tags = {
   'card-horizontal': {
     selfClosing: true,
     render: CardHorizontal,
+    attributes: {
+      img: { type: String },
+      title: { type: String },
+      text: { type: String },
+      backgroundColor: { type: String },
+      imgPosition: { type: String },
+    },
   },
 
   'card-vertical': {
     selfClosing: true,
     render: CardVertical,
+    attributes: {},
   },
 }
 

@@ -2,56 +2,79 @@
 title: "Introduction to Cerebellum-Inspired Circuits"
 ---
 
-Outline for the introduction to the website.
+{% callout title="Goal of this page" %}
+This page aims to give a high-level overview of the research, including:
+* Current challenges in computing efficiency
+* An introduction to neuromorphic computing
+* Some potential benefits of cerebellum-inspired hardware
+{% /callout %}
+
+Proposed line of argument below (per Mark's suggestion):
 
 ## 1. Big Data
-TODO
-* Bullet Point 1
-* Bullet Point 2
-* Bullet Point 3
+Big Data is a powerful resource for understanding the world...
 
 ---
 
 ## 2. Algorithms and Machine Learning
-
-To make sense of it at scale, we need smart AI & ML approaches
-* Bullet Point 1
-* Bullet Point 2
-* Bullet Point 3
+To make sense of it at scale, we need smart AI & ML approaches...
 
 ---
 
 ## 3. Hardware Limitations at Scale
-
-Current computers are energy inefficient
-* Von Neumann bottleneck
-* At scale, this is problematic (data centers)
+There are  fundamental limitations of our computing architectures are energy inefficient (data and energy requirements). This is particularly problematic for current machine learning that use large datasets...
+* Von Neumann bottleneck ([learn more](./braid-docs/docs/computation))
+* At scale, this is problematic
+* Energy and resources costs of data centers.
 
 ---
 
 ## 4. Taking Inspiration from the Brain
-Can we take inspiration from the brain to improve efficiency?
-* Neuromorphic computing promises greater efficiency
-* Bullet Point 2
-* Bullet Point 3
+The brain is much more efficient than a computer...
+* Needs less energy
+* Needs fewer examples
+* Into to the field of neuromorphic computing - aims to take inspiration from the brain to improve computational efficiency / capabilities.
 
 ---
 
-## 5. Taking inspiration from the Cerebellum
-How can cerebellum-inspired circuits help?
+## 5. Taking Inspiration from the Cerebellum
+The cerebellum has been understudies in neuromorphic computing, but has capabilities that could
 * The cerebellum (an efficient sensorimotor integrator)
 * By understanding how it ignores only the most essential of signals (data from the environment), the cerebellum...
 
 ---
+## 6. Current Status of the Project
+A high-level summary of what was accomplished (using accessible language)...
 
-## 6. Potential Benefits
-What benefits could cerebellum-inspired circuits provide?
+---
+
+## 7. Potential Societal Impacts
+### What benefits could cerebellum-inspired circuits provide?
 * Energy efficiency
 * Data efficiency
 * New kinds of capabilitiess: being able to recognize outliers (versus putting information into existing categories)
 
+### Are there also risks?
+Technological developments can also be misused or lead to unintended consequences. To explore some of these possibilities:
+* We looked at examples of past technological developments and their historical trajectories (more here...) 
+* We also spoke with a range of stateholders to learn from their perspectives and experiences (more here...)
+
+We found that X, Y and X
+
 ---
 
-{% callout title="Summary" %}
-Ultimately, brain-inspired computing (more generally) can improve the efficiency, accessibility, and power of computation. 
-{% /callout %}
+## 8. Learn More
+This online resource has been created to help you learn more about some of the technical and biological ideas that undergird this research. Please click on a topic below to learn more...
+
+{% card-horizontal 
+    title="1. How Computers Work"
+    img="https://picsum.photos/300/300.jpg?a=1"
+    imgPosition="contain" / %}
+
+{% card-horizontal 
+    title="2. How AI Works" 
+    img="https://picsum.photos/300/300.jpg?a=2" / %}
+
+{% card-horizontal 
+    title="3. How the Brain Works"
+    img="https://picsum.photos/300/300.jpg?a=3" /%}

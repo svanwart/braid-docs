@@ -1,3 +1,5 @@
+import { LuBrainCircuit } from 'react-icons/lu'
+
 function LogomarkPaths() {
   return <span>Cerebellum-Inspired Circuits</span>
   //   return (
@@ -9,7 +11,13 @@ function LogomarkPaths() {
 }
 
 export function Logomark(props) {
-  return ''
+  return (
+    <LuBrainCircuit
+      className="mr-2"
+      size="1.5em"
+      style={{ display: 'inline-block' }}
+    />
+  )
   //   return (
   //     <svg aria-hidden="true" viewBox="0 0 36 36" fill="none" {...props}>
   //       <LogomarkPaths />

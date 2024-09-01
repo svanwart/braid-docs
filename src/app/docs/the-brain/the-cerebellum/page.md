@@ -9,14 +9,14 @@ nextjs:
 TBD
 
 ## Section 1
-Text text texg
+Text text text...
 ---
 
 ## Section 2
-Text text texg
+Text text text...
 ---
 
 ## Section 3
-Text text texg
+Text text text...
 ---
 

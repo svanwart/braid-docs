@@ -9,11 +9,11 @@ nextjs:
 TBD
 
 ## 1. Introduction
-Text text text
+Text text text...
 ---
 
 ## 2. Components of a Circuit
-Text text text
+Text text text...
 
 ### Transistors
 Define transistors
@@ -22,7 +22,7 @@ Define transistors
 Define resistors
 
 ## 3. Types of Circuits
-text text text text text
+Text text text... text text
 
 ---
 
