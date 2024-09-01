@@ -3,6 +3,7 @@ import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 import Card from '@/components/Card'
 import CardHorizontal from '@/components/CardHorizontal'
 import CardVertical from '@/components/CardVertical'
+import BinaryConversion from '@/components/BinaryConversion'
 
 const tags = {
   callout: {
@@ -70,6 +71,12 @@ const tags = {
   'card-vertical': {
     selfClosing: true,
     render: CardVertical,
+    attributes: {},
+  },
+
+  'binary-conversion': {
+    selfClosing: true,
+    render: BinaryConversion,
     attributes: {},
   },
 }

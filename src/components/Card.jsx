@@ -1,5 +1,10 @@
 'use client'
-
+const variantStyles = {
+  primary:
+    'rounded-full bg-sky-300 py-2 px-4 text-sm font-semibold text-slate-900 hover:bg-sky-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/50 active:bg-sky-500',
+  secondary:
+    'rounded-full bg-slate-800 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50 active:text-slate-400',
+}
 export default function Card({ title, children }) {
   function showTitleIfSet() {
     return title ? (
@@ -23,10 +28,7 @@ export default function Card({ title, children }) {
       <div className="relative overflow-hidden rounded-xl p-6">
         {showTitleIfSet()}
         {children}
-        <button
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-          onClick={test}
-        >
+        <button className={variantStyles.primary} onClick={test}>
           click me
         </button>
       </div>
