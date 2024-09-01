@@ -12,13 +12,15 @@ Introduction to Binary numbers
 Text text text...
 
 ## 2. Converting Between Decimal and Binary
-{% binary-conversion /%}
+
 
 ### Binary to Decimal
-Text text text...
+{% binary-conversion /%}
+
+--- 
 
 ### Decimal to Binary
-Text text text...
+TODO
 
 ## 3. Doing Binary Arithmetic
 Text text text...
