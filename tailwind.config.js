@@ -28,6 +28,10 @@ module.exports = {
       maxWidth: {
         '8xl': '88rem',
       },
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        15: 'repeat(15, minmax(0, 1fr))',
+      },
     },
   },
   plugins: [typographyPlugin],

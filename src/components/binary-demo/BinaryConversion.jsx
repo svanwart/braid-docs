@@ -1,12 +1,13 @@
 'use client'
 import React, { useState } from 'react'
-import Card from './Card'
+import Card from '../CardFancy'
 
 const variantStyles = {
   textbox:
-    'block w-full rounded-md border-0 py-1.5 text-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+    'rounded-md px-4 border-0 py-1.5 w-full text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+  box: 'border-b-2 border-black w-full block border-0 py-0.5 text-center text-gray-900 sm:text-sm sm:leading-6',
   label: 'inline-block w-full py-2 text-center font-bold',
-  formula: 'inline-block py-2 text-center font-bold width-full',
+  formula: 'inline-block py-0.5 text-center font-bold width-full',
   button:
     'rounded-full bg-slate-800 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50 active:text-slate-400',
   buttonActive:
@@ -15,6 +16,7 @@ const variantStyles = {
 }
 export default function BinaryConversion({ num = 53 }) {
   const [currentNum, setCurrentNum] = useState(num)
+  const [guess, setGuess] = useState('')
   const [hint1, setHint1] = useState(false)
   const [hint2, setHint2] = useState(false)
   const [hint3, setHint3] = useState(false)
@@ -27,6 +29,7 @@ export default function BinaryConversion({ num = 53 }) {
     setHint1(false)
     setHint2(false)
     setHint3(false)
+    setGuess('')
     const elem = document.getElementById('bin-to-decimal-top')
     const y = elem.getBoundingClientRect().top + window.scrollY - 150
     window.scrollTo({ top: y, behavior: 'smooth' })
@@ -36,22 +39,41 @@ export default function BinaryConversion({ num = 53 }) {
     return <div className={variantStyles.row + 'my-5 flex gap-2'}></div>
   }
 
+  function updateGuess(e) {
+    setGuess(e.target.value)
+  }
+
+  function checkAnswer(e) {
+    alert(currentNum.toString() === guess)
+  }
+
   function showProblem() {
     const id = 'answer'
     return (
       <>
         <div id="bin-to-decimal-top" className={variantStyles.row}>
-          <p>
-            What is the decimal representation of the following binary number:{' '}
-            {binaryNumber}
-          </p>
-          <input
-            id={id}
-            name={id}
-            type="text"
-            autoComplete={id}
-            className={variantStyles.textbox}
-          />
+          <Card extraClasses="bg-white" title="Practice Time!">
+            <p>
+              What is the decimal representation of the following binary number:
+            </p>
+            <h1 className="text-center">{binaryNumber}</h1>
+            <div className="flex w-full items-center gap-2">
+              <label style={{ minWidth: '120px' }}>Your Answer: </label>
+              <input
+                id={id}
+                name={id}
+                type="text"
+                autoComplete={id}
+                placeholder="Enter number here..."
+                onChange={updateGuess}
+                className={variantStyles.textbox + ' w-sm'}
+                value={guess}
+              />
+              <button className={''} onClick={checkAnswer}>
+                Check
+              </button>
+            </div>
+          </Card>
         </div>
         {!hint1 ? (
           <div className={variantStyles.row + ' flex justify-center'}>
@@ -77,21 +99,15 @@ export default function BinaryConversion({ num = 53 }) {
       <div className={variantStyles.row}>
         <Card
           extraClasses="bg-white"
-          title="Hint #1: Label the base-2 digit placeholders"
+          title="Hint #1"
+          subtitle="Label the base-2 digit placeholders"
         >
-          <div className="columns-8">
+          <div className="w-full columns-8 gap-2">
             {binaryNumberArr.map((val, idx) => {
               const id = `digit-${idx + 1}`
               return (
-                <div key={id}>
-                  <input
-                    id={id}
-                    name={id}
-                    type="text"
-                    autoComplete={id}
-                    className={variantStyles.textbox}
-                    defaultValue={val}
-                  />
+                <div key={id} className="w-auto">
+                  <span className={variantStyles.box}>{val}</span>
                   <label for={id} className={variantStyles.label}>
                     2<sup>{7 - idx}</sup>
                   </label>
@@ -123,14 +139,19 @@ export default function BinaryConversion({ num = 53 }) {
       <div className={variantStyles.row}>
         <Card
           extraClasses="bg-white"
-          title="Hint #2: Add up the place values for each digit"
+          title="Hint #2"
+          subtitle="Add up the place values for each digit"
         >
-          <div className="flex" style={{ 'justify-content': 'space-around' }}>
-            <span className={variantStyles.formula}>Answer =</span>
+          <div
+            style={{
+              display: 'grid',
+              'grid-template-columns': 'repeat(15, 1fr)',
+            }}
+          >
             {binaryNumberArr.map((val, idx) => {
               return (
                 <>
-                  <span className={variantStyles.formula}>
+                  <span className={variantStyles.box}>
                     {val}*2<sup>{7 - idx}</sup>
                   </span>
                   {idx < 7 ? (
@@ -163,10 +184,15 @@ export default function BinaryConversion({ num = 53 }) {
   function showHint3() {
     return (
       <div className={variantStyles.row}>
-        <Card extraClasses="bg-white" title="Hint #3: Finish the calculation">
-          <div className="flex" style={{ 'justify-content': 'space-around' }}>
-            <span className={variantStyles.formula}>Answer</span>
-            <span className={variantStyles.formula}>=</span>
+        <Card
+          extraClasses="bg-white"
+          title="Hint #3"
+          subtitle="Finish the calculation"
+        >
+          <div
+            className="flex w-full"
+            style={{ 'justify-content': 'space-around' }}
+          >
             {binaryNumberArr.map((val, idx) => {
               return (
                 <>
@@ -174,7 +200,7 @@ export default function BinaryConversion({ num = 53 }) {
                     {parseInt(val) * Math.pow(2, 7 - idx)}
                   </span>
                   {idx < 7 ? (
-                    <span className={variantStyles.formula}>+</span>
+                    <span className={variantStyles.formula}> + </span>
                   ) : (
                     ''
                   )}
@@ -194,7 +220,8 @@ export default function BinaryConversion({ num = 53 }) {
     )
   }
   return (
-    <div className="rounded-xl bg-sky-100 p-5">
+    <div className="">
+      {/* <div className="rounded-xl bg-sky-100 p-5"> */}
       {showProblem()}
       {showButtons()}
       {hint1 ? showHint1() : ''}

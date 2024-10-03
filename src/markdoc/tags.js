@@ -3,9 +3,16 @@ import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 import Card from '@/components/Card'
 import CardHorizontal from '@/components/CardHorizontal'
 import CardVertical from '@/components/CardVertical'
-import BinaryConversion from '@/components/BinaryConversion'
+import BinaryConversion from '@/components/binary-demo/BinaryConversion'
+import LightSwitch from '@/components/binary-demo/LightSwitch'
+import LightSwitches from '@/components/binary-demo/LightSwitches'
 
 const tags = {
+  'binary-conversion': {
+    selfClosing: true,
+    render: BinaryConversion,
+    attributes: {},
+  },
   callout: {
     attributes: {
       title: { type: String },
@@ -17,34 +24,6 @@ const tags = {
       },
     },
     render: Callout,
-  },
-  figure: {
-    selfClosing: true,
-    attributes: {
-      src: { type: String },
-      alt: { type: String },
-      caption: { type: String },
-    },
-    render: ({ src, alt = '', caption }) => (
-      <figure>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} />
-        <figcaption>{caption}</figcaption>
-      </figure>
-    ),
-  },
-  'quick-links': {
-    render: QuickLinks,
-  },
-  'quick-link': {
-    selfClosing: true,
-    render: QuickLink,
-    attributes: {
-      title: { type: String },
-      description: { type: String },
-      icon: { type: String },
-      href: { type: String },
-    },
   },
 
   card: {
@@ -74,10 +53,47 @@ const tags = {
     attributes: {},
   },
 
-  'binary-conversion': {
+  figure: {
     selfClosing: true,
-    render: BinaryConversion,
-    attributes: {},
+    attributes: {
+      src: { type: String },
+      alt: { type: String },
+      caption: { type: String },
+    },
+    render: ({ src, alt = '', caption }) => (
+      <figure>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={alt} />
+        <figcaption>{caption}</figcaption>
+      </figure>
+    ),
+  },
+  'light-switch': {
+    selfClosing: true,
+    render: LightSwitch,
+    attributes: {
+      value: { type: Number },
+    },
+  },
+  'light-switches': {
+    selfClosing: true,
+    render: LightSwitches,
+    attributes: {
+      values: { type: Array },
+    },
+  },
+  'quick-link': {
+    selfClosing: true,
+    render: QuickLink,
+    attributes: {
+      title: { type: String },
+      description: { type: String },
+      icon: { type: String },
+      href: { type: String },
+    },
+  },
+  'quick-links': {
+    render: QuickLinks,
   },
 }
 
