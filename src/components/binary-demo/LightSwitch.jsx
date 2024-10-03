@@ -2,7 +2,12 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-export default function LightSwitch({ value, idx = null, calculateFn = null }) {
+export default function LightSwitch({
+  value,
+  idx = null,
+  calculateFn = null,
+  width = 45,
+}) {
   const srcOn = 'switch-on.png'
   const srcOff = 'switch-off.png'
   const rootURL = '/braid-docs/images/switches/'
@@ -20,13 +25,13 @@ export default function LightSwitch({ value, idx = null, calculateFn = null }) {
   return (
     <div className="flex flex-col items-center" onClick={toggle}>
       <Image
-        width={60}
-        height={70}
-        className="m-0"
+        width={width}
+        height={width * 1.4}
+        className={`m-0 w-[${width}px]`}
         src={src}
         alt={'Picture of a light switch that is set to "' + label + '"'}
       />
-      <p className="m-0 w-full text-center text-xs font-bold">{label}</p>
+      <span className="m-0 w-full text-center text-xs font-bold">{label}</span>
     </div>
   )
 }

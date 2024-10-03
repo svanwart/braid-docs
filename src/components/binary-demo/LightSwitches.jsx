@@ -1,11 +1,15 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import LightSwitch from './LightSwitch'
-export default function LightSwitches({ values = [] }) {
+
+export default function LightSwitches({
+  values = [],
+  label = null,
+  center = false,
+}) {
   const [switchVals, setSwitchVals] = useState(values.slice().reverse())
   const [sum, setSum] = useState(binaryToDecimal(values.slice().reverse()))
   const key = (Math.random() + 1).toString(36).substring(2)
-  //   console.log(values)
 
   function binaryToDecimal(bits) {
     let sum = 0
@@ -16,15 +20,19 @@ export default function LightSwitches({ values = [] }) {
   }
 
   function cf(val, idx) {
-    // idx = switchVals.length - 1 - idx
     switchVals[idx] = val
     let sum = binaryToDecimal(switchVals)
     setSwitchVals(switchVals)
     setSum(sum)
   }
+
   return (
     <>
-      <div className="flex justify-center gap-0 md:gap-2">
+      <div
+        className={
+          'flex items-center gap-0 md:gap-2' + (center ? ' justify-center' : '')
+        }
+      >
         {switchVals.map((val, idx) => (
           <LightSwitch
             key={`${key}_${idx}`}
@@ -33,8 +41,13 @@ export default function LightSwitches({ values = [] }) {
             calculateFn={cf}
           />
         ))}
+        {label ? (
+          <div className="text-center text-3xl font-bold">{label}</div>
+        ) : (
+          ''
+        )}
       </div>
-      <div className="text-center text-3xl font-bold">{sum}</div>
+      {label ? '' : <div className="text-center text-3xl font-bold">{sum}</div>}
     </>
   )
 }

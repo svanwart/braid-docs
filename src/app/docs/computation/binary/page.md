@@ -1,21 +1,40 @@
 ---
-title: Introduction to Binary Numbers
+title: Introduction to Binary
 nextjs:
   metadata:
-    title: Introduction to Binary Numbers
+    title: Introduction to Binary
     description: TBD.
 ---
 
-Introduction to Binary numbers
 
 ## 1. What is Binary?
 As we learned in the previous sections, computers use a series of switches to represent information and perform computations. This means that computers require that data and instructions be encoded in terms of switches, where 1 symbolizes "on" and 0 symbolizes "off."
 
-{% light-switch value=1 /%}
+{% light-switch value=1 width=80 /%}
 
-That's all that binary is --  idea of binary. For a computer to be able to process and store information, it needs to be encoded into a form that a computer understands: a series of 1s and 0s. For this to be possible, humans have invented different systems of encodings to translate different types of information into binary[1]. 
+This is the idea of **binary**: representing information and ideas as a series of on/off switches, or 1s and 0s. This my sound complicated, but it's simpler than you think. For instance, let's say that you and your friend Walter wanted to represent the numbers 0-5 using a series of on/off switches. Walter proposes that the number 5 can be represented by 5 switches turned to "on", that the number 4 could be represented as 4 switches turned to "on", and so forth.
 
-        {% light-switches values=[1, 0, 1, 0, 1, 1, 0, 0] /%}
+### Walter's System
+{% light-switches values=[1, 1, 1, 1, 1] label="5" /%}
+{% light-switches values=[1, 1, 1, 1] label="4" /%}
+{% light-switches values=[1, 1, 1] label="3" /%}
+{% light-switches values=[1, 1] label="2" /%}
+{% light-switches values=[1] label="1" /%}
+{% light-switches values=[] label="0" /%}
+
+If you and Walter both agree that this is how number encodings should work, then you have invented a system of binary that can encode numbers. However, this may not be *the best* system. Can you think of any problems with it?
+
+### Potential Problems with Walter's System:
+Over time, you may begin to appreciate some of the challenges that accompany Walter's system of binary encodings. For instance:
+* If zero is represented by no switches, how do you even know if there is a zero being represented?
+* How would you represent the number 999,999,999? Would that number require that you have nearly a billion switches available?
+
+You may be starting to appreciate that some systems of binary encodings are more efficient and more correct than others. In fact, people have spent a lot of time thinking about the best way to encode different kinds of information accurately and efficiently, taking inspiration from existing systems of formally representing concepts, particularly mathematics. 
+
+## Decimal and Binary Representations of Whole Numbers [Start Here]
+and, 
+
+        {% light-switches values=[1, 0, 1, 0, 1, 1, 0, 0] center=true /%}
 
 
 In this section we'll be focusing on how to represent and manipulate numbers using binary. 
@@ -35,6 +54,10 @@ TODO
 
 ## 3. Doing Binary Arithmetic
 Text text text...
+
+## 4. Other Encodings
+Humans have in fact invented many different systems for encoding and decoding different types of information into binary[1] -- not just whole numbers.
+
 ---
 
 ## References

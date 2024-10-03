@@ -73,6 +73,7 @@ const tags = {
     render: LightSwitch,
     attributes: {
       value: { type: Number },
+      width: { type: Number },
     },
   },
   'light-switches': {
@@ -80,6 +81,8 @@ const tags = {
     render: LightSwitches,
     attributes: {
       values: { type: Array },
+      label: { type: String },
+      center: { type: Boolean },
     },
   },
   'quick-link': {
