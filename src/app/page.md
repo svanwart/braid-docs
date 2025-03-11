@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Cerebellum-Inspired Circuits"
+layout: "main"
 ---
 
 {% callout title="Goal of this page" %}

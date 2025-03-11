@@ -8,31 +8,40 @@ nextjs:
 
 
 ## 1. What is Binary?
-As we learned in the previous sections, computers use a series of switches to represent information and perform computations. This means that computers require that data and instructions be encoded in terms of switches, where 1 symbolizes "on" and 0 symbolizes "off."
+Computers use a series of switches to represent information and perform computations. Because of this, in order for a computers to understand anything, it is first necessary to create consistent ways of translating data and instructions into patterns that can be represented by "on" and "off" switches. This is the idea of **binary**: encoding information in a way that a computer can understand, where **1** represents a switch that is turned on, and **0** represents a switch that is turned off. 
 
-{% light-switch value=1 width=80 /%}
+{% light-switches values=[0, 1] switchWidth=80 center=true label=" " /%}
 
-This is the idea of **binary**: representing information and ideas as a series of on/off switches, or 1s and 0s. This my sound complicated, but it's simpler than you think. For instance, let's say that you and your friend Walter wanted to represent the numbers 0-5 using a series of on/off switches. Walter proposes that the number 5 can be represented by 5 switches turned to "on", that the number 4 could be represented as 4 switches turned to "on", and so forth.
+Encoding information into a binary form may sound kind of abstract, but the concept is fairly simple. For instance, let's say that you and your friend Walter needed to represent the numbers from 0 to 1000 (e.g., 0, 1, 2, 3, 4, ...1000) on a computer. To do this, you would need to create a system to encode each number using a series of switches. Walter proposes that having one switch turned to "on" could represent the number 1, two switches turned to "on" could represent the number 2, three switches turned to "on" could represent the number 3, and so forth. 0 could be represented by no switch at all.
 
 ### Walter's System
-{% light-switches values=[1, 1, 1, 1, 1] label="5" /%}
-{% light-switches values=[1, 1, 1, 1] label="4" /%}
-{% light-switches values=[1, 1, 1] label="3" /%}
-{% light-switches values=[1, 1] label="2" /%}
-{% light-switches values=[1] label="1" /%}
 {% light-switches values=[] label="0" /%}
+{% light-switches values=[1] label="1" /%}
+{% light-switches values=[1, 1] label="2" /%}
+{% light-switches values=[1, 1, 1] label="3" /%}
+{% light-switches values=[1, 1, 1, 1] label="4" /%}
+{% light-switches values=[1, 1, 1, 1, 1] label="5..." /%}
 
-If you and Walter both agree that this is how number encodings should work, then you have invented a system of binary that can encode numbers. However, this may not be *the best* system. Can you think of any problems with it?
+If you, Walter, and the rest of your team all agree that this is how number encodings should work — and that your encoding scheme can indeed encode all of the numbers between 0-1000 — then you have invented a system of binary that can encode numbers. Great work! However, this may not be *the best* system. Can you think of any problems with encoding numbers in this way?
 
 ### Potential Problems with Walter's System:
-Over time, you may begin to appreciate some of the challenges that accompany Walter's system of binary encodings. For instance:
-* If zero is represented by no switches, how do you even know if there is a zero being represented?
-* How would you represent the number 999,999,999? Would that number require that you have nearly a billion switches available?
+Over time, you may begin to encounter some problems with Walter's system of binary encodings. For instance:
+* If you wanted to represent the number 999,999,999, you would need nearly a billion switches to do it. That's almost 1 GB of memory!
+* If zero is represented by having no switches, how do you even know if there is a zero being represented (versus nothing at all)?
+* Sometimes you need to represent more than one number. But if each number uses a different number of switches, how would you know when one number ends and the next begins?
 
-You may be starting to appreciate that some systems of binary encodings are more efficient and more correct than others. In fact, people have spent a lot of time thinking about the best way to encode different kinds of information accurately and efficiently, taking inspiration from existing systems of formally representing concepts, particularly mathematics. 
+You may be starting to appreciate some of the qualities that make some binary encoding systems more efficient that others. Specifically, systems that **conserve memory** (i.e., that minimize the number of switches needed), are **unambiguous**, and that encode similar data **consistently** tend to work better. 
 
-## Decimal and Binary Representations of Whole Numbers [Start Here]
-and, 
+
+## Representing Numbers in Binary
+Luckily, people have spent a lot of time thinking about the best way to encode different kinds of information — even before the existence of computers. Oral and written languages, mathematical representations, and various symbols and signs are all examples of encoding systems that have evolved over many millenia and have stood the test of time. Computers utilize and/or take inspiration from these systems to formally encode various ideas into binary. For instance, to encode numbers, computers utilize a "Base-2" or binary number system, which was conceptualized long ago across a number of different cultures. Modern mathematics tends to use a "Base-10" system. Before delving into binary number systems, let's first review how our standard Base-10 number system works and build from there.
+
+### Base-10 Encodings
+fsfdasdasda
+
+
+### Base-2 (Binary) Encodings
+Whether you realize it or not, 
 
         {% light-switches values=[1, 0, 1, 0, 1, 1, 0, 0] center=true /%}
 

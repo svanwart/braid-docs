@@ -6,6 +6,7 @@ export default function LightSwitches({
   values = [],
   label = null,
   center = false,
+  switchWidth = 55,
 }) {
   const [switchVals, setSwitchVals] = useState(values.slice().reverse())
   const [sum, setSum] = useState(binaryToDecimal(values.slice().reverse()))
@@ -26,26 +27,43 @@ export default function LightSwitches({
     setSum(sum)
   }
 
+  function renderSwitches() {
+    return (
+      <>
+        {switchVals.length > 0 ? (
+          switchVals.map((val, idx) => (
+            <LightSwitch
+              key={`${key}_${idx}`}
+              value={val}
+              idx={idx}
+              calculateFn={cf}
+              width={switchWidth}
+            />
+          ))
+        ) : (
+          <div className="flex text-center text-xs leading-tight">
+            No
+            <br />
+            Switches
+          </div>
+        )}
+        {label ? (
+          <div className="ml-3 text-center text-3xl font-bold">{label}</div>
+        ) : (
+          ''
+        )}
+      </>
+    )
+  }
+
   return (
     <>
       <div
         className={
-          'flex items-center gap-0 md:gap-2' + (center ? ' justify-center' : '')
+          'flex items-center gap-0' + (center ? ' justify-center' : '')
         }
       >
-        {switchVals.map((val, idx) => (
-          <LightSwitch
-            key={`${key}_${idx}`}
-            value={val}
-            idx={idx}
-            calculateFn={cf}
-          />
-        ))}
-        {label ? (
-          <div className="text-center text-3xl font-bold">{label}</div>
-        ) : (
-          ''
-        )}
+        {renderSwitches()}
       </div>
       {label ? '' : <div className="text-center text-3xl font-bold">{sum}</div>}
     </>

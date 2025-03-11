@@ -83,6 +83,7 @@ const tags = {
       values: { type: Array },
       label: { type: String },
       center: { type: Boolean },
+      switchWidth: { type: Number },
     },
   },
   'quick-link': {

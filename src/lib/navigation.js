@@ -75,11 +75,22 @@ export const navigation = [
     ],
   },
   {
-    title: 'VI. Broader Impacts',
-    links: [{ title: 'Introduction', href: '/docs/broader-impacts' }],
+    title: 'VI. Potential Applications',
+    links: [
+      { title: 'Introduction', href: '/docs/applications' }
+    ],
   },
   {
-    title: 'Widgets',
-    links: [{ title: 'Overview of Sample Widgets', href: '/docs/widgets' }],
+    title: 'VII. Broader Impacts',
+    links: [
+      { title: 'Introduction', href: '/docs/broader-impacts' },
+      { title: 'Efficiency', href: '/docs/broader-impacts/efficiency' },
+    ],
+  },
+  {
+    title: 'Interactive Demos',
+    links: [
+      { title: 'Interactive Demos (Forthcoming)', href: '/docs/widgets' },
+    ],
   },
 ]

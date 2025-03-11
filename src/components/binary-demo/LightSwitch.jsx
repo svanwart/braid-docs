@@ -6,7 +6,7 @@ export default function LightSwitch({
   value,
   idx = null,
   calculateFn = null,
-  width = 45,
+  width = 55,
 }) {
   const srcOn = 'switch-on.png'
   const srcOff = 'switch-off.png'
