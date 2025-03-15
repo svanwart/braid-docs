@@ -22,8 +22,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: 'var(--font-inter)',
-        display: ['var(--font-lexend)', { fontFeatureSettings: '"ss01"' }],
+        sans: ['var(--font-inter)'],
+        display: ['var(--font-lexend)'],
       },
       maxWidth: {
         '8xl': '88rem',
