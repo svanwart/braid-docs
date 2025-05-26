@@ -11,7 +11,7 @@ export const navigation = [
   {
     title: 'I. How a Computer Works',
     links: [
-      { title: 'Von Neumann', href: '/docs/computation' },
+      { title: 'Von Neumann', href: '/docs/computation/intro' },
 
       {
         title: 'How do circuits work?',
