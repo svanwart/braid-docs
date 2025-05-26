@@ -10,7 +10,7 @@ export default function LightSwitch({
 }) {
   const srcOn = 'switch-on.png'
   const srcOff = 'switch-off.png'
-  const rootURL = '/images/switches/'
+  const rootURL = '/braid-docs/images/switches/'
   const [label, setLabel] = useState(value === 0 ? 0 : 1)
   const [src, setSrc] = useState(rootURL + (value === 0 ? srcOff : srcOn))
 

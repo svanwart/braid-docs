@@ -1,5 +1,7 @@
 import { getMarkdownContent, getAllSlugs } from '@/lib/custom-markdoc-loader';
 import { DocsLayout } from '@/components/DocsLayout';
+import Markdoc from '@markdoc/markdoc'
+import React from 'react'
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -8,10 +10,10 @@ export async function generateStaticParams() {
 
 export default function DocPage({ params }) {
   const { content, frontmatter, nodes } = getMarkdownContent(params.slug);
-
-  return (
-    <DocsLayout frontmatter={frontmatter} nodes={nodes}>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-    </DocsLayout>
-  );
+//   return (
+//     <DocsLayout frontmatter={frontmatter} nodes={nodes}>
+//       {Markdoc.renderers.react(content, React)}
+//     </DocsLayout>
+//   );
+    return Markdoc.renderers.react(content, React);
 }

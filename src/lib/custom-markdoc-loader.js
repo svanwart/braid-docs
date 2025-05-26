@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Markdoc from '@markdoc/markdoc';
 import config from '../markdoc/config';
-import { Tag } from '@markdoc/markdoc';
 import { slugifyWithCounter } from '@sindresorhus/slugify';
 import yaml from 'js-yaml';
 
@@ -49,9 +48,8 @@ export function getMarkdownContent(slugArray) {
   
   // Extract frontmatter
   const frontmatter = yaml.load(ast.attributes.frontmatter) || {};
-  
   return {
-    content: Markdoc.renderers.html(content),
+    content: content,
     frontmatter,
     nodes: content.attributes.nodes || []
   };
