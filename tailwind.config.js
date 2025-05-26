@@ -23,7 +23,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)'],
-        display: ['var(--font-lexend)'],
+        display: ['var(--font-inter)'],
       },
       maxWidth: {
         '8xl': '88rem',

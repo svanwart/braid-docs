@@ -6,7 +6,7 @@ import withSearch from './src/markdoc/search.mjs'
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'ts', 'tsx'],
   images: { unoptimized: true },
-  basePath: '/braid-docs',
+  // basePath: '/braid-docs',
   output: 'export',
 }
 

@@ -7,7 +7,7 @@ import BinaryConversion from '@/components/binary-demo/BinaryConversion'
 import LightSwitch from '@/components/binary-demo/LightSwitch'
 import LightSwitches from '@/components/binary-demo/LightSwitches'
 
-const tags = {
+export const tags = {
   'binary-conversion': {
     selfClosing: true,
     render: BinaryConversion,
@@ -100,5 +100,3 @@ const tags = {
     render: QuickLinks,
   },
 }
-
-export default tags
