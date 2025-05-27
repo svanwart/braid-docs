@@ -1,5 +1,4 @@
 import { getMarkdownContent, getAllSlugs } from '@/lib/custom-markdoc-loader';
-import { DocsLayout } from '@/components/DocsLayout';
 import Markdoc from '@markdoc/markdoc'
 import React from 'react'
 
