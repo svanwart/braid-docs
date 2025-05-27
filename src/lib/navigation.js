@@ -9,7 +9,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'I. How a Computer Works',
+    title: 'How a Computer Works',
     links: [
       { title: 'Von Neumann', href: '/docs/computation/intro' },
 
@@ -37,13 +37,13 @@ export const navigation = [
     ],
   },
   {
-    title: 'II. AI Overview',
+    title: 'AI Overview',
     links: [
       { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai/' },
     ],
   },
   {
-    title: 'III. How the Brain Works',
+    title: 'How the Brain Works',
     links: [
       { title: 'Introduction to the Brain', href: '/docs/the-brain/intro' },
       {
@@ -57,7 +57,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'IV. Neuromorphic Computing',
+    title: 'Neuromorphic Computing',
     links: [
       {
         title: 'Intro to Neuromorphic Computing',
@@ -66,7 +66,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'V. Cerebellum-Inspired Computer Hardware',
+    title: 'Cerebellum-Inspired Computer Hardware',
     links: [
       {
         title: 'Introduction to Cerebellum-Inspired Hardware',
@@ -75,13 +75,13 @@ export const navigation = [
     ],
   },
   {
-    title: 'VI. Potential Applications',
+    title: 'Potential Applications',
     links: [
       { title: 'Introduction', href: '/docs/applications' }
     ],
   },
   {
-    title: 'VII. Broader Impacts',
+    title: 'Broader Impacts',
     links: [
       { title: 'Introduction', href: '/docs/broader-impacts/intro' },
       { title: 'Efficiency', href: '/docs/broader-impacts/efficiency' },
