@@ -39,13 +39,13 @@ export const navigation = [
   {
     title: 'II. AI Overview',
     links: [
-      { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai' },
+      { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai/' },
     ],
   },
   {
     title: 'III. How the Brain Works',
     links: [
-      { title: 'Introduction to the Brain', href: '/docs/the-brain' },
+      { title: 'Introduction to the Brain', href: '/docs/the-brain/intro' },
       {
         title: 'What is the cerebellum?',
         href: '/docs/the-brain/the-cerebellum',
@@ -83,7 +83,7 @@ export const navigation = [
   {
     title: 'VII. Broader Impacts',
     links: [
-      { title: 'Introduction', href: '/docs/broader-impacts' },
+      { title: 'Introduction', href: '/docs/broader-impacts/intro' },
       { title: 'Efficiency', href: '/docs/broader-impacts/efficiency' },
     ],
   },
