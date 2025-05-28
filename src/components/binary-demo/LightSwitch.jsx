@@ -7,6 +7,7 @@ export default function LightSwitch({
   idx = null,
   calculateFn = null,
   width = 55,
+  active = true
 }) {
   const srcOn = 'switch-on.png'
   const srcOff = 'switch-off.png'
@@ -15,6 +16,7 @@ export default function LightSwitch({
   const [src, setSrc] = useState(rootURL + (value === 0 ? srcOff : srcOn))
 
   function toggle() {
+    if (!active) return;
     const newVal = label === 0 ? 1 : 0
     setLabel(newVal)
     setSrc(rootURL + (src.includes('on.png') ? srcOff : srcOn))

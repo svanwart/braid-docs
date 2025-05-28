@@ -29,10 +29,7 @@ export const tags = {
   card: {
     selfClosing: true,
     render: Card,
-    attributes: {
-      title: { type: String },
-      description: { type: String },
-    },
+    attributes: { title: { type: String }, description: { type: String } },
   },
 
   'card-horizontal': {
@@ -47,11 +44,7 @@ export const tags = {
     },
   },
 
-  'card-vertical': {
-    selfClosing: true,
-    render: CardVertical,
-    attributes: {},
-  },
+  'card-vertical': { selfClosing: true, render: CardVertical, attributes: {} },
 
   figure: {
     selfClosing: true,
@@ -74,6 +67,7 @@ export const tags = {
     attributes: {
       value: { type: Number },
       width: { type: Number },
+      active: { type: Boolean },
     },
   },
   'light-switches': {
@@ -84,6 +78,7 @@ export const tags = {
       label: { type: String },
       center: { type: Boolean },
       switchWidth: { type: Number },
+      active: { type: Boolean },
     },
   },
   'quick-link': {
@@ -96,7 +91,5 @@ export const tags = {
       href: { type: String },
     },
   },
-  'quick-links': {
-    render: QuickLinks,
-  },
+  'quick-links': { render: QuickLinks },
 }

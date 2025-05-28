@@ -7,6 +7,7 @@ export default function LightSwitches({
   label = null,
   center = false,
   switchWidth = 55,
+  active = true,
 }) {
   const [switchVals, setSwitchVals] = useState(values.slice().reverse())
   const [sum, setSum] = useState(binaryToDecimal(values.slice().reverse()))
@@ -38,6 +39,7 @@ export default function LightSwitches({
               idx={idx}
               calculateFn={cf}
               width={switchWidth}
+              active={active}
             />
           ))
         ) : (

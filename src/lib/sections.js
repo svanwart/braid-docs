@@ -66,8 +66,8 @@ export function collectSections(nodes, slugify = slugifyWithCounter()) {
   //   return sections
 
   for (let node of headings) {
-    if (true) {
-      //isH2Node(node) || isH3Node(node)) {
+    if (isH2Node(node)) {
+      // if (isH2Node(node) || isH3Node(node)) {
       let title = getNodeText(node)
       if (title) {
         let id = slugify(title)

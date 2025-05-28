@@ -76,9 +76,7 @@ export const navigation = [
   },
   {
     title: 'Potential Applications',
-    links: [
-      { title: 'Introduction', href: '/docs/applications' }
-    ],
+    links: [{ title: 'Introduction', href: '/docs/applications' }],
   },
   {
     title: 'Broader Impacts',
@@ -91,6 +89,19 @@ export const navigation = [
     title: 'Interactive Demos',
     links: [
       { title: 'Interactive Demos (Forthcoming)', href: '/docs/widgets' },
+    ],
+  },
+  {
+    title: 'Case Studies',
+    links: [
+      {
+        title: 'Alina: Bias in AI',
+        href: '/docs/case-studies/alina',
+      },
+      {
+        title: 'Tess: The Environment',
+        href: '/docs/case-studies/tess',
+      },
     ],
   },
 ]
