@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-export function Prose({ as, className, ...props }) {
+export function Prose({ as, className, children, ...props }) {
   let Component = as ?? 'div'
 
   return (
@@ -22,6 +22,12 @@ export function Prose({ as, className, ...props }) {
         'dark:prose-hr:border-slate-800',
       )}
       {...props}
-    />
+    >
+      {typeof children === 'string' ? (
+        <div dangerouslySetInnerHTML={{ __html: children }} />
+      ) : (
+        children
+      )}
+    </Component>
   )
 }

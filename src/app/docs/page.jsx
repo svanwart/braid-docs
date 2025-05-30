@@ -1,4 +1,4 @@
-import { getMarkdownContent, getAllSlugs } from '@/lib/custom-markdoc-loader'
+import { getMarkdownContent } from '@/lib/custom-markdoc-loader'
 import Markdoc from '@markdoc/markdoc'
 import React from 'react'
 import { InnerDocsLayout } from '@/components/layouts/InnerDocsLayout'
@@ -9,16 +9,8 @@ const layouts = {
   plain: InnerDocsPlain,
 }
 
-export async function generateStaticParams() {
-  const slugs = getAllSlugs()
-  // Convert array of path segments into the format Next.js expects
-  return slugs.map((slug) => ({
-    slug: slug,
-  }))
-}
-
-export default function DocPage({ params }) {
-  const { content, frontmatter, nodes } = getMarkdownContent(params.slug)
+export default function DocsPage() {
+  const { content, frontmatter, nodes } = getMarkdownContent([])
   const Layout = layouts[frontmatter?.layout || 'inner'] || InnerDocsLayout
 
   return (
@@ -26,4 +18,4 @@ export default function DocPage({ params }) {
       {Markdoc.renderers.react(content, React)}
     </Layout>
   )
-}
+} 

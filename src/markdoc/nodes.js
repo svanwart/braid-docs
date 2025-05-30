@@ -57,6 +57,15 @@ const nodes = {
       },
     },
   },
+  html: {
+    render: 'div',
+    attributes: {
+      content: { type: String },
+    },
+    transform(node) {
+      return node.attributes.content
+    },
+  },
 }
 
 export default nodes

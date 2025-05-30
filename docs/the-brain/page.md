@@ -8,6 +8,8 @@ nextjs:
 
 ## 1. Overview: how the brain works
 
+![The Brain Overview](/braid-docs/images/brain/brain-diagram.png)
+
 
 {% card %}
 * Bullet Point 1

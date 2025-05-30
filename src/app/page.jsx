@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Logo, Logomark } from '@/components/Logo'
 
 const chapters = [
@@ -9,45 +9,45 @@ const chapters = [
       description: 'About this research project',
       source:
         'https://picsum.photos/300/300.jpg?a=0',
-      url: '/docs/computation/intro/',
+      url: '/docs',
     },
   {
     title: 'Computer Hardware',
     description: 'How does a mix of metal, sand, and glass make a computer?',
     source:
       '/braid-docs/images/computers/computer.jpg',
-    url: '/docs/computation/intro/',
+    url: '/docs',
   },
   {
     title: 'Biological Hardware: The Brain',
     description: 'How does the brain work?',
     source:
       '/braid-docs/images/brain/brain-card.png',
-    url: '/docs/the-brain/intro/',
+    url: '/docs/the-brain',
   },
   {
     title: 'Artificial Intelligence',
     description: 'TBD',
     source: 'https://picsum.photos/300/300.jpg?a=1',
-    url: '/docs/ai/',
+    url: '/docs/ai',
   },
   {
     title: 'Nanomaterials Research',
     description: 'TBD',
     source: 'https://picsum.photos/300/300.jpg?a=1',
-    url: '/docs/ai/',
+    url: '#',
   },
   {
     title: 'Brain-Inspired Computing (Neuromorphic Computing)',
     description: 'TBD',
     source: 'https://picsum.photos/300/300.jpg?a=2',
-    url: '/docs/neuromorphic-computing/',
+    url: '/docs/neuromorphic-computing',
   },
   {
     title: 'Cerebellum-Inspired Circuits',
     description: 'TBD',
     source: 'https://picsum.photos/300/300.jpg?a=3',
-    url: '/docs/cerebellum-inspired-hardware/',
+    url: '/docs/cerebellum-inspired-hardware',
   },
   {
     title: 'Potential Applications & Broader Impacts',
@@ -92,7 +92,7 @@ function Navbar() {
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
               <a
-                href="/braid-docs/docs/computation/intro"
+                href="/braid-docs/docs"
                 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-400"
               >
                 Docs
@@ -123,7 +123,7 @@ function Navbar() {
           {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
           <DisclosureButton
             as="a"
-            href="/braid-docs/docs/computation/intro"
+            href="/braid-docs/docs"
             className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pr-4 pl-3 text-base font-medium text-indigo-700"
           >
             Docs
@@ -135,9 +135,7 @@ function Navbar() {
           >
             Team
           </DisclosureButton>
-          
         </div>
-       
       </DisclosurePanel>
     </Disclosure>
   )

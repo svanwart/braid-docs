@@ -92,4 +92,9 @@ export const tags = {
     },
   },
   'quick-links': { render: QuickLinks },
+  raw: {
+    render: ({ children }) => (
+      <div dangerouslySetInnerHTML={{ __html: children }} />
+    ),
+  },
 }

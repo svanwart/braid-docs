@@ -6,5 +6,6 @@ export default {
   nodes,
   tags,
   functions,
+  allowDangerousHtml: true,
   // Add any other configuration options here
 }

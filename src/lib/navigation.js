@@ -4,14 +4,24 @@ export const navigation = [
     links: [
       {
         title: 'Introduction to Cerebellum-Inspired Circuits',
-        href: '/docs/intro',
+        href: '/docs',
       },
+    ],
+  },
+  {
+    title: 'Notes on Interactive Demos',
+    links: [
+      {
+        title: 'Brainstorm',
+        href: '/docs/notes',
+      },
+      { title: 'Widgets', href: '/docs/notes/widgets' },
     ],
   },
   {
     title: 'How a Computer Works',
     links: [
-      { title: 'Von Neumann', href: '/docs/computation/intro' },
+      { title: 'Von Neumann', href: '/docs/computation' },
 
       {
         title: 'How do circuits work?',
@@ -30,10 +40,6 @@ export const navigation = [
         title: 'Example: How do circuits do math?',
         href: '/docs/computation/circuits-math',
       },
-      {
-        title: 'Example: How does zoom work?',
-        href: '/docs/computation/zoom',
-      },
     ],
   },
   {
@@ -45,7 +51,7 @@ export const navigation = [
   {
     title: 'How the Brain Works',
     links: [
-      { title: 'Introduction to the Brain', href: '/docs/the-brain/intro' },
+      { title: 'Introduction to the Brain', href: '/docs/the-brain' },
       {
         title: 'What is the cerebellum?',
         href: '/docs/the-brain/the-cerebellum',
@@ -81,14 +87,8 @@ export const navigation = [
   {
     title: 'Broader Impacts',
     links: [
-      { title: 'Introduction', href: '/docs/broader-impacts/intro' },
+      { title: 'Introduction', href: '/docs/broader-impacts' },
       { title: 'Efficiency', href: '/docs/broader-impacts/efficiency' },
-    ],
-  },
-  {
-    title: 'Interactive Demos',
-    links: [
-      { title: 'Interactive Demos (Forthcoming)', href: '/docs/widgets' },
     ],
   },
   {
