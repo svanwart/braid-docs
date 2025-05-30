@@ -34,45 +34,51 @@ const chapters = [
   {
     title: 'Nanomaterials Research',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=1',
+    source: 'https://picsum.photos/300/300.jpg?a=2',
     url: '#',
   },
   {
     title: 'Brain-Inspired Computing (Neuromorphic Computing)',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=2',
+    source: 'https://picsum.photos/300/300.jpg?a=3',
     url: '/docs/neuromorphic-computing',
   },
   {
     title: 'Cerebellum-Inspired Circuits',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=3',
+    source: 'https://picsum.photos/300/300.jpg?a=4',
     url: '/docs/cerebellum-inspired-hardware',
   },
   {
-    title: 'Potential Applications & Broader Impacts',
+    title: 'Applications',
     description: '3.9 MB',
-    source: 'https://picsum.photos/300/300.jpg?a=4',
+    source: 'https://picsum.photos/300/300.jpg?a=5',
+    url: '#'
+  },
+  {
+    title: 'Broader Impacts',
+    description: '3.9 MB',
+    source: 'https://picsum.photos/300/300.jpg?a=6',
     url: '#'
   }
 ];
 
 const footerLinks = {
-    solutions: [
-        { name: 'Marketing', href: '#' },
-        { name: 'Analytics', href: '#' },
+    research: [
+        { name: 'TODO', href: '#' },
+        { name: 'TODO', href: '#' },
     ],
-    support: [
-        { name: 'Submit ticket', href: '#' },
-        { name: 'Documentation', href: '#' },
+    interactives: [
+        { name: 'TODO', href: '#' },
+        { name: 'TODO', href: '#' },
     ],
     company: [
-        { name: 'About', href: '#' },
-        { name: 'Blog', href: '#' },
+        { name: 'TODO', href: '#' },
+        { name: 'TODO', href: '#' },
     ],
     legal: [
-        { name: 'Terms of service', href: '#' },
-        { name: 'Privacy policy', href: '#' },
+        { name: 'TODO', href: '#' },
+        { name: 'TODO', href: '#' },
         { name: 'License', href: '#' },
     ]
 };
@@ -165,7 +171,7 @@ export default function HomePage({ children }) {
                 <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
                     <ul
                     role="list"
-                    className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+                    className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-12 sm:gap-y-12"
                     >
                     {chapters.map((chapter, index) => (
                         <li className="relative" key={`${chapter.title}-${index}`}>
@@ -173,7 +179,7 @@ export default function HomePage({ children }) {
                             <img
                             alt=""
                             src={chapter.source}
-                            className="pointer-events-none h-[230px] w-full object-cover object-center group-hover:opacity-75"
+                            className="pointer-events-none h-[220px] md:h-[280px] w-full object-cover object-center group-hover:opacity-75"
                             />
                             <Link
                             href={chapter.url}
@@ -207,9 +213,9 @@ export default function HomePage({ children }) {
                     <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
                         <div className="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Solutions</h3>
+                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Research</h3>
                             <ul role="list" className="mt-6 space-y-4">
-                            {footerLinks.solutions.map((item) => (
+                            {footerLinks.research.map((item) => (
                                 <li key={item.name}>
                                 <a href={item.href} className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-300">
                                     {item.name}
@@ -219,9 +225,9 @@ export default function HomePage({ children }) {
                             </ul>
                         </div>
                         <div className="mt-10 md:mt-0">
-                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Support</h3>
+                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Interactive Tools</h3>
                             <ul role="list" className="mt-6 space-y-4">
-                            {footerLinks.support.map((item) => (
+                            {footerLinks.interactives.map((item) => (
                                 <li key={item.name}>
                                 <a href={item.href} className="text-sm/6 text-gray-600 hover:text-gray-900 dark:text-gray-300">
                                     {item.name}
@@ -233,7 +239,7 @@ export default function HomePage({ children }) {
                         </div>
                         <div className="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Company</h3>
+                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Policy Implications</h3>
                             <ul role="list" className="mt-6 space-y-4">
                             {footerLinks.company.map((item) => (
                                 <li key={item.name}>
@@ -245,7 +251,7 @@ export default function HomePage({ children }) {
                             </ul>
                         </div>
                         <div className="mt-10 md:mt-0">
-                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Legal</h3>
+                            <h3 className="text-sm/6 font-semibold text-gray-900 dark:text-white">Source Code</h3>
                             <ul role="list" className="mt-6 space-y-4">
                             {footerLinks.legal.map((item) => (
                                 <li key={item.name}>
