@@ -4,7 +4,7 @@ import { Prose } from '@/components/Prose'
 import { TableOfContents } from '@/components/TableOfContents'
 import { collectSections } from '@/lib/sections'
 
-export function DocsLayout({ children, frontmatter: { title }, nodes }) {
+export function InnerDocsLayout({ children, frontmatter: { title }, nodes }) {
   let tableOfContents = collectSections(nodes)
   return (
     <>

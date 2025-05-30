@@ -2,7 +2,6 @@ import { nodes as defaultNodes, Tag } from '@markdoc/markdoc'
 import { slugifyWithCounter } from '@sindresorhus/slugify'
 import yaml from 'js-yaml'
 
-import { DocsLayout } from '@/components/layouts/DocsLayout'
 import { Fence } from '@/components/Fence'
 
 let documentSlugifyMap = new Map()
@@ -10,14 +9,14 @@ let documentSlugifyMap = new Map()
 const nodes = {
   document: {
     ...defaultNodes.document,
-    render: DocsLayout,
     transform(node, config) {
       documentSlugifyMap.set(config, slugifyWithCounter())
+      const frontmatter = yaml.load(node.attributes.frontmatter) || {}
 
       return new Tag(
-        this.render,
+        'div',
         {
-          frontmatter: yaml.load(node.attributes.frontmatter),
+          frontmatter,
           nodes: node.children,
         },
         node.transformChildren(config),

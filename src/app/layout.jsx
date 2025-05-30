@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 import clsx from 'clsx'
 
 import { Providers } from '@/app/providers'
-import { Layout } from '@/components/layouts/Layout'
+import { PasswordProtection } from '@/components/PasswordProtection'
 
 import '@/styles/tailwind.css'
 
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
     >
       <body className="flex min-h-full bg-white dark:bg-slate-900">
         <Providers>
-          <Layout>{children}</Layout>
+          <PasswordProtection>{children}</PasswordProtection>
         </Providers>
       </body>
     </html>

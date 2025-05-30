@@ -3,6 +3,7 @@ title: Efficiency Gains
 nextjs:
   metadata:
     title: Efficiency Gains
+layout: plain
 ---
 
 

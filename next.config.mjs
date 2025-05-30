@@ -8,6 +8,9 @@ const nextConfig = {
   images: { unoptimized: true },
   basePath: '/braid-docs',
   output: 'export',
+  env: {
+    NEXT_PUBLIC_SITE_PASSWORD: process.env.SITE_PASSWORD,
+  },
 }
 
 export default withSearch(

@@ -54,7 +54,7 @@ function Header() {
   )
 }
 
-export function Layout({ children }) {
+export function TwoColumnLayout({ children }) {
 
   return (
     <div className="flex w-full flex-col">

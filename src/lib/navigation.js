@@ -4,7 +4,7 @@ export const navigation = [
     links: [
       {
         title: 'Introduction to Cerebellum-Inspired Circuits',
-        href: '/',
+        href: '/docs/intro',
       },
     ],
   },
