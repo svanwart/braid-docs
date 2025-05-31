@@ -110,15 +110,14 @@ function Navbar() {
                 href="#"
                 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
               >
-                Team
+                About
               </a>
-              <ThemeSelector className="relative z-10 my-5" />
             </div>
           </div>
 
           <div className="-mr-2 flex items-center sm:hidden">
             {/* Mobile menu button */}
-            <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-200">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
@@ -131,6 +130,7 @@ function Navbar() {
               />
             </DisclosureButton>
           </div>
+          <ThemeSelector className="relative z-10 my-5 ml-6" />
         </div>
       </div>
 
@@ -140,16 +140,16 @@ function Navbar() {
           <DisclosureButton
             as="a"
             href="/braid-docs/docs"
-            className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+            className="dark: block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 dark:hover:border-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-300"
           >
             Docs
           </DisclosureButton>
           <DisclosureButton
             as="a"
             href="#"
-            className="dark: block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+            className="dark: block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 dark:hover:border-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-300"
           >
-            Team
+            About
           </DisclosureButton>
         </div>
       </DisclosurePanel>
@@ -183,7 +183,7 @@ export default function HomePage({ children }) {
         <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
           <div
             role="list"
-            className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 md:grid-cols-3"
+            className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:grid-cols-3"
           >
             {chapters.map((chapter, index) => (
               <LinkCard
