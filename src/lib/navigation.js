@@ -27,7 +27,6 @@ export const navigation = [
         title: 'How do circuits work?',
         href: '/docs/computation/circuits',
       },
-
       {
         title: 'Digital and Analog Signals (I/O)',
         href: '/docs/computation/signals',
@@ -43,23 +42,24 @@ export const navigation = [
     ],
   },
   {
-    title: 'AI Overview',
-    links: [
-      { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai/' },
-    ],
-  },
-  {
     title: 'How the Brain Works',
     links: [
-      { title: 'Introduction to the Brain', href: '/docs/the-brain' },
-      {
-        title: 'What is the cerebellum?',
-        href: '/docs/the-brain/the-cerebellum',
-      },
+      { title: 'Introduction to the brain', href: '/docs/the-brain' },
+      { title: 'How neurons work', href: '/docs/the-brain/neurons' },
       {
         title: 'How does the brain learn?',
         href: '/docs/the-brain/biological-learning',
       },
+      {
+        title: 'What is the cerebellum?',
+        href: '/docs/the-brain/the-cerebellum',
+      },
+    ],
+  },
+  {
+    title: 'AI Overview',
+    links: [
+      { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai/' },
     ],
   },
   {

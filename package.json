@@ -19,6 +19,8 @@
     "@tailwindcss/typography": "^0.5.7",
     "autoprefixer": "^10.4.12",
     "clsx": "^2.1.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "fast-glob": "^3.2.12",
     "flexsearch": "^0.7.31",
     "js-yaml": "^4.1.0",
