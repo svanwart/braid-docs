@@ -8,6 +8,7 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import LinkCard from '@/components/LinkCard'
 
 const chapters = [
   {
@@ -99,8 +100,6 @@ function Navbar() {
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-
               <a
                 href="/braid-docs/docs"
                 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
@@ -182,36 +181,21 @@ export default function HomePage({ children }) {
       {/* Section 2: Modules */}
       <div className="bg-gray-100 dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
-          <ul
+          <div
             role="list"
-            className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-12 sm:gap-y-12"
+            className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 md:grid-cols-3"
           >
             {chapters.map((chapter, index) => (
-              <li className="relative" key={`${chapter.title}-${index}`}>
-                <div className="group overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                  <img
-                    alt=""
-                    src={chapter.source}
-                    className="pointer-events-none h-[220px] w-full object-cover object-center group-hover:opacity-75 md:h-[280px]"
-                  />
-                  <Link
-                    href={chapter.url}
-                    className="focus:outline-hidden absolute inset-0"
-                  >
-                    <span className="sr-only">
-                      View details for {chapter.title}
-                    </span>
-                  </Link>
-                </div>
-                <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900 dark:text-white">
-                  {index + 1}. {chapter.title}
-                </p>
-                <p className="pointer-events-none block text-sm font-medium text-gray-500 dark:text-gray-300">
-                  {chapter.description}
-                </p>
-              </li>
+              <LinkCard
+                key={`${chapter.title}-${index}`}
+                title={chapter.title}
+                description={chapter.description}
+                imgUrl={chapter.source}
+                url={chapter.url}
+                index={index}
+              />
             ))}
-          </ul>
+          </div>
         </div>
       </div>
 
