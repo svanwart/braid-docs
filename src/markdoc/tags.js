@@ -6,6 +6,8 @@ import CardVertical from '@/components/CardVertical'
 import BinaryConversion from '@/components/binary-demo/BinaryConversion'
 import LightSwitch from '@/components/binary-demo/LightSwitch'
 import LightSwitches from '@/components/binary-demo/LightSwitches'
+import Carousel from '@/components/carousel/Carousel'
+import CarouselSlide from '@/components/carousel/CarouselSlide'
 
 export const tags = {
   'binary-conversion': {
@@ -81,6 +83,24 @@ export const tags = {
       active: { type: Boolean },
     },
   },
+  carousel: {
+    selfClosing: true,
+    render: Carousel,
+    attributes: {
+      loop: { type: Boolean },
+      align: { type: String },
+      slidesToScroll: { type: Number },
+      slideWidth: { type: String },
+      slideHeight: { type: String },
+    },
+  },
+  'carousel-slide': {
+    selfClosing: true,
+    render: CarouselSlide,
+    attributes: {
+      className: { type: String },
+    },
+  },
   'quick-link': {
     selfClosing: true,
     render: QuickLink,
@@ -93,8 +113,12 @@ export const tags = {
   },
   'quick-links': { render: QuickLinks },
   raw: {
-    render: ({ children }) => (
-      <div dangerouslySetInnerHTML={{ __html: children }} />
-    ),
+    render: ({ children }) => {
+      const content = children.props.children
+      const rawHTML = Array.isArray(content)
+        ? content.join('')
+        : content || 'Error decoding raw HTML tags'
+      return <div dangerouslySetInnerHTML={{ __html: rawHTML }} />
+    },
   },
 }

@@ -8,11 +8,46 @@ nextjs:
 
 ## The Building Blocks of Biological Intelligence
 Neurons are cells in the nervous system that form the building blocks of biological intelligence. They communicate with one another by  receiving, processing, and transmitting electrical pulses (called spikes) to and from other neurons and organs in the body. These signals help people think, feel, and react to the world around them.
-![Neuron Diagram](/braid-docs/images/brain/neuron-anatomy.png)
-* Electrical pulses (spikes) enter a neuron through dendrites
-* Charge is then aggregated in the cell body
-* When a threshold is reached (at the axon hillock), an electrical pulse travels down the axon (called an “action potential”)
-* The charge is then passed to connected neurons through small gaps called synapses.
+
+{% carousel slideHeight="400px" slideWidth="100%" slidesToScroll=1 %}
+
+{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+
+{% raw %}
+<img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
+{% /raw %}
+
+**1. Dendrite Receives Signal**: Electrical pulses (spikes) enter a neuron through dendrites (TODO: Make figure).
+{% /carousel-slide %}
+
+{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+
+{% raw %}
+<img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
+{% /raw %}
+
+**2. Charge Aggregated**: Charge is then aggregated in the cell body (TODO: Make figure).
+{% /carousel-slide %}
+
+{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+
+{% raw %}
+<img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
+{% /raw %}
+
+**3. Threshold Reached**: When a threshold is reached (at the axon hillock), an electrical pulse travels down the axon (called an “action potential”) (TODO: Make figure).
+{% /carousel-slide %}
+
+{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+
+{% raw %}
+<img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
+{% /raw %}
+
+**Signal passed onto connected neurons**: The charge is then passed to connected neurons through small gaps called synapses (TODO: Make figure).
+{% /carousel-slide %}
+
+{% /carousel %}
 
 
 {% callout title="Visualizations of Neuron Communication" %}

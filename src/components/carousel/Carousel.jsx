@@ -1,6 +1,7 @@
+'use client'
 // https://www.embla-carousel.com/api/options/
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import {
   PrevButton,
@@ -9,12 +10,23 @@ import {
   useDotButton,
   usePrevNextButtons,
 } from './CarouselButtons'
+import CarouselSlide from './CarouselSlide'
 import './Carousel.css'
 
-const EmblaCarousel = (props) => {
-  const { options, children } = props
+function EmblaCarousel({
+  children,
+  loop = true,
+  align = 'start',
+  slideWidth = '100%',
+  slidesToScroll = 1,
+  slideHeight = '100%',
+}) {
+  const options = {
+    loop,
+    align,
+    slidesToScroll,
+  }
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
-
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi)
 
@@ -25,13 +37,31 @@ const EmblaCarousel = (props) => {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi)
 
+  useEffect(() => {
+    const emblaElement = document.querySelector('.embla')
+    if (emblaElement) {
+      emblaElement.style.setProperty('--slide-size', slideWidth)
+      emblaElement.style.setProperty('--slide-height', slideHeight)
+    }
+  }, [slideWidth, slideHeight])
+
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {React.Children.map(children, (child) => (
-            <div className="embla__slide">{child}</div>
-          ))}
+          {React.Children.map(children, (child) => {
+            console.log(child, child.type)
+            // Check if the child is a CarouselSlide instance
+            const isCarouselSlide =
+              React.isValidElement(child) && child.type === CarouselSlide
+
+            // If it's already a CarouselSlide, return it as is, otherwise wrap it
+            return isCarouselSlide ? (
+              child
+            ) : (
+              <CarouselSlide>{child}</CarouselSlide>
+            )
+          })}
         </div>
       </div>
 
