@@ -16,6 +16,7 @@ export const navigation = [
         href: '/docs/notes',
       },
       { title: 'Widgets', href: '/docs/notes/widgets' },
+      { title: 'Explainable AI', href: '/docs/notes/explainable-ai' },
     ],
   },
   {
@@ -60,6 +61,11 @@ export const navigation = [
     title: 'AI Overview',
     links: [
       { title: 'Intro to Artificial Intelligence (AI)', href: '/docs/ai/' },
+      { title: 'Neural Networks', href: '/docs/ai/neural-networks/' },
+      {
+        title: 'Unsupervised Spiking Neural Networks',
+        href: '/docs/ai/snn-unsupervised/',
+      },
     ],
   },
   {

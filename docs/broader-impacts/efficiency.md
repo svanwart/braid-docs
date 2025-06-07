@@ -3,11 +3,8 @@ title: Efficiency Gains
 nextjs:
   metadata:
     title: Efficiency Gains
-layout: plain
 ---
 
-
----
 
 ## Potential Benefits of Efficiency Gains
 1. **Cost savings**: Being able to perform classification and prediction tasks with fewer energy requirements saves money. 

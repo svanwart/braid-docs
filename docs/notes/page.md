@@ -2,13 +2,18 @@
 title: Notes
 nextjs:
   metadata:
-    title: Weee
+    title: Notes
     description: TBD.
 ---
 
+## High-Level Challenge
+
+
+## Potential Modules
+
 Here is a list of some potential tools...
 
-## How a Computer Works
+### 1. How a Computer Works
 * Transistors
 * Binary
 * Storage (Memory)
@@ -18,7 +23,7 @@ Here is a list of some potential tools...
 
 ---
 
-## How the Brain Works
+### 2.  How the Brain Works
 * Neurons
 * Neural Circuits
 * The Cerebellum
@@ -26,7 +31,7 @@ Here is a list of some potential tools...
 
 ---
 
-## AI
+### 3.  AI
 * History of AI: timeline of innovations, including symbolic AI, machine learning, back propogation & gradient descent, "attention is all you need," etc.
 * Types: Supervised, unsupervised, reinforcement learning 
 * Demo of Machine Learning (basic intuitions around classification / regression)
@@ -36,29 +41,28 @@ Here is a list of some potential tools...
 
 ---
 
-## AI & Neuromorphic Hardware
+### 4.  AI & Neuromorphic Hardware
 * How a spiking neural network works
 * Its advantages
 * Its practical implications
 
 ---
 
-## Nanomaterials Research
+### 5.  Nanomaterials Research
 * Memristers and memtransistors
 * Energy possibilities
 * Sourcing of materials
 
 ---
 
-
-## Capabilities of Cerebellum-Inspired Hardware
+### 6.  Capabilities of Cerebellum-Inspired Hardware
 * Unsupervised: when the categories are not known ahead of time
 * Low energy
 * Integration
 
 ---
 
-## Applications and Implications
+### 7.  Applications and Implications
 ### Anomaly Detection (Robotics, Cybersecurity, & Medical Devices)
 
 **Transparency and Explainability**

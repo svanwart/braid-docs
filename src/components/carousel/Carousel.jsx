@@ -46,7 +46,7 @@ function EmblaCarousel({
   }, [slideWidth, slideHeight])
 
   return (
-    <section className="embla">
+    <section className="embla rounded-3xl border-2 border-gray-200 p-4 dark:border-slate-700">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {React.Children.map(children, (child) => {
@@ -65,25 +65,19 @@ function EmblaCarousel({
         </div>
       </div>
 
-      <div className="embla__controls">
-        <div className="embla__buttons">
+      <div className="flex items-center justify-center">
+        {/* <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
-
-        <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={
-                index === selectedIndex
-                  ? 'embla__dot embla__dot--selected'
-                  : 'embla__dot'
-              }
-            />
-          ))}
-        </div>
+        </div> */}
+        {scrollSnaps.map((_, index) => (
+          <DotButton
+            key={index}
+            index={index}
+            onClick={() => onDotButtonClick(index)}
+            isSelected={index === selectedIndex}
+          />
+        ))}
       </div>
     </section>
   )

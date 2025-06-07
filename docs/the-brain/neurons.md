@@ -11,7 +11,7 @@ Neurons are cells in the nervous system that form the building blocks of biologi
 
 {% carousel slideHeight="400px" slideWidth="100%" slidesToScroll=1 %}
 
-{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+{% carousel-slide %}
 
 {% raw %}
 <img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
@@ -20,7 +20,7 @@ Neurons are cells in the nervous system that form the building blocks of biologi
 **1. Dendrite Receives Signal**: Electrical pulses (spikes) enter a neuron through dendrites (TODO: Make figure).
 {% /carousel-slide %}
 
-{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+{% carousel-slide %}
 
 {% raw %}
 <img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
@@ -29,8 +29,7 @@ Neurons are cells in the nervous system that form the building blocks of biologi
 **2. Charge Aggregated**: Charge is then aggregated in the cell body (TODO: Make figure).
 {% /carousel-slide %}
 
-{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
-
+{% carousel-slide %}
 {% raw %}
 <img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
 {% /raw %}
@@ -38,13 +37,13 @@ Neurons are cells in the nervous system that form the building blocks of biologi
 **3. Threshold Reached**: When a threshold is reached (at the axon hillock), an electrical pulse travels down the axon (called an “action potential”) (TODO: Make figure).
 {% /carousel-slide %}
 
-{% carousel-slide className="border-2 border-gray-300 rounded-2xl p-4" %}
+{% carousel-slide %}
 
 {% raw %}
 <img src="/braid-docs/images/brain/neuron-anatomy.png" alt="Neuron Diagram" class="h-max-[280px] mx-auto my-0" />
 {% /raw %}
 
-**Signal passed onto connected neurons**: The charge is then passed to connected neurons through small gaps called synapses (TODO: Make figure).
+**4. Signal passed onto connected neurons**: The charge is then passed to connected neurons through small gaps called synapses (TODO: Make figure).
 {% /carousel-slide %}
 
 {% /carousel %}

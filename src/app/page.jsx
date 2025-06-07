@@ -32,19 +32,19 @@ const chapters = [
   {
     title: 'Artificial Intelligence',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=1',
+    source: '/braid-docs/images/ai/machine-learning.webp',
     url: '/docs/ai',
   },
   {
     title: 'Nanomaterials Research',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=2',
+    source: '/braid-docs/images/materials/memtransistor.webp',
     url: '#',
   },
   {
     title: 'Brain-Inspired Computing (Neuromorphic Computing)',
     description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=3',
+    source: '/braid-docs/images/neuromorphic/neuromorphic.webp',
     url: '/docs/neuromorphic-computing',
   },
   {
@@ -89,8 +89,11 @@ const footerLinks = {
 
 function Navbar() {
   return (
-    <Disclosure as="nav" className="bg-white shadow-sm dark:bg-slate-900">
-      <div className="flex w-full flex-none flex-wrap items-center justify-between bg-white px-4 shadow-md shadow-slate-900/5 transition duration-500 sm:px-6 lg:px-8 dark:bg-transparent dark:shadow-none">
+    <Disclosure
+      as="nav"
+      className="sticky left-0 top-0 z-20 w-full bg-white dark:bg-slate-900"
+    >
+      <div className="flex w-full flex-none flex-wrap items-center justify-between bg-white px-4 transition duration-500 sm:px-6 lg:px-8 dark:bg-transparent dark:shadow-none">
         <div className="flex h-16 w-full justify-between">
           <div className="flex w-full justify-between">
             <div className="flex shrink-0 items-center">

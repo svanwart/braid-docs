@@ -109,12 +109,11 @@ const useDotButton = (emblaApi) => {
   }
 }
 
-const DotButton = (props) => {
-  const { children, ...restProps } = props
-
+const DotButton = ({ children, index, isSelected, onClick }) => {
+  const dotClassName = `rounded-full border-2 font-bold w-12 h-12 mx-2 ${isSelected ? 'border-sky-500 dark:border-sky-500' : 'border-gray-200 dark:border-slate-700'}`
   return (
-    <button type="button" {...restProps}>
-      {children}
+    <button type="button" className={dotClassName} onClick={onClick}>
+      {index + 1} {children}
     </button>
   )
 }

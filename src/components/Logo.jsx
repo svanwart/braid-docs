@@ -26,7 +26,9 @@ export function Logomark(props) {
 }
 
 export function Logo(props) {
-  return <span>Cerebellum-Inspired Circuits</span>
+  return (
+    <span className="hidden sm:inline-block">Cerebellum-Inspired Circuits</span>
+  )
   //   return (
   //     <svg aria-hidden="true" viewBox="0 0 227 36" fill="none" {...props}>
   //       <LogomarkPaths />
