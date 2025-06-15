@@ -10,7 +10,7 @@ import { MobileNavigation } from '@/components/MobileNavigation'
 import { Navigation } from '@/components/Navigation'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
-
+import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 
 function Header() {
   let [isScrolled, setIsScrolled] = useState(false)
@@ -36,7 +36,7 @@ function Header() {
       )}
     >
       <div className="mr-6 flex lg:hidden">
-        <MobileNavigation />
+        <MobileNavigation userLevel={1} />
       </div>
       <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page" className="flex">
@@ -48,7 +48,8 @@ function Header() {
         <Search />
       </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
-        <ThemeSelector className="relative z-10" />
+      <LevelSelectorMenu className="relative z-10" />
+      <ThemeSelector className="relative z-10" />
       </div>
     </header>
   )
@@ -67,7 +68,7 @@ export function TwoColumnLayout({ children }) {
           <div className="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
           <div className="absolute bottom-0 right-0 top-28 hidden w-px bg-slate-800 dark:block" />
           <div className="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-0.5 pr-8 xl:w-72 xl:pr-16">
-            <Navigation />
+            <Navigation userLevel={1} />
           </div>
         </div>
         <h2 className="fixed top-[40vh] -z-10 -rotate-[30deg] text-[150px] font-bold text-gray-100 lg:top-[30vh] lg:text-[250px] dark:text-gray-800">

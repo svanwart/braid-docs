@@ -17,6 +17,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { navigation } from '@/lib/navigation'
+import { useLevel } from './LevelProvider'
 
 function SearchIcon(props) {
   return (
@@ -30,6 +31,12 @@ function useAutocomplete({ close }) {
   let id = useId()
   let router = useRouter()
   let [autocompleteState, setAutocompleteState] = useState({})
+  let { userLevel } = useLevel()
+
+  // Convert string level to numeric level
+  const numericLevel =
+    userLevel === 'beginner' ? 1 : userLevel === 'intermediate' ? 2 : 3
+  console.log('Current user level:', userLevel, 'Numeric level:', numericLevel)
 
   function navigate({ itemUrl }) {
     if (!itemUrl) {
@@ -62,11 +69,12 @@ function useAutocomplete({ close }) {
       },
       getSources({ query }) {
         return import('@/markdoc/search.mjs').then(({ search }) => {
+          console.log('Searching with level:', numericLevel)
           return [
             {
               sourceId: 'documentation',
               getItems() {
-                return search(query, { limit: 5 })
+                return search(query, { limit: 5, level: numericLevel })
               },
               getItemUrl({ item }) {
                 return item.url

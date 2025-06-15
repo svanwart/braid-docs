@@ -42,9 +42,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/svg+xml" href="/braid-docs/favicon.svg" />
       </head>
       <body className="flex min-h-full bg-white dark:bg-slate-900">
-        <Providers>
-          <PasswordProtection>{children}</PasswordProtection>
-        </Providers>
+        <PasswordProtection>
+          <Providers>{children}</Providers>
+        </PasswordProtection>
       </body>
     </html>
   )

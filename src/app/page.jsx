@@ -8,6 +8,7 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 import LinkCard from '@/components/LinkCard'
 
 const chapters = [
@@ -118,22 +119,25 @@ function Navbar() {
             </div>
           </div>
 
-          <div className="-mr-2 flex items-center sm:hidden">
+          <div className="-mr-2 flex items-center gap-2 sm:gap-4">
             {/* Mobile menu button */}
-            <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-200">
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon
-                aria-hidden="true"
-                className="group-data-open:hidden block size-6"
-              />
-              <XMarkIcon
-                aria-hidden="true"
-                className="group-data-open:block hidden size-6"
-              />
-            </DisclosureButton>
+            <div className="sm:hidden">
+              <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-200">
+                <span className="absolute -inset-0.5" />
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon
+                  aria-hidden="true"
+                  className="group-data-open:hidden block size-6"
+                />
+                <XMarkIcon
+                  aria-hidden="true"
+                  className="group-data-open:block hidden size-6"
+                />
+              </DisclosureButton>
+            </div>
+            <LevelSelectorMenu className="relative z-10 my-5 ml-2" />
+            <ThemeSelector className="relative z-10 my-5 ml-2" />
           </div>
-          <ThemeSelector className="relative z-10 my-5 ml-6" />
         </div>
       </div>
 
