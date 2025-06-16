@@ -81,17 +81,17 @@ const navigation = [
     links: [
       {
         title: 'Intro to Artificial Intelligence (AI)',
-        href: '/docs/ai/',
+        href: '/docs/ai',
         level: [1, 2],
       },
       {
         title: 'Neural Networks',
-        href: '/docs/ai/neural-networks/',
+        href: '/docs/ai/neural-networks',
         level: [1, 2],
       },
       {
         title: 'Unsupervised Spiking Neural Networks',
-        href: '/docs/ai/snn-unsupervised/',
+        href: '/docs/ai/snn-unsupervised',
         level: [1, 2, 3],
       },
     ],

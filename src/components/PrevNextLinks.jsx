@@ -48,12 +48,42 @@ export function PrevNextLinks() {
 
   // Filter links based on user level
   let allLinks = navigation.flatMap((section) =>
-    section.links.filter((link) => link.level.includes(userLevel)),
+    section.links.filter(
+      (link) => userLevel === 0 || link.level.includes(userLevel),
+    ),
   )
+
+  console.log('PrevNextLinks debug:', {
+    pathname,
+    userLevel,
+    allLinks: allLinks.map((link) => ({
+      title: link.title,
+      href: link.href,
+      level: link.level,
+    })),
+  })
 
   let linkIndex = allLinks.findIndex((link) => link.href === pathname)
   let previousPage = linkIndex > -1 ? allLinks[linkIndex - 1] : null
   let nextPage = linkIndex > -1 ? allLinks[linkIndex + 1] : null
+
+  console.log('Navigation state:', {
+    linkIndex,
+    previousPage: previousPage
+      ? {
+          title: previousPage.title,
+          href: previousPage.href,
+          level: previousPage.level,
+        }
+      : null,
+    nextPage: nextPage
+      ? {
+          title: nextPage.title,
+          href: nextPage.href,
+          level: nextPage.level,
+        }
+      : null,
+  })
 
   if (!nextPage && !previousPage) {
     return null

@@ -11,7 +11,9 @@ export function Navigation({ className, onLinkClick }) {
   console.log(navigation)
   // Filter navigation based on user level
   const filteredNavigation = navigation.filter((section) => {
-    // Show section if its level exactly matches user level
+    // Show all sections if userLevel is 0 (All Levels)
+    if (userLevel === 0) return true
+
     // Filter links within the section
     const filteredLinks = section.links.filter((link) =>
       link.level.includes(userLevel),
@@ -33,7 +35,9 @@ export function Navigation({ className, onLinkClick }) {
               className="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
             >
               {section.links
-                .filter((link) => link.level.includes(userLevel))
+                .filter(
+                  (link) => userLevel === 0 || link.level.includes(userLevel),
+                )
                 .map((link) => (
                   <li key={link.href} className="relative">
                     <Link

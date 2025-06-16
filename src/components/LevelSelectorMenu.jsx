@@ -45,7 +45,9 @@ export function LevelSelectorMenu() {
                 ? 'Beginner'
                 : userLevel === 2
                   ? 'Intermediate'
-                  : 'Advanced'}
+                  : userLevel === 3
+                    ? 'Advanced'
+                    : 'Everything'}
             </span>
           </Popover.Button>
           <Popover.Panel className="absolute right-0 z-20 mt-2 w-96">

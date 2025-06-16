@@ -155,40 +155,59 @@ export default function withSearch(nextConfig = {}) {
                 }
               }
 
-              export function search(query, options = {}) {
-                const { level = 1, ...searchOptions } = options
+              export function search(query, { limit = 5, level = 1 } = {}) {
                 console.log('Search called with level:', level)
-                
-                let result = sectionIndex.search(query, {
-                  ...searchOptions,
-                  enrich: true,
-                })
-                
-                if (result.length === 0) {
-                  return []
+                let results = []
+                let index = 0
+
+                for (let { url, sections } of data) {
+                  for (let [title, hash, content] of sections) {
+                    let score = 0
+                    let position = 0
+                    let positions = []
+
+                    // Search in the title
+                    let titlePosition = title.toLowerCase().indexOf(query.toLowerCase())
+                    if (titlePosition !== -1) {
+                      score += 2
+                      positions.push(titlePosition)
+                    }
+
+                    // Search in the content (which is an array of strings)
+                    let contentText = content.join(' ').toLowerCase()
+                    let contentPosition = contentText.indexOf(query.toLowerCase())
+                    if (contentPosition !== -1) {
+                      score += 1
+                      positions.push(contentPosition)
+                    }
+
+                    if (score > 0) {
+                      // Get the levels for this URL
+                      const itemLevels = urlToLevels.find(([u]) => u === url)?.[1] || [1]
+                      console.log('Filtering item:', {
+                        url,
+                        title,
+                        itemLevels,
+                        userLevel: level,
+                        shouldInclude: level === 0 || itemLevels.includes(level)
+                      })
+
+                      // Include the item if it matches the user level or if level is 0 (All Levels)
+                      if (level === 0 || itemLevels.includes(level)) {
+                        results.push({
+                          url: url + (hash ? '#' + hash : ''),
+                          title,
+                          content: contentText.slice(Math.max(0, positions[0] - 20), positions[0] + 100),
+                          score,
+                        })
+                      }
+                    }
+                  }
                 }
 
-                // Filter results based on level
-                const filteredResults = result[0].result.filter(item => {
-                  const itemLevels = item.doc.level
-                  console.log('Filtering item:', {
-                    url: item.id,
-                    title: item.doc.title,
-                    itemLevels,
-                    userLevel: level,
-                    shouldInclude: itemLevels.includes(level)
-                  })
-                  return itemLevels.includes(level)
-                })
-
-                console.log('Filtered results:', filteredResults)
-
-                return filteredResults.map((item) => ({
-                  url: item.id,
-                  title: item.doc.title,
-                  pageTitle: item.doc.pageTitle,
-                  level: item.doc.level
-                }))
+                results.sort((a, b) => b.score - a.score)
+                console.log('Filtered results:', results)
+                return results.slice(0, limit)
               }
             `
           }),

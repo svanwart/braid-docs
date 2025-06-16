@@ -21,6 +21,11 @@ const levels = [
     description:
       'Experienced, interested in complex topics and technical details',
   },
+  {
+    id: 0,
+    name: 'Everything',
+    description: 'Show all content regardless of difficulty level',
+  },
 ]
 
 export function LevelSelector({ onLevelChange, initialLevel = 1, onClose }) {
