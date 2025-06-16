@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 import { navigation } from '@/lib/navigation'
+import { useLevel } from './LevelProvider'
 
 function ArrowIcon(props) {
   return (
@@ -43,7 +44,13 @@ function PageLink({ title, href, dir = 'next', ...props }) {
 
 export function PrevNextLinks() {
   let pathname = usePathname()
-  let allLinks = navigation.flatMap((section) => section.links)
+  const { userLevel } = useLevel()
+
+  // Filter links based on user level
+  let allLinks = navigation.flatMap((section) =>
+    section.links.filter((link) => link.level.includes(userLevel)),
+  )
+
   let linkIndex = allLinks.findIndex((link) => link.href === pathname)
   let previousPage = linkIndex > -1 ? allLinks[linkIndex - 1] : null
   let nextPage = linkIndex > -1 ? allLinks[linkIndex + 1] : null

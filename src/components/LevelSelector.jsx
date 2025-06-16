@@ -23,11 +23,18 @@ const levels = [
   },
 ]
 
-export function LevelSelector({ onLevelChange, initialLevel = 1 }) {
+export function LevelSelector({ onLevelChange, initialLevel = 1, onClose }) {
   // Update localStorage when initialLevel changes
   useEffect(() => {
     localStorage.setItem('userLevel', initialLevel.toString())
   }, [initialLevel])
+
+  const handleLevelChange = (levelId) => {
+    onLevelChange(levelId)
+    if (onClose) {
+      onClose()
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
@@ -38,7 +45,7 @@ export function LevelSelector({ onLevelChange, initialLevel = 1 }) {
         {levels.map((level) => (
           <button
             key={level.id}
-            onClick={() => onLevelChange(level.id)}
+            onClick={() => handleLevelChange(level.id)}
             className={clsx(
               'w-full rounded-lg border-2 p-4 text-left transition-all duration-200',
               'hover:border-sky-500 hover:shadow-md',
