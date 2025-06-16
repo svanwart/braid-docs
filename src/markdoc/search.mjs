@@ -5,6 +5,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { createLoader } from 'simple-functional-loader'
 import * as url from 'url'
+import { navigation } from '../lib/navigation.mjs'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const slugify = slugifyWithCounter()
@@ -40,6 +41,15 @@ function extractSections(node, sections, isRoot = true) {
     }
   }
 }
+
+// Create a map of URLs to their levels from navigation
+const urlToLevels = new Map()
+navigation.forEach((section) => {
+  section.links.forEach((link) => {
+    urlToLevels.set(link.href, link.level)
+  })
+})
+console.log('URL to levels:', urlToLevels)
 
 export default function withSearch(nextConfig = {}) {
   let cache = new Map()
@@ -95,12 +105,7 @@ export default function withSearch(nextConfig = {}) {
                   ast.attributes?.frontmatter?.match(
                     /^title:\s*(.*?)\s*$/m,
                   )?.[1]
-                // Extract level from frontmatter
-                let level =
-                  ast.attributes?.frontmatter?.match(
-                    /^level:\s*(.*?)\s*$/m,
-                  )?.[1] || 'beginner'
-                sections = [[title, null, [], level]] // Add level to sections
+                sections = [[title, null, []]]
                 extractSections(ast, sections)
                 cache.set(file, [md, sections])
               }
@@ -128,22 +133,30 @@ export default function withSearch(nextConfig = {}) {
               })
 
               let data = ${JSON.stringify(data)}
+              let urlToLevels = ${JSON.stringify(Array.from(urlToLevels.entries()))}
+              console.log('URL to levels:', urlToLevels)
 
               for (let { url, sections } of data) {
-                for (let [title, hash, content, level] of sections) {
+                for (let [title, hash, content] of sections) {
+                  const levels = urlToLevels.find(([u]) => u === url)?.[1]
+                  if (!levels) {
+                    console.warn('Unknown URL in search index:', url)
+                    continue // Skip this entry if URL is not in navigation
+                  }
                   const entry = {
                     url: url + (hash ? ('#' + hash) : ''),
                     title,
                     content: [title, ...content].join('\\n'),
                     pageTitle: hash ? sections[0][0] : undefined,
-                    level: level || 'beginner'
+                    level: levels
                   }
                   sectionIndex.add(entry)
+                  // console.log('Added entry:', entry)
                 }
               }
 
               export function search(query, options = {}) {
-                const { level = 'beginner', ...searchOptions } = options
+                const { level = 1, ...searchOptions } = options
                 console.log('Search called with level:', level)
                 
                 let result = sectionIndex.search(query, {
@@ -157,12 +170,15 @@ export default function withSearch(nextConfig = {}) {
 
                 // Filter results based on level
                 const filteredResults = result[0].result.filter(item => {
-                  const itemLevel = item.doc.level
-                  console.log('Item level:', itemLevel, 'User level:', level)
-                  if (level === 'beginner') return true // Beginners see everything
-                  if (level === 'intermediate') return itemLevel !== 'advanced'
-                  if (level === 'advanced') return itemLevel === 'advanced'
-                  return true
+                  const itemLevels = item.doc.level
+                  console.log('Filtering item:', {
+                    url: item.id,
+                    title: item.doc.title,
+                    itemLevels,
+                    userLevel: level,
+                    shouldInclude: itemLevels.includes(level)
+                  })
+                  return itemLevels.includes(level)
                 })
 
                 console.log('Filtered results:', filteredResults)

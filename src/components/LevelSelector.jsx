@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect } from 'react'
 import clsx from 'clsx'
 
 const levels = [
@@ -24,12 +24,10 @@ const levels = [
 ]
 
 export function LevelSelector({ onLevelChange, initialLevel = 1 }) {
-  const [selectedLevel, setSelectedLevel] = useState(initialLevel)
-
-  const handleLevelChange = (level) => {
-    setSelectedLevel(level)
-    onLevelChange(level)
-  }
+  // Update localStorage when initialLevel changes
+  useEffect(() => {
+    localStorage.setItem('userLevel', initialLevel.toString())
+  }, [initialLevel])
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
@@ -40,11 +38,11 @@ export function LevelSelector({ onLevelChange, initialLevel = 1 }) {
         {levels.map((level) => (
           <button
             key={level.id}
-            onClick={() => handleLevelChange(level.id)}
+            onClick={() => onLevelChange(level.id)}
             className={clsx(
               'w-full rounded-lg border-2 p-4 text-left transition-all duration-200',
               'hover:border-sky-500 hover:shadow-md',
-              selectedLevel === level.id
+              initialLevel === level.id
                 ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20'
                 : 'border-slate-200 dark:border-slate-700',
             )}
@@ -61,12 +59,12 @@ export function LevelSelector({ onLevelChange, initialLevel = 1 }) {
               <div
                 className={clsx(
                   'w-4 items-center justify-center rounded-full border-2',
-                  selectedLevel === level.id
+                  initialLevel === level.id
                     ? 'border-sky-500 bg-sky-500'
                     : 'border-slate-300 dark:border-slate-600',
                 )}
               >
-                {selectedLevel === level.id ? (
+                {initialLevel === level.id ? (
                   <div className="h-3 w-3 rounded-full bg-white" />
                 ) : (
                   <div className="h-3 w-3 rounded-full" />

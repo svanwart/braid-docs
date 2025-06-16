@@ -12,15 +12,14 @@ export function useLevel() {
 }
 
 export function LevelProvider({ children }) {
-  const [userLevel, setUserLevel] = useState(1)
-
-  // Initialize from localStorage on mount
-  useEffect(() => {
-    const savedLevel = localStorage.getItem('userLevel')
-    if (savedLevel) {
-      setUserLevel(Number(savedLevel))
+  // Initialize state with localStorage value if available
+  const [userLevel, setUserLevel] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedLevel = localStorage.getItem('userLevel')
+      return savedLevel ? Number(savedLevel) : 1
     }
-  }, [])
+    return 1
+  })
 
   // Update localStorage when level changes
   const handleLevelChange = (level) => {

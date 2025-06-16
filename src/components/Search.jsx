@@ -9,6 +9,7 @@ import {
   useId,
   useRef,
   useState,
+  useMemo,
 } from 'react'
 import Highlighter from 'react-highlight-words'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -33,10 +34,14 @@ function useAutocomplete({ close }) {
   let [autocompleteState, setAutocompleteState] = useState({})
   let { userLevel } = useLevel()
 
-  // Convert string level to numeric level
-  const numericLevel =
-    userLevel === 'beginner' ? 1 : userLevel === 'intermediate' ? 2 : 3
-  console.log('Current user level:', userLevel, 'Numeric level:', numericLevel)
+  // Temporary debug logging
+  useEffect(() => {
+    console.log('Search component state:', {
+      userLevel,
+      type: typeof userLevel,
+      localStorage: localStorage.getItem('userLevel'),
+    })
+  }, [userLevel])
 
   function navigate({ itemUrl }) {
     if (!itemUrl) {
@@ -53,38 +58,50 @@ function useAutocomplete({ close }) {
     }
   }
 
-  let [autocomplete] = useState(() =>
-    createAutocomplete({
-      id,
-      placeholder: 'Find something...',
-      defaultActiveItemId: 0,
-      onStateChange({ state }) {
-        setAutocompleteState(state)
-      },
-      shouldPanelOpen({ state }) {
-        return state.query !== ''
-      },
-      navigator: {
-        navigate,
-      },
-      getSources({ query }) {
-        return import('@/markdoc/search.mjs').then(({ search }) => {
-          console.log('Searching with level:', numericLevel)
-          return [
-            {
-              sourceId: 'documentation',
-              getItems() {
-                return search(query, { limit: 5, level: numericLevel })
+  // Create autocomplete instance with current userLevel
+  const autocomplete = useMemo(
+    () =>
+      createAutocomplete({
+        id,
+        placeholder: 'Find something...',
+        defaultActiveItemId: 0,
+        onStateChange({ state }) {
+          setAutocompleteState(state)
+        },
+        shouldPanelOpen({ state }) {
+          return state.query !== ''
+        },
+        navigator: {
+          navigate,
+        },
+        getSources({ query }) {
+          return import('@/markdoc/search.mjs').then(({ search }) => {
+            console.log('Search called with:', {
+              query,
+              userLevel,
+              type: typeof userLevel,
+            })
+            return [
+              {
+                sourceId: 'documentation',
+                getItems() {
+                  const results = search(query, {
+                    limit: 15,
+                    level: userLevel,
+                  })
+                  console.log('Search results:', results)
+                  return results
+                },
+                getItemUrl({ item }) {
+                  return item.url
+                },
+                onSelect: navigate,
               },
-              getItemUrl({ item }) {
-                return item.url
-              },
-              onSelect: navigate,
-            },
-          ]
-        })
-      },
-    }),
+            ]
+          })
+        },
+      }),
+    [id, userLevel], // Recreate when userLevel changes
   )
 
   return { autocomplete, autocompleteState }
