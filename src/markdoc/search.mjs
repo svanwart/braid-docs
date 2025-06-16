@@ -5,25 +5,9 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { createLoader } from 'simple-functional-loader'
 import * as url from 'url'
-import { navigation } from '../lib/navigation.mjs'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const slugify = slugifyWithCounter()
-
-// Helper function to get level from navigation
-function getLevelFromNavigation(url) {
-  // Remove any hash from the URL
-  const baseUrl = url.split('#')[0]
-
-  // Find the matching link in navigation
-  for (const section of navigation) {
-    const link = section.links.find((link) => link.href === baseUrl)
-    if (link) {
-      return link.level
-    }
-  }
-  return 1 // Default to beginner level if not found
-}
 
 function toString(node) {
   let str =
@@ -111,9 +95,11 @@ export default function withSearch(nextConfig = {}) {
                   ast.attributes?.frontmatter?.match(
                     /^title:\s*(.*?)\s*$/m,
                   )?.[1]
-                // Get level from navigation
-                let level = getLevelFromNavigation(url)
-                console.log(`File ${file} has level:`, level)
+                // Extract level from frontmatter
+                let level =
+                  ast.attributes?.frontmatter?.match(
+                    /^level:\s*(.*?)\s*$/m,
+                  )?.[1] || 'beginner'
                 sections = [[title, null, [], level]] // Add level to sections
                 extractSections(ast, sections)
                 cache.set(file, [md, sections])
@@ -150,14 +136,14 @@ export default function withSearch(nextConfig = {}) {
                     title,
                     content: [title, ...content].join('\\n'),
                     pageTitle: hash ? sections[0][0] : undefined,
-                    level: level || 1
+                    level: level || 'beginner'
                   }
                   sectionIndex.add(entry)
                 }
               }
 
               export function search(query, options = {}) {
-                const { level = 1, ...searchOptions } = options
+                const { level = 'beginner', ...searchOptions } = options
                 console.log('Search called with level:', level)
                 
                 let result = sectionIndex.search(query, {
@@ -173,9 +159,9 @@ export default function withSearch(nextConfig = {}) {
                 const filteredResults = result[0].result.filter(item => {
                   const itemLevel = item.doc.level
                   console.log('Item level:', itemLevel, 'User level:', level)
-                  if (level === 1) return true // Level 1 (beginner) sees everything
-                  if (level === 2) return itemLevel <= 2 // Level 2 (intermediate) sees level 1 and 2
-                  if (level === 3) return itemLevel === 3 // Level 3 (advanced) only sees level 3
+                  if (level === 'beginner') return true // Beginners see everything
+                  if (level === 'intermediate') return itemLevel !== 'advanced'
+                  if (level === 'advanced') return itemLevel === 'advanced'
                   return true
                 })
 
