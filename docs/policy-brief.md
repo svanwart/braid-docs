@@ -1,6 +1,5 @@
 ---
 title: "Policy Brief"
-layout: plain
 nextjs:
   metadata:
     title: Policy Brief

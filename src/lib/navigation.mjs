@@ -3,7 +3,7 @@ const navigation = [
     title: 'About this work',
     links: [
       {
-        title: 'Executive Summary',
+        title: 'Overview',
         href: '/docs',
         level: [1],
       },
