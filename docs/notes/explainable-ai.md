@@ -20,3 +20,15 @@ layout: plain
 | Trust Calibration in Human-AI Teams                                                                                                           | M. Zhang +3           | ACM Transactions on Interactive Intelligent Systems           | 2020 |        91 | Explores how trust calibration strategies (e.g., consistent AI performance, explanation frequency) impact human trust in AI teammates.                                                                                                                                                                                                                     |  |
 | Communicating AI Capabilities and Limitations to Non-Experts: A Mental Model-Guided Approach                                                 | M. Abdul +3           | Conference on Human Factors in Computing Systems               | 2020 |       111 | Suggests using mental models to guide interface design for communicating the strengths and limitations of AI to lay users, improving trust and usability.                                                                                                                                                                                                 |  |
 | Tracing and Communicating AI Decision Processes: Lessons from the Law                                                                        | A. Selbst +2          | Proceedings of the 2021 AAAI/ACM Conference on AI, Ethics, and Society | 2021 |        84 | Draws on legal principles and precedents to suggest how AI systems can better trace and communicate their decision-making processes to users and regulators.                                                                                                                                                                                              |  |
+
+
+
+## Explaining Unsupervised Learning to Different Audiences
+
+| Audience       | Approach                           | Example                                       |
+| -------------- | ---------------------------------- | --------------------------------------------- |
+| General Public | Visual prototypes + analogies      | “These are normal heartbeats vs. odd ones”    |
+| Policymakers   | Cluster summaries + decision trees | “Why a behavior was flagged as suspicious”    |
+| Researchers    | SHAP, latent space visualizations  | “Feature-wise breakdown of model output”      |
+| Journalists    | Temporal/visual explanations       | “How a person’s digital activity was flagged” |
+| Students       | Interactive UMAP + labeling tools  | “Explore and annotate clusters”               |

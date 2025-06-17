@@ -1,10 +1,15 @@
 const navigation = [
   {
-    title: 'Introduction',
+    title: 'About this work',
     links: [
       {
-        title: 'Introduction to Cerebellum-Inspired Circuits',
+        title: 'Executive Summary',
         href: '/docs',
+        level: [1],
+      },
+      {
+        title: 'Policy Brief',
+        href: '/docs/policy-brief',
         level: [1],
       },
     ],
@@ -104,11 +109,6 @@ const navigation = [
         href: '/docs/neuromorphic-computing',
         level: [1, 2, 3],
       },
-    ],
-  },
-  {
-    title: 'Cerebellum-Inspired Computer Hardware',
-    links: [
       {
         title: 'Introduction to Cerebellum-Inspired Hardware',
         href: '/docs/cerebellum-inspired-hardware',
@@ -119,23 +119,37 @@ const navigation = [
   {
     title: 'Potential Applications',
     links: [
-      { title: 'Introduction', href: '/docs/applications', level: [1, 2] },
-    ],
-  },
-  {
-    title: 'Broader Impacts',
-    links: [
-      { title: 'Introduction', href: '/docs/broader-impacts', level: [1, 2] },
+      { title: 'Applications', href: '/docs/applications', level: [1, 2] },
       {
-        title: 'Efficiency',
-        href: '/docs/broader-impacts/efficiency',
+        title: 'Smart Power Grids',
+        href: '/docs/applications/power-grid',
+        level: [1, 2, 3],
+      },
+      {
+        title: 'Personalized Hearing Aids',
+        href: '/docs/applications/hearing-aids',
+        level: [1, 2, 3],
+      },
+      {
+        title: 'Warehouse Robotics',
+        href: '/docs/applications/robotics',
         level: [1, 2, 3],
       },
     ],
   },
   {
-    title: 'Case Studies',
+    title: 'Broader Impacts & Case Studies',
     links: [
+      {
+        title: 'Broader Impacts',
+        href: '/docs/broader-impacts',
+        level: [1, 2],
+      },
+      {
+        title: 'Efficiency',
+        href: '/docs/broader-impacts/efficiency',
+        level: [1, 2, 3],
+      },
       {
         title: 'Alina: Bias in AI',
         href: '/docs/case-studies/alina',

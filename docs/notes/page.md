@@ -6,6 +6,38 @@ nextjs:
     description: TBD.
 ---
 
+## Site Map
+
+```text
+Home
+├── Who is this for?
+│   ├── General Public
+│   ├── Journalists
+│   ├── Policymakers
+│   ├── CS Students
+│   └── Researchers
+│
+├── What is this technology?
+│   ├── Interactive Timeline
+│   ├── Short Explainer Video
+│   └── Practical Applications
+│
+├── How does it work?
+│   ├── Memtransistor vs. Transistor
+│   ├── SNN vs. DNN
+│   └── Unsupervised Learning Explained
+│
+├── Case Studies / Stories
+│   ├── "The Smart Drone That Learned to Hear Danger"
+│   ├── "Neural Chips in Power Grids"
+│   └── "Real-Time Anomaly Detection (Robotics)"
+│
+└── Resource Library
+    ├── Beginner
+    ├── Intermediate
+    └── Advanced
+```
+
 ## High-Level Challenge
 
 
