@@ -1,13 +1,13 @@
 // Network configuration
 const INPUT_COUNT = 3
-const LAYER_COUNT = 7
+const LAYER_COUNT = 15
 const CANVAS_WIDTH = 800
-const CANVAS_HEIGHT = 600
-const NODE_SIZE = 25
-const PAUSE_FRAMES = 60
+const CANVAS_HEIGHT = 800
+const NODE_SIZE = 20
+const PAUSE_FRAMES = 0
 const FIRING_THRESHOLD = 2
 const SPIKE_PAUSE_FRAMES = 30 // 1 second pause after each spike (30 fps)
-const FINAL_STATE_PAUSE_FRAMES = 90 // 3 seconds pause for final state
+const FINAL_STATE_PAUSE_FRAMES = 20 // 3 seconds pause for final state
 
 // STDP parameters
 const STDP_TAU_POS = 20 // Time constant for LTP (Long-Term Potentiation)
@@ -26,22 +26,23 @@ const spikeTrains = [
   [12, 2, 1], // Deep red
   [11, 1, 1], // Very dark red
   [10, 1, 1], // Almost black-red
+  [15, 5, 3], // Bright red
 
-  // Six shades of purple (high R, low G, high B)
-  [15, 3, 14], // Bright purple
-  [14, 2, 13], // Medium purple
-  [13, 2, 12], // Dark purple
-  [12, 1, 11], // Deep purple
-  [11, 1, 10], // Very dark purple
-  [10, 1, 9], // Almost black-purple
+  // // Six shades of purple (high R, low G, high B)
+  // [15, 3, 14], // Bright purple
+  // [14, 2, 13], // Medium purple
+  // [13, 2, 12], // Dark purple
+  // [12, 1, 11], // Deep purple
+  // [11, 1, 10], // Very dark purple
+  // [10, 1, 9], // Almost black-purple
 
-  // Six shades of yellow (high R, high G, low B)
-  [15, 15, 3], // Bright yellow
-  [14, 14, 2], // Medium yellow
-  [13, 13, 1], // Dark yellow
-  [12, 12, 1], // Deep yellow
-  [11, 11, 1], // Very dark yellow
-  [10, 10, 1], // Almost black-yellow
+  // // Six shades of yellow (high R, high G, low B)
+  // [15, 15, 3], // Bright yellow
+  // [14, 14, 2], // Medium yellow
+  // [13, 13, 1], // Dark yellow
+  // [12, 12, 1], // Deep yellow
+  // [11, 11, 1], // Very dark yellow
+  // [10, 10, 1], // Almost black-yellow
 ]
 
 // Network state
@@ -66,7 +67,7 @@ function setup() {
 
 function initNetwork() {
   const layerSpacing = width / 5
-  const nodeSpacing = 60
+  const nodeSpacing = 40
 
   // Create input neurons (3)
   for (let i = 0; i < INPUT_COUNT; i++) {
@@ -79,7 +80,7 @@ function initNetwork() {
     })
   }
 
-  // Create excitatory and inhibitory neurons (7 each)
+  // Create excitatory and inhibitory neurons (15 each)
   for (let i = 0; i < LAYER_COUNT; i++) {
     const y = 80 + i * nodeSpacing
 
@@ -166,11 +167,38 @@ function simulateSpikes() {
     if (timer === spikes[i]) {
       layers.input[i].spiked = true
       layers.input[i].visualSpike = true
-      // Activate all excitatory neurons when this input spikes
+      // Multi-neuron activation: allow multiple excitatory neurons to fire based on weights
+      const baseThreshold = 0.6 // Base activation threshold
+      const noise = (Math.random() - 0.5) * 0.2 // Add ±0.1 noise to threshold
+      const threshold = baseThreshold + noise
+      let totalActivation = 0
+
+      // Calculate total activation and activate neurons above threshold
       for (let j = 0; j < LAYER_COUNT; j++) {
-        layers.excitatory[j].active = true
+        const weight = layers.inputToExcitatoryWeights[i][j]
+        if (weight > threshold) {
+          layers.excitatory[j].active = true
+          layers.inhibitory[j].active = true // Activate corresponding inhibitory neuron
+          totalActivation += weight
+        }
       }
-      lastSpikedIndex = i
+
+      // If no neurons are above threshold, activate the strongest one
+      if (totalActivation === 0) {
+        let maxWeight = 0
+        let winnerIndex = 0
+
+        for (let j = 0; j < LAYER_COUNT; j++) {
+          const weight = layers.inputToExcitatoryWeights[i][j]
+          if (weight > maxWeight) {
+            maxWeight = weight
+            winnerIndex = j
+          }
+        }
+
+        layers.excitatory[winnerIndex].active = true
+        layers.inhibitory[winnerIndex].active = true // Activate corresponding inhibitory neuron
+      }
 
       // Apply STDP learning
       applySTDP(i)
@@ -185,43 +213,22 @@ function simulateSpikes() {
   // Update excitatory spike times
   updateExcitatorySpikeTimes()
 
-  // Weight-based winner-takes-all: excitatory neuron with strongest weighted input wins
-  let maxActivation = 0
-  let winnerIndex = -1
-
-  for (let i = 0; i < LAYER_COUNT; i++) {
-    if (layers.excitatory[i].active) {
-      // Calculate weighted activation for this excitatory neuron
-      let activation = 0
-      for (let j = 0; j < INPUT_COUNT; j++) {
-        if (layers.input[j].spiked) {
-          activation += layers.inputToExcitatoryWeights[j][i]
-        }
-      }
-
-      if (activation > maxActivation) {
-        maxActivation = activation
-        winnerIndex = i
-      }
-    }
-  }
-
-  if (winnerIndex !== -1) {
-    layers.inhibitory[winnerIndex].active = true
-    // Suppress all other excitatory neurons
-    layers.excitatory.forEach((n, i) => {
-      if (i !== winnerIndex) n.active = false
-    })
-  }
-
   // Check if all neurons have spiked
   const allSpiked = layers.input.every((n) => n.spiked)
   if (allSpiked) {
     const spikeTimes = layers.input.map((n, i) => (n.spiked ? spikes[i] : null))
     const timeDiff = Math.max(...spikeTimes) - Math.min(...spikeTimes)
 
+    console.log(
+      `All spiked! TimeDiff: ${timeDiff}, Threshold: ${FIRING_THRESHOLD * 5}`,
+    )
+
     if (timeDiff <= FIRING_THRESHOLD * 5) {
       layers.output[0].active = true
+      console.log('Output neuron activated (normal)')
+    } else {
+      layers.output[0].active = false
+      console.log('Output neuron not activated (anomaly)')
     }
 
     // Pause to show final state before moving to next example
@@ -241,7 +248,7 @@ function resetActivity() {
     layers.excitatory[i].active = false
     layers.inhibitory[i].active = false
   }
-  layers.output[0].active = false
+  layers.output[0].active = false // Reset output to inactive (will show white)
 
   // Reset STDP spike timing tracking
   lastInputSpikeTimes.fill(-1)
@@ -329,13 +336,13 @@ function drawNetwork() {
     const spikeTimes = layers.input.map((n, i) => (n.spiked ? spikes[i] : null))
     const timeDiff = Math.max(...spikeTimes) - Math.min(...spikeTimes)
     const isNormal = timeDiff <= FIRING_THRESHOLD * 5
-    outputColor = isNormal ? 'white' : 'red'
+    outputColor = isNormal ? 'white' : 'yellow'
   }
 
   drawLayer(layers.output, outputColor, 'Output')
 }
 
-function drawLayer(nodes, color, label) {
+function drawLayer(nodes, baseColor, label) {
   textAlign(CENTER)
   textSize(12)
   noStroke()
@@ -344,10 +351,37 @@ function drawLayer(nodes, color, label) {
 
   nodes.forEach((node) => {
     stroke(0)
-    // Use visualSpike for input neurons, active/spiked for others
-    const isActive =
-      label === 'Input' ? node.visualSpike : node.active || node.spiked
-    fill(isActive ? color : 'white')
+    // Use visualSpike for input neurons, active for output, active/spiked for others
+    let isActive
+    let nodeColor = baseColor
+
+    if (label === 'Input') {
+      isActive = node.visualSpike
+    } else if (label === 'Output') {
+      isActive = node.active
+      // Check if all input neurons have spiked (final state)
+      const allSpiked = layers.input.every((n) => n.spiked)
+
+      if (allSpiked) {
+        // In final state: green if active (normal), yellow if inactive (anomaly)
+        if (isActive) {
+          nodeColor = color(0, 255, 0) // Green for normal pattern detected
+          console.log('Output: Setting to GREEN (normal)')
+        } else {
+          nodeColor = color(255, 255, 0) // Yellow for anomaly detected
+          console.log('Output: Setting to YELLOW (anomaly)')
+        }
+      } else {
+        // Not in final state: show white
+        nodeColor = 'white'
+      }
+      // For output neurons, always use the determined color
+      fill(nodeColor)
+    } else {
+      isActive = node.active || node.spiked
+      fill(isActive ? nodeColor : 'white')
+    }
+
     ellipse(node.x, node.y, NODE_SIZE)
   })
 }
@@ -363,6 +397,15 @@ function drawInfo() {
   text(`Timer: ${timer}`, 20, 50)
 
   // Display current spike train
+  const r = Math.floor((spikes[0] / 15) * 255) // Normalize 0-15 to 0-255
+  const g = Math.floor((spikes[1] / 15) * 255) // Normalize 0-15 to 0-255
+  const b = Math.floor((spikes[2] / 15) * 255) // Normalize 0-15 to 0-255
+
+  // Draw colored background rectangle
+  noStroke()
+  fill(r, g, b)
+  rect(15, 55, 155, 22)
+  fill(0)
   text(`Spike Train: [${spikes.join(', ')}]`, 20, 70)
 
   // Display which neurons have spiked
@@ -422,6 +465,27 @@ function applySTDP(inputIndex) {
           layers.inputToExcitatoryWeights[inputIndex][j],
         ),
       )
+    }
+  }
+
+  // Add weight normalization to prevent runaway growth
+  normalizeWeights(inputIndex)
+}
+
+function normalizeWeights(inputIndex) {
+  // Calculate total weight strength for this input
+  let totalWeight = 0
+  for (let j = 0; j < LAYER_COUNT; j++) {
+    totalWeight += layers.inputToExcitatoryWeights[inputIndex][j]
+  }
+
+  // Normalize weights to maintain constant total strength
+  const targetTotal = LAYER_COUNT * 0.5 // Target average weight of 0.5
+  if (totalWeight > 0) {
+    for (let j = 0; j < LAYER_COUNT; j++) {
+      layers.inputToExcitatoryWeights[inputIndex][j] =
+        (layers.inputToExcitatoryWeights[inputIndex][j] / totalWeight) *
+        targetTotal
     }
   }
 }

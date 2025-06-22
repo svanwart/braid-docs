@@ -78,6 +78,13 @@ Here is a list of some potential tools...
 * Its advantages
 * Its practical implications
 
+
+#### SNN Idea
+1. 3x3 grid that allows the user to draw squares, circles, crosses, etc.
+2. Array of excitatory neurons and a matching array of inhibitory neurons
+3. Train the network with spike representations using many different examples...maybe even flashcards?
+
+
 ---
 
 ### 5.  Nanomaterials Research
@@ -107,3 +114,16 @@ Here is a list of some potential tools...
   * How often is "outlier" activity no big deal (false positives)?
 * Model drift: when is it OK, when is it not OK?
 * How our outliers verified? Or is there full automation?
+
+
+## Widgets
+
+{% card title="Title" %}
+* Bullet Point 1
+* Bullet Point 2
+* Bullet Point 3: [Link](/braid-docs/docs/widgets)
+{% /card %}
+
+{% card-horizontal / %}
+
+{% card-vertical / %}

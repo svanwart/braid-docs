@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNN Anomaly Detection Diagram</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8fafc;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+
+    .diagram {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      align-items: start;
+      text-align: center;
+    }
+
+    .box {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 2px solid #e2e8f0;
+    }
+
+    .box h3 {
+      margin-top: 0;
+    }
+
+    .arrow {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0.5rem 0;
+    }
+
+    .arrow::after {
+      content: "\2192"; /* Right arrow */
+    }
+
+    .inhibition::after {
+      content: "\21D2"; /* Double arrow to indicate suppression */
+      color: red;
+    }
+
+    .neurons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .neuron {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .input { background-color: #cbd5e1; }
+    .excitatory { background-color: #3b82f6; }
+    .inhibitory { background-color: #ef4444; }
+    .anomaly { background-color: #facc15; }
+  </style>
+</head>
+<body>
+  <h1>Spiking Neural Network for Anomaly Detection</h1>
+
+  <div class="diagram">
+    <!-- Input Layer -->
+    <div class="box">
+      <h3>Input Layer</h3>
+      <p>Encoded spike trains from real-world input</p>
+      <div class="neurons">
+        <div class="neuron input"></div>
+        <div class="neuron input"></div>
+        <div class="neuron input"></div>
+      </div>
+    </div>
+
+    <!-- Feature Detection -->
+    <div class="box">
+      <h3>Feature Detection</h3>
+      <p>Excitatory neurons learn normal patterns via STDP</p>
+      <div class="neurons">
+        <div class="neuron excitatory"></div>
+        <div class="neuron excitatory"></div>
+        <div class="neuron excitatory"></div>
+      </div>
+    </div>
+
+    <!-- Inhibition -->
+    <div class="box">
+      <h3>Competition/Inhibition</h3>
+      <p>Suppresses weak/conflicting activations</p>
+      <div class="neurons">
+        <div class="neuron inhibitory"></div>
+        <div class="neuron inhibitory"></div>
+      </div>
+    </div>
+
+    <!-- Anomaly Detection -->
+    <div class="box">
+      <h3>Output Layer</h3>
+      <p>Low match confidence triggers anomaly signal</p>
+      <div class="neurons">
+        <div class="neuron anomaly"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

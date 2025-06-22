@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Layered SNN Visualization - Debugged</title>
+    <title>Layered SNN Visualization</title>
     <style>
       body {
         margin: 0;
@@ -19,71 +19,10 @@
         margin-top: 1rem;
         font-size: 1.5rem;
       }
-      .controls {
-        margin: 10px;
-        padding: 10px;
-        background: #e5e7eb;
-        border-radius: 5px;
-      }
-      .debug-info {
-        position: absolute;
-        top: 150px;
-        left: 10px;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        font-family: monospace;
-        font-size: 12px;
-        text-align: left;
-      }
     </style>
   </head>
   <body>
-    <h1>Spiking Neural Network - Layered Visualization (Debugged)</h1>
-    <div class="controls">
-      <button onclick="togglePause()">Pause/Resume</button>
-      <button onclick="resetSimulation()">Reset</button>
-      <button onclick="nextExample()">Next Example</button>
-      <button onclick="randomizeWeights()">Randomize Weights</button>
-      <button onclick="resetWeights()">Reset Weights</button>
-      <label
-        >Learning Rate:
-        <input
-          type="range"
-          id="learningRateSlider"
-          min="0.001"
-          max="0.05"
-          step="0.001"
-          value="0.05"
-          onchange="updateLearningRate()"
-      /></label>
-      <span id="learningRateValue">0.05</span>
-      <label
-        >Anomaly Threshold:
-        <input
-          type="range"
-          id="anomalyThresholdSlider"
-          min="0.1"
-          max="0.8"
-          step="0.05"
-          value="0.3"
-          onchange="updateAnomalyThreshold()"
-      /></label>
-      <span id="anomalyThresholdValue">0.3</span>
-      <label
-        >Speed:
-        <input
-          type="range"
-          id="speedSlider"
-          min="1"
-          max="60"
-          value="30"
-          onchange="updateSpeed()"
-      /></label>
-      <span id="speedValue">30</span> FPS
-    </div>
-    <div class="debug-info" id="debugInfo">Debug Info</div>
+    <h1>Spiking Neural Network - Layered Visualization</h1>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <script>
       const layers = {
@@ -94,8 +33,8 @@
       }
 
       const spikeTrains = [
-        [10, 12, 14],
-        [11, 13, 15],
+        [10, 12, 1],
+        [11, 13, 5],
         [9, 11, 13],
         [10, 12, 13],
         [5, 10, 27], // anomalous input
@@ -107,21 +46,6 @@
       let firingThreshold = 2
       let pauseFrames = 60
       let pauseCounter = 0
-      let isPaused = false
-      let debugMode = true
-
-      // STDP parameters
-      let learningRate = 0.05
-      let stdpWindow = 20 // Time window for STDP in frames
-      let spikeHistory = [] // Track spike times for STDP
-      let weightChangeHistory = [] // Track weight changes for visualization
-      let flashingWeights = {} // Track which weights are flashing
-
-      // Anomaly detection parameters
-      let anomalyThreshold = 0.3 // Threshold for anomaly detection
-      let normalPatternStrength = 0 // Track strength of learned normal patterns
-      let anomalyScore = 0 // Current anomaly score
-      let isAnomaly = false // Current anomaly status
 
       function setup() {
         createCanvas(800, 400)
@@ -131,45 +55,24 @@
 
       function initNetwork() {
         const layerSpacing = width / 5
-        const nodeSpacing = 60 // Reduced spacing to fit more neurons
+        const nodeSpacing = 80
 
-        // Clear existing layers
-        layers.input = []
-        layers.excitatory = []
-        layers.inhibitory = []
-        layers.output = []
-
-        // Create 3 input neurons
         for (let i = 0; i < 3; i++) {
           layers.input.push({
             x: layerSpacing * 1,
-            y: 80 + i * nodeSpacing,
+            y: 100 + i * nodeSpacing,
             spiked: false,
-            lastSpikeTime: -1,
-            membranePotential: 0,
           })
-        }
-
-        // Create 6 excitatory neurons (doubled from 3)
-        for (let i = 0; i < 6; i++) {
           layers.excitatory.push({
             x: layerSpacing * 2,
-            y: 50 + i * nodeSpacing,
+            y: 100 + i * nodeSpacing,
             active: false,
             weight: 1,
-            membranePotential: 0,
-            refractoryPeriod: 0,
           })
-        }
-
-        // Create 6 inhibitory neurons (doubled from 3)
-        for (let i = 0; i < 6; i++) {
           layers.inhibitory.push({
             x: layerSpacing * 3,
-            y: 50 + i * nodeSpacing,
+            y: 100 + i * nodeSpacing,
             active: false,
-            membranePotential: 0,
-            refractoryPeriod: 0,
           })
         }
 
@@ -177,91 +80,23 @@
           x: layerSpacing * 4,
           y: height / 2,
           active: false,
-          membranePotential: 0,
-          refractoryPeriod: 0,
         })
-
-        // Initialize connection weights
-        initConnectionWeights()
-      }
-
-      function initConnectionWeights() {
-        // Input to excitatory weights (3 inputs to 6 excitatory neurons)
-        layers.inputToExcitatoryWeights = [
-          [0.8, 0.0, 0.0, 0.4, 0.0, 0.0], // Input 0 connects to excitatory 0 and 3
-          [0.0, 0.8, 0.0, 0.0, 0.4, 0.0], // Input 1 connects to excitatory 1 and 4
-          [0.0, 0.0, 0.8, 0.0, 0.0, 0.4], // Input 2 connects to excitatory 2 and 5
-        ]
-
-        // Input to inhibitory weights (removed - inhibitory neurons don't receive direct input)
-        layers.inputToInhibitoryWeights = [
-          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], // No direct input connections
-          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], // No direct input connections
-          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], // No direct input connections
-        ]
-
-        // Excitatory to inhibitory weights (excitatory neurons drive inhibitory neurons)
-        layers.excitatoryToInhibitoryWeights = [
-          [0.6, 0.0, 0.0, 0.3, 0.0, 0.0], // Excitatory 0 drives inhibitory 0 and 3
-          [0.0, 0.6, 0.0, 0.0, 0.3, 0.0], // Excitatory 1 drives inhibitory 1 and 4
-          [0.0, 0.0, 0.6, 0.0, 0.0, 0.3], // Excitatory 2 drives inhibitory 2 and 5
-          [0.3, 0.0, 0.0, 0.6, 0.0, 0.0], // Excitatory 3 drives inhibitory 0 and 3
-          [0.0, 0.3, 0.0, 0.0, 0.6, 0.0], // Excitatory 4 drives inhibitory 1 and 4
-          [0.0, 0.0, 0.3, 0.0, 0.0, 0.6], // Excitatory 5 drives inhibitory 2 and 5
-        ]
-
-        // Inhibitory to excitatory weights (6x6 matrix for lateral inhibition)
-        layers.inhibitoryToExcitatoryWeights = [
-          [0.0, -0.2, -0.2, -0.1, -0.1, -0.1], // Inhibitory 0 inhibits all excitatory except itself
-          [-0.2, 0.0, -0.2, -0.1, -0.1, -0.1], // Inhibitory 1 inhibits all excitatory except itself
-          [-0.2, -0.2, 0.0, -0.1, -0.1, -0.1], // Inhibitory 2 inhibits all excitatory except itself
-          [-0.1, -0.1, -0.1, 0.0, -0.2, -0.2], // Inhibitory 3 inhibits all excitatory except itself
-          [-0.1, -0.1, -0.1, -0.2, 0.0, -0.2], // Inhibitory 4 inhibits all excitatory except itself
-          [-0.1, -0.1, -0.1, -0.2, -0.2, 0.0], // Inhibitory 5 inhibits all excitatory except itself
-        ]
-
-        // Excitatory to output weights (6 excitatory neurons to 1 output)
-        layers.excitatoryToOutputWeights = [0.3, 0.3, 0.3, 0.2, 0.2, 0.2]
       }
 
       function resetActivity() {
-        for (let i = 0; i < layers.input.length; i++) {
-          // Reset spiked state so neurons can spike again
+        for (let i = 0; i < 3; i++) {
           layers.input[i].spiked = false
-          layers.input[i].membranePotential = 0
-        }
-
-        for (let i = 0; i < layers.excitatory.length; i++) {
           layers.excitatory[i].active = false
-          layers.excitatory[i].membranePotential = 0
-          layers.excitatory[i].refractoryPeriod = 0
-        }
-
-        for (let i = 0; i < layers.inhibitory.length; i++) {
           layers.inhibitory[i].active = false
-          layers.inhibitory[i].membranePotential = 0
-          layers.inhibitory[i].refractoryPeriod = 0
         }
-
         layers.output[0].active = false
-        layers.output[0].membranePotential = 0
-        layers.output[0].refractoryPeriod = 0
-
-        // Clear spike history for new example
-        spikeHistory = []
-
-        // Don't reinitialize weights - let them persist from learning!
-        // initConnectionWeights()
       }
 
       function draw() {
         background(255)
-        drawNetwork()
         drawConnections()
-        if (!isPaused) {
-          simulateSpikes()
-        }
-        updateDebugInfo()
+        drawNetwork()
+        simulateSpikes()
       }
 
       function simulateSpikes() {
@@ -270,261 +105,53 @@
           return
         }
 
-        // Debug: Show current state at the start of each simulation step
-        if (timer % 10 === 0) {
-          console.log(
-            `=== SIMULATION STEP: timer=${timer}, currentExample=${currentExample}, spikes=[${spikes.join(', ')}] ===`,
-          )
-          // Show input neuron states
-          for (let i = 0; i < layers.input.length; i++) {
-            console.log(
-              `Input ${i}: spiked=${layers.input[i].spiked}, MP=${layers.input[i].membranePotential.toFixed(3)}`,
-            )
-          }
-          // Show current spike array for entire input duration
-          console.log(
-            `Current spike array: [${spikes.join(', ')}] (Example ${currentExample + 1}/${spikeTrains.length})`,
-          )
-          console.log(
-            `Full spike train: ${JSON.stringify(spikeTrains[currentExample])}`,
-          )
-        }
-
-        // Update refractory periods
+        // Reset excitatory activity at the start of each frame
         for (let i = 0; i < layers.excitatory.length; i++) {
-          if (layers.excitatory[i].refractoryPeriod > 0) {
-            layers.excitatory[i].refractoryPeriod--
-            // Deactivate after refractory period ends
-            if (layers.excitatory[i].refractoryPeriod === 0) {
-              layers.excitatory[i].active = false
-            }
-          }
-        }
-        for (let i = 0; i < layers.inhibitory.length; i++) {
-          if (layers.inhibitory[i].refractoryPeriod > 0) {
-            layers.inhibitory[i].refractoryPeriod--
-          }
-        }
-        if (layers.output[0].refractoryPeriod > 0) {
-          layers.output[0].refractoryPeriod--
+          layers.excitatory[i].active = false
         }
 
-        // Input layer spiking
+        // Reset inhibitory activity at the start of each frame
+        for (let i = 0; i < layers.inhibitory.length; i++) {
+          layers.inhibitory[i].active = false
+        }
+
+        // Activate neurons based on spike timing
         for (let i = 0; i < layers.input.length; i++) {
-          // Debug: Show timer and spike times more frequently
-          if (timer % 5 === 0) {
-            // Log every 5 frames instead of 10
-            console.log(
-              `Timer: ${timer}, Spike times: [${spikes.join(', ')}], Checking neuron ${i}: timer=${timer}, should spike at=${spikes[i]}, spiked=${layers.input[i].spiked}`,
-            )
-          }
-
-          if (timer === spikes[i] && !layers.input[i].spiked) {
+          if (timer === spikes[i]) {
             layers.input[i].spiked = true
-            layers.input[i].lastSpikeTime = timer
-            layers.input[i].membranePotential = 1.0
-            console.log(`*** INPUT NEURON ${i} SPIKED at time ${timer} ***`)
-            console.log(`*** Full spike array: [${spikes.join(', ')}] ***`)
-            console.log(
-              `*** Progress: ${i + 1}/${spikes.length} neurons have spiked ***`,
-            )
-
-            // Record spike for STDP
-            spikeHistory.push({
-              time: timer,
-              layer: 'input',
-              index: i,
-              type: 'pre',
-            })
-
-            // Excite corresponding excitatory neurons using weights
-            for (let j = 0; j < layers.excitatory.length; j++) {
-              if (layers.excitatory[j].refractoryPeriod === 0) {
-                const weight = layers.inputToExcitatoryWeights[i][j]
-                if (weight > 0) {
-                  // Only process connections with positive weights
-                  layers.excitatory[j].membranePotential += weight
-                  console.log(
-                    `Excitatory ${j} MP: ${layers.excitatory[j].membranePotential.toFixed(3)} (threshold: 0.8)`,
-                  )
-                  if (layers.excitatory[j].membranePotential >= 0.8) {
-                    layers.excitatory[j].active = true
-                    layers.excitatory[j].refractoryPeriod = 10
-                    layers.excitatory[j].membranePotential = 0
-                    console.log(`Excitatory neuron ${j} FIRED!`)
-
-                    // Special debug for third neuron
-                    if (j === 2) {
-                      console.log(
-                        `DEBUG: Excitatory 2 FIRED! - active: ${layers.excitatory[j].active}, refractory: ${layers.excitatory[j].refractoryPeriod}`,
-                      )
-                      console.log(
-                        `*** THIRD NEURON DEBUG - THIS SHOULD APPEAR ***`,
-                      )
-                    }
-
-                    // Record spike for STDP
-                    spikeHistory.push({
-                      time: timer,
-                      layer: 'excitatory',
-                      index: j,
-                      type: 'post',
-                    })
-
-                    // Apply STDP to input-excitatory connection
-                    applySTDP('input', i, 'excitatory', j, timer)
-                  }
-                }
-              } else {
-                console.log(
-                  `Excitatory ${j} in refractory period: ${layers.excitatory[j].refractoryPeriod}`,
-                )
-              }
-            }
+            layers.excitatory[i].active = true
           }
         }
 
-        // Excitatory to inhibitory connections (excitatory neurons drive inhibitory neurons)
-        for (let i = 0; i < layers.excitatory.length; i++) {
-          for (let j = 0; j < layers.inhibitory.length; j++) {
-            const weight = layers.excitatoryToInhibitoryWeights[i][j]
-            if (weight > 0) {
-              // Only draw connections with positive weights
-              const lineWidth = Math.abs(weight) * 4 + 1
-              const alpha = Math.abs(weight) * 255
-
-              stroke(128, 0, 128, alpha) // Purple for excitatory to inhibitory
-              strokeWeight(lineWidth)
-              line(
-                layers.excitatory[i].x,
-                layers.excitatory[i].y,
-                layers.inhibitory[j].x,
-                layers.inhibitory[j].y,
-              )
-
-              // Draw weight label
-              const midX = (layers.excitatory[i].x + layers.inhibitory[j].x) / 2
-              const midY = (layers.excitatory[i].y + layers.inhibitory[j].y) / 2
-              drawWeightLabel(midX, midY, weight, 'purple')
-            }
-          }
-        }
-
-        // Inhibitory suppression (lateral inhibition) using weights
-        for (let i = 0; i < layers.inhibitory.length; i++) {
-          if (layers.inhibitory[i].active) {
-            console.log(
-              `Inhibitory neuron ${i} is active, applying lateral inhibition`,
-            )
-            for (let j = 0; j < layers.excitatory.length; j++) {
-              if (layers.excitatory[j].refractoryPeriod === 0) {
-                const weight = layers.inhibitoryToExcitatoryWeights[i][j]
-                if (weight < 0) {
-                  // Only apply negative weights (inhibition)
-                  const oldMP = layers.excitatory[j].membranePotential
-                  layers.excitatory[j].membranePotential += weight
-                  console.log(
-                    `Inhibitory ${i} → Excitatory ${j}: MP ${oldMP.toFixed(3)} → ${layers.excitatory[j].membranePotential.toFixed(3)}`,
-                  )
-                  if (layers.excitatory[j].membranePotential < 0) {
-                    layers.excitatory[j].membranePotential = 0
-                  }
-                }
-              }
-            }
-            layers.inhibitory[i].active = false
-          }
-        }
-
-        // Output layer integration using weights
-        let excitatoryInput = 0
+        // Find the first active excitatory neuron (winner-takes-all)
+        let firstActiveIndex = -1
         for (let i = 0; i < layers.excitatory.length; i++) {
           if (layers.excitatory[i].active) {
-            excitatoryInput += layers.excitatoryToOutputWeights[i]
-            console.log(
-              `Excitatory ${i} contributing ${layers.excitatoryToOutputWeights[i].toFixed(3)} to output`,
-            )
-            // Special debug for third neuron
-            if (i === 2) {
-              console.log(`DEBUG: Excitatory 2 is active and contributing!`)
-            }
-            // Don't immediately deactivate - let it stay visually active for a few frames
-            // The refractory period will handle the timing
+            firstActiveIndex = i
+            break
           }
         }
 
-        if (layers.output[0].refractoryPeriod === 0) {
-          layers.output[0].membranePotential += excitatoryInput
-          console.log(
-            `Output MP: ${layers.output[0].membranePotential.toFixed(3)} (threshold: 0.8, input: ${excitatoryInput.toFixed(3)})`,
-          )
-          if (layers.output[0].membranePotential >= 0.8) {
-            layers.output[0].active = true
-            layers.output[0].refractoryPeriod = 15
-            layers.output[0].membranePotential = 0
-            console.log(`Output neuron FIRED!`)
+        // Only the first active excitatory neuron activates its inhibitory neuron
+        if (firstActiveIndex !== -1) {
+          layers.inhibitory[firstActiveIndex].active = true
 
-            // Record spike for STDP
-            spikeHistory.push({
-              time: timer,
-              layer: 'output',
-              index: 0,
-              type: 'post',
-            })
-
-            // Apply STDP to excitatory-output connections
-            for (let i = 0; i < layers.excitatory.length; i++) {
-              applySTDP('excitatory', i, 'output', 0, timer)
+          // This inhibitory neuron suppresses all other excitatory neurons
+          for (let j = 0; j < layers.excitatory.length; j++) {
+            if (j !== firstActiveIndex) {
+              layers.excitatory[j].active = false
             }
           }
         }
 
-        // Check if all inputs have spiked
         const spikeTimes = layers.input.map((n, i) =>
           n.spiked ? spikes[i] : null,
         )
-
-        // Debug: Check if all neurons have spike times
-        const missingSpikes = spikeTimes.filter((t) => t === null).length
-        if (missingSpikes > 0) {
-          console.log(`WARNING: ${missingSpikes} neurons missing spike times!`)
-          console.log(`Spike times: [${spikes.join(', ')}]`)
-          console.log(
-            `Spiked neurons: [${spikeTimes.map((t) => (t !== null ? '✓' : '✗')).join(', ')}]`,
-          )
-        }
-
         if (spikeTimes.every((t) => t !== null)) {
-          console.log(
-            `*** ALL NEURONS HAVE SPIKED! Complete pattern processed ***`,
-          )
-          console.log(`*** Final spike times: [${spikeTimes.join(', ')}] ***`)
-          console.log(`*** Original spike array: [${spikes.join(', ')}] ***`)
-
-          // Calculate pattern characteristics
           const diffs = Math.max(...spikeTimes) - Math.min(...spikeTimes)
-          const isSynchronized = diffs <= firingThreshold * 5
-
-          // Calculate anomaly score based on learned patterns
-          calculateAnomalyScore(spikeTimes)
-
-          // Determine if this is an anomaly based on learned patterns
-          isAnomaly = anomalyScore > anomalyThreshold
-
-          // Output fires for ANOMALOUS patterns (high anomaly score)
-          // Output stays quiet for NORMAL patterns (low anomaly score)
-          if (isAnomaly && layers.output[0].refractoryPeriod === 0) {
+          if (diffs <= firingThreshold * 5) {
             layers.output[0].active = true
-            layers.output[0].refractoryPeriod = 15
-            console.log(
-              `ANOMALY DETECTED! (anomaly score: ${anomalyScore.toFixed(3)})`,
-            )
-          } else if (!isAnomaly) {
-            console.log(
-              `Pattern recognized as NORMAL (anomaly score: ${anomalyScore.toFixed(3)})`,
-            )
           }
-
           pauseCounter = pauseFrames
           timer = 0
           currentExample = (currentExample + 1) % spikeTrains.length
@@ -532,183 +159,52 @@
           resetActivity()
         } else {
           timer++
-          // Debug: Show timer increment
-          if (timer % 5 === 0) {
-            // Log every 5 frames
-            console.log(
-              `Timer incremented to: ${timer}, Current spikes: [${spikes.join(', ')}]`,
-            )
-          }
-          // Debug: Show when we're close to spike times
-          for (let i = 0; i < spikes.length; i++) {
-            if (Math.abs(timer - spikes[i]) <= 2) {
-              console.log(
-                `*** CLOSE TO SPIKE: timer=${timer}, neuron ${i} should spike at ${spikes[i]} ***`,
-              )
-              console.log(`*** Current spike array: [${spikes.join(', ')}] ***`)
-            }
-          }
         }
-
-        // Decay membrane potentials
-        for (let i = 0; i < layers.input.length; i++) {
-          layers.input[i].membranePotential *= 0.95
-          // Decay spiked state after a few frames
-          if (
-            layers.input[i].spiked &&
-            layers.input[i].membranePotential < 0.1
-          ) {
-            layers.input[i].spiked = false
-          }
-        }
-
-        for (let i = 0; i < layers.excitatory.length; i++) {
-          layers.excitatory[i].membranePotential *= 0.9
-        }
-
-        for (let i = 0; i < layers.inhibitory.length; i++) {
-          layers.inhibitory[i].membranePotential *= 0.9
-        }
-
-        layers.output[0].membranePotential *= 0.9
       }
 
       function drawConnections() {
-        // Input to excitatory connections - VISUALLY HIDDEN
-        // for (let i = 0; i < layers.input.length; i++) {
-        //   for (let j = 0; j < layers.excitatory.length; j++) {
-        //     const weight = layers.inputToExcitatoryWeights[i][j]
-        //     if (weight > 0) { // Only draw connections with positive weights
-        //       const lineWidth = Math.abs(weight) * 4 + 1
-        //       const alpha = Math.abs(weight) * 255
+        strokeWeight(1)
+        for (let i = 0; i < 3; i++) {
+          // Input to excitatory connections
+          stroke(0, 0, 255, 100)
+          line(
+            layers.input[i].x,
+            layers.input[i].y,
+            layers.excitatory[i].x,
+            layers.excitatory[i].y,
+          )
 
-        //       stroke(0, 0, 255, alpha)
-        //       strokeWeight(lineWidth)
-        //       line(
-        //         layers.input[i].x,
-        //         layers.input[i].y,
-        //         layers.excitatory[j].x,
-        //         layers.excitatory[j].y,
-        //       )
+          // Excitatory to inhibitory connections (matching pairs)
+          stroke(0, 150, 255, 120)
+          line(
+            layers.excitatory[i].x,
+            layers.excitatory[i].y,
+            layers.inhibitory[i].x,
+            layers.inhibitory[i].y,
+          )
 
-        //       // Draw weight label
-        //       const midX = (layers.input[i].x + layers.excitatory[j].x) / 2
-        //       const midY = (layers.input[i].y + layers.excitatory[j].y) / 2
-        //       drawWeightLabel(midX, midY, weight, 'blue')
-        //     }
-        //   }
-        // }
-
-        // Excitatory to inhibitory connections (excitatory neurons drive inhibitory neurons)
-        for (let i = 0; i < layers.excitatory.length; i++) {
-          for (let j = 0; j < layers.inhibitory.length; j++) {
-            const weight = layers.excitatoryToInhibitoryWeights[i][j]
-            if (weight > 0) {
-              // Only draw connections with positive weights
-              const lineWidth = Math.abs(weight) * 4 + 1
-              const alpha = Math.abs(weight) * 255
-
-              stroke(128, 0, 128, alpha) // Purple for excitatory to inhibitory
-              strokeWeight(lineWidth)
-              line(
-                layers.excitatory[i].x,
-                layers.excitatory[i].y,
-                layers.inhibitory[j].x,
-                layers.inhibitory[j].y,
-              )
-
-              // Draw weight label
-              const midX = (layers.excitatory[i].x + layers.inhibitory[j].x) / 2
-              const midY = (layers.excitatory[i].y + layers.inhibitory[j].y) / 2
-              drawWeightLabel(midX, midY, weight, 'purple')
-            }
-          }
-        }
-
-        // Inhibitory to excitatory connections (lateral inhibition)
-        for (let i = 0; i < layers.inhibitory.length; i++) {
-          for (let j = 0; j < layers.excitatory.length; j++) {
-            const weight = layers.inhibitoryToExcitatoryWeights[i][j]
-            if (weight < 0) {
-              // Only draw inhibitory connections
-              const lineWidth = Math.abs(weight) * 4 + 1
-              const alpha = Math.abs(weight) * 255
-
-              stroke(255, 0, 0, alpha)
-              strokeWeight(lineWidth)
+          // Inhibitory to excitatory connections (cross-inhibition)
+          stroke(255, 0, 0, 80)
+          for (let j = 0; j < 3; j++) {
+            if (i !== j) {
               line(
                 layers.inhibitory[i].x,
                 layers.inhibitory[i].y,
                 layers.excitatory[j].x,
                 layers.excitatory[j].y,
               )
-
-              // Draw weight label
-              const midX = (layers.inhibitory[i].x + layers.excitatory[j].x) / 2
-              const midY = (layers.inhibitory[i].y + layers.excitatory[j].y) / 2
-              drawWeightLabel(midX, midY, weight, 'red')
             }
           }
-        }
 
-        // Excitatory to output connections
-        for (let i = 0; i < layers.excitatory.length; i++) {
-          const weight = layers.excitatoryToOutputWeights[i]
-          const lineWidth = Math.abs(weight) * 4 + 1
-          const alpha = Math.abs(weight) * 255
-
-          stroke(0, 200, 0, alpha)
-          strokeWeight(lineWidth)
+          // Excitatory to output connections
+          stroke(0, 200, 0, 100)
           line(
             layers.excitatory[i].x,
             layers.excitatory[i].y,
             layers.output[0].x,
             layers.output[0].y,
           )
-
-          // Draw weight label
-          const midX = (layers.excitatory[i].x + layers.output[0].x) / 2
-          const midY = (layers.excitatory[i].y + layers.output[0].y) / 2
-          drawWeightLabel(midX, midY, weight, 'green')
         }
-
-        // Reset stroke weight
-        strokeWeight(1)
-      }
-
-      function drawWeightLabel(x, y, weight, color) {
-        const weightText = weight.toFixed(1)
-
-        // Check if this weight should flash
-        let isFlashing = false
-        for (let flashKey in flashingWeights) {
-          if (flashingWeights[flashKey] > 0) {
-            isFlashing = true
-            flashingWeights[flashKey]--
-            break
-          }
-        }
-
-        // Background rectangle for better readability
-        if (isFlashing) {
-          fill(255, 255, 0, 200) // Yellow background when flashing
-        } else {
-          fill(255, 255, 255, 200)
-        }
-        stroke(0)
-        strokeWeight(1)
-        rect(x - 15, y - 8, 30, 16)
-
-        // Weight text
-        textAlign(CENTER, CENTER)
-        textSize(10)
-        if (isFlashing) {
-          fill(255, 0, 0) // Red text when flashing
-        } else {
-          fill(color)
-        }
-        noStroke()
-        text(weightText, x, y)
       }
 
       function drawNetwork() {
@@ -717,8 +213,8 @@
         drawLayer(layers.inhibitory, 'red', 'Inhibitory')
         drawLayer(
           layers.output,
-          layers.output[0].active ? 'red' : 'green',
-          'Anomaly Detector',
+          layers.output[0].active ? 'gold' : 'green',
+          'Output',
         )
       }
 
@@ -731,393 +227,9 @@
 
         for (let node of nodes) {
           stroke(0)
-          let fillColor = 'white'
-
-          // Debug: Check if we're in the excitatory layer and what the index is
-          if (color === 'blue') {
-            const nodeIndex = nodes.indexOf(node)
-            console.log(
-              `Drawing excitatory neuron ${nodeIndex}: active=${node.active}, refractory=${node.refractoryPeriod}`,
-            )
-          }
-
-          // Force third excitatory neuron to be visible when it has fired recently
-          if (color === 'blue' && nodes.indexOf(node) === 2) {
-            // Check if this neuron has fired recently (within last 10 frames)
-            const hasFiredRecently = node.refractoryPeriod > 0 || node.active
-            console.log(
-              `Third neuron check: hasFiredRecently=${hasFiredRecently}, refractory=${node.refractoryPeriod}, active=${node.active}`,
-            )
-            if (hasFiredRecently) {
-              fillColor = 'orange' // Force orange color for third neuron
-              console.log(
-                `FORCE VISIBLE: Third neuron is orange! refractory: ${node.refractoryPeriod}, active: ${node.active}`,
-              )
-            }
-          } else if (node.active || node.spiked) {
-            fillColor = color
-            // Debug for excitatory neurons
-            if (color === 'blue' && nodes.indexOf(node) === 2) {
-              console.log(
-                `DEBUG: Excitatory 2 visual state - active: ${node.active}, spiked: ${node.spiked}, fillColor: ${fillColor}`,
-              )
-            }
-          } else if (node.membranePotential > 0) {
-            // Show membrane potential as color intensity
-            const alpha = Math.min(255, node.membranePotential * 255)
-            if (color === 'gray')
-              fillColor = `rgba(128, 128, 128, ${alpha / 255})`
-            else if (color === 'blue')
-              fillColor = `rgba(0, 0, 255, ${alpha / 255})`
-            else if (color === 'red')
-              fillColor = `rgba(255, 0, 0, ${alpha / 255})`
-            else if (color === 'green')
-              fillColor = `rgba(0, 200, 0, ${alpha / 255})`
-          }
-
-          fill(fillColor)
+          fill(node.active || node.spiked ? color : 'white')
           ellipse(node.x, node.y, 30)
-
-          // Draw refractory period indicator
-          if (node.refractoryPeriod > 0) {
-            stroke(255, 0, 0)
-            strokeWeight(2)
-            noFill()
-            ellipse(node.x, node.y, 35)
-            strokeWeight(1)
-          }
         }
-      }
-
-      function updateDebugInfo() {
-        const debugDiv = document.getElementById('debugInfo')
-        const spikeTimes = layers.input.map((n, i) =>
-          n.spiked ? spikes[i] : null,
-        )
-        const diffs = spikeTimes.every((t) => t !== null)
-          ? Math.max(...spikeTimes) - Math.min(...spikeTimes)
-          : 'N/A'
-
-        // Calculate recent weight changes
-        const recentChanges = weightChangeHistory.slice(-5)
-        const avgWeightChange =
-          recentChanges.length > 0
-            ? recentChanges.reduce((sum, change) => sum + change.change, 0) /
-              recentChanges.length
-            : 0
-
-        // Count how many neurons have spiked
-        const spikedCount = spikeTimes.filter((t) => t !== null).length
-
-        debugDiv.innerHTML = `
-          Timer: ${timer}<br>
-          Example: ${currentExample + 1}/${spikeTrains.length}<br>
-          Paused: ${isPaused}<br>
-          <strong>Current Spike Array: [${spikes.join(', ')}]</strong><br>
-          Spike Times: [${spikeTimes.map((t) => t || '?').join(', ')}]<br>
-          Spiked: ${spikedCount}/${spikes.length} neurons<br>
-          Max Diff: ${diffs}<br>
-          Threshold: ${firingThreshold * 5}<br>
-          Output Active: ${layers.output[0].active}<br>
-          Output MP: ${layers.output[0].membranePotential.toFixed(2)}<br>
-          Output Refractory: ${layers.output[0].refractoryPeriod}<br>
-          Learning Rate: ${learningRate}<br>
-          Recent Weight Changes: ${avgWeightChange.toFixed(4)}<br>
-          Spike History: ${spikeHistory.length}<br>
-          <strong>Anomaly Score: ${anomalyScore.toFixed(3)}</strong><br>
-          <strong>Status: ${isAnomaly ? 'ANOMALY' : 'NORMAL'}</strong><br>
-          Anomaly Threshold: ${anomalyThreshold}
-        `
-      }
-
-      function updateLearningRate() {
-        learningRate = parseFloat(
-          document.getElementById('learningRateSlider').value,
-        )
-        document.getElementById('learningRateValue').textContent =
-          learningRate.toFixed(3)
-      }
-
-      function togglePause() {
-        isPaused = !isPaused
-      }
-
-      function resetSimulation() {
-        timer = 0
-        currentExample = 0
-        spikes = spikeTrains[currentExample]
-        pauseCounter = 0
-        isPaused = false
-        spikeHistory = []
-        weightChangeHistory = []
-        flashingWeights = {}
-        resetActivity()
-      }
-
-      function nextExample() {
-        currentExample = (currentExample + 1) % spikeTrains.length
-        spikes = spikeTrains[currentExample]
-        resetActivity()
-        timer = 0
-        pauseCounter = 0
-      }
-
-      function updateSpeed() {
-        const speed = document.getElementById('speedSlider').value
-        document.getElementById('speedValue').textContent = speed
-        frameRate(parseInt(speed))
-      }
-
-      function randomizeWeights() {
-        // Randomize input to excitatory weights (3x6 matrix)
-        for (let i = 0; i < 3; i++) {
-          for (let j = 0; j < 6; j++) {
-            layers.inputToExcitatoryWeights[i][j] = Math.random() * 0.8 + 0.2
-          }
-        }
-
-        // Randomize input to inhibitory weights (3x6 matrix)
-        for (let i = 0; i < 3; i++) {
-          for (let j = 0; j < 6; j++) {
-            layers.inputToInhibitoryWeights[i][j] = Math.random() * 0.6 + 0.2
-          }
-        }
-
-        // Randomize inhibitory to excitatory weights (6x6 matrix for lateral inhibition)
-        for (let i = 0; i < 6; i++) {
-          for (let j = 0; j < 6; j++) {
-            if (i !== j) {
-              layers.inhibitoryToExcitatoryWeights[i][j] = -(
-                Math.random() * 0.4 +
-                0.1
-              )
-            } else {
-              layers.inhibitoryToExcitatoryWeights[i][j] = 0
-            }
-          }
-        }
-
-        // Randomize excitatory to output weights (6 neurons)
-        for (let i = 0; i < 6; i++) {
-          layers.excitatoryToOutputWeights[i] = Math.random() * 0.6 + 0.2
-        }
-
-        console.log('Weights randomized!')
-      }
-
-      function resetWeights() {
-        initConnectionWeights()
-        weightChangeHistory = []
-        flashingWeights = {}
-        console.log('Weights reset to initial values!')
-      }
-
-      function applySTDP(preLayer, preIndex, postLayer, postIndex, time) {
-        console.log(
-          `STDP called: ${preLayer}${preIndex} → ${postLayer}${postIndex} at time ${time}`,
-        )
-        console.log(`Spike history length: ${spikeHistory.length}`)
-
-        // Find recent spikes within the STDP window
-        const recentSpikes = spikeHistory.filter(
-          (spike) => Math.abs(spike.time - time) <= stdpWindow,
-        )
-        console.log(
-          `Recent spikes (within ${stdpWindow} frames): ${recentSpikes.length}`,
-        )
-
-        // Find pre-synaptic and post-synaptic spikes
-        const preSpikes = recentSpikes.filter(
-          (spike) => spike.layer === preLayer && spike.index === preIndex,
-        )
-        const postSpikes = recentSpikes.filter(
-          (spike) => spike.layer === postLayer && spike.index === postIndex,
-        )
-
-        console.log(
-          `Pre-synaptic spikes: ${preSpikes.length}, Post-synaptic spikes: ${postSpikes.length}`,
-        )
-
-        if (preSpikes.length === 0 || postSpikes.length === 0) {
-          console.log(`No matching spikes found, returning`)
-          return
-        }
-
-        // Calculate STDP weight change
-        let weightChange = 0
-
-        for (let preSpike of preSpikes) {
-          for (let postSpike of postSpikes) {
-            const timeDiff = postSpike.time - preSpike.time
-            console.log(
-              `Time difference: ${timeDiff} (pre: ${preSpike.time}, post: ${postSpike.time})`,
-            )
-
-            if (Math.abs(timeDiff) <= stdpWindow) {
-              if (timeDiff >= 0) {
-                // Pre-synaptic spike before or simultaneous with post-synaptic spike (LTP - Long Term Potentiation)
-                const effectiveTimeDiff = timeDiff === 0 ? 0.1 : timeDiff // Treat simultaneous as small positive
-                const change = learningRate * Math.exp(-effectiveTimeDiff / 10)
-                weightChange += change
-                console.log(
-                  `LTP: +${change.toFixed(4)} (timeDiff: ${timeDiff})`,
-                )
-              } else if (timeDiff < 0) {
-                // Post-synaptic spike before pre-synaptic spike (LTD - Long Term Depression)
-                const change = learningRate * Math.exp(timeDiff / 10)
-                weightChange -= change
-                console.log(`LTD: -${change.toFixed(4)}`)
-              }
-            }
-          }
-        }
-
-        console.log(`Total weight change: ${weightChange.toFixed(4)}`)
-
-        // Apply weight change
-        if (weightChange !== 0) {
-          let weightMatrix
-          let weightKey
-
-          if (preLayer === 'input' && postLayer === 'excitatory') {
-            weightMatrix = layers.inputToExcitatoryWeights
-            weightKey = [preIndex, postIndex]
-          } else if (preLayer === 'input' && postLayer === 'inhibitory') {
-            weightMatrix = layers.inputToInhibitoryWeights
-            weightKey = [preIndex, postIndex]
-          } else if (preLayer === 'excitatory' && postLayer === 'output') {
-            weightMatrix = layers.excitatoryToOutputWeights
-            weightKey = preIndex
-          } else {
-            console.log(
-              `Connection type not implemented for STDP: ${preLayer} → ${postLayer}`,
-            )
-            return // Other connections not implemented for STDP
-          }
-
-          // Apply weight change with bounds
-          let oldWeight, newWeight
-          if (Array.isArray(weightKey)) {
-            oldWeight = weightMatrix[weightKey[0]][weightKey[1]]
-            newWeight = Math.max(0.1, Math.min(2.0, oldWeight + weightChange))
-            weightMatrix[weightKey[0]][weightKey[1]] = newWeight
-          } else {
-            oldWeight = weightMatrix[weightKey]
-            newWeight = Math.max(0.1, Math.min(2.0, oldWeight + weightChange))
-            weightMatrix[weightKey] = newWeight
-          }
-
-          // Record weight change for visualization
-          weightChangeHistory.push({
-            time: timer,
-            preLayer: preLayer,
-            preIndex: preIndex,
-            postLayer: postLayer,
-            postIndex: postIndex,
-            change: weightChange,
-            oldWeight: oldWeight,
-            newWeight: newWeight,
-          })
-
-          // Keep only recent weight changes for visualization
-          if (weightChangeHistory.length > 50) {
-            weightChangeHistory.shift()
-          }
-
-          // Debug output
-          console.log(
-            `STDP: ${preLayer}${preIndex}→${postLayer}${postIndex}: ${oldWeight.toFixed(3)} → ${newWeight.toFixed(3)} (Δ${weightChange.toFixed(4)})`,
-          )
-
-          // Set weight as flashing
-          const flashKey = `${preLayer}${preIndex}-${postLayer}${postIndex}`
-          flashingWeights[flashKey] = 10 // Flash for 10 frames
-        } else {
-          console.log(`No weight change applied (weightChange = 0)`)
-        }
-      }
-
-      function calculateAnomalyScore(spikeTimes) {
-        // Calculate anomaly score based on multiple factors:
-
-        // 1. Spike timing spread (temporal anomaly)
-        const timeSpread = Math.max(...spikeTimes) - Math.min(...spikeTimes)
-        const temporalAnomaly = Math.max(0, (timeSpread - 10) / 20) // Normalize to 0-1
-
-        // 2. Weight familiarity (how well the pattern matches learned weights)
-        let weightFamiliarity = 0
-        for (let i = 0; i < spikeTimes.length; i++) {
-          // Check if the input-excitatory weights have been strengthened for this pattern
-          // Sum weights from input i to all excitatory neurons
-          for (let j = 0; j < layers.excitatory.length; j++) {
-            weightFamiliarity += layers.inputToExcitatoryWeights[i][j]
-          }
-        }
-        weightFamiliarity =
-          weightFamiliarity / (spikeTimes.length * layers.excitatory.length) // Average weight strength
-
-        // 3. Pattern consistency (how similar to previously seen patterns)
-        const patternConsistency = calculatePatternConsistency(spikeTimes)
-
-        // 4. Excitatory neuron response strength
-        const excitatoryResponse = calculateExcitatoryResponse()
-
-        // Combine factors into anomaly score
-        anomalyScore =
-          temporalAnomaly * 0.4 + // 40% weight on timing
-          (1 - weightFamiliarity) * 0.3 + // 30% weight on weight familiarity
-          (1 - patternConsistency) * 0.2 + // 20% weight on pattern consistency
-          (1 - excitatoryResponse) * 0.1 // 10% weight on excitatory response
-
-        // Normalize to 0-1 range
-        anomalyScore = Math.max(0, Math.min(1, anomalyScore))
-      }
-
-      function calculatePatternConsistency(spikeTimes) {
-        // Calculate how consistent this pattern is with previously learned patterns
-        // For now, use a simple heuristic based on timing regularity
-
-        const intervals = []
-        for (let i = 1; i < spikeTimes.length; i++) {
-          intervals.push(spikeTimes[i] - spikeTimes[i - 1])
-        }
-
-        if (intervals.length === 0) return 1.0
-
-        // Calculate coefficient of variation (lower = more consistent)
-        const meanInterval =
-          intervals.reduce((a, b) => a + b, 0) / intervals.length
-        const variance =
-          intervals.reduce(
-            (sum, interval) => sum + Math.pow(interval - meanInterval, 2),
-            0,
-          ) / intervals.length
-        const stdDev = Math.sqrt(variance)
-        const cv = meanInterval > 0 ? stdDev / meanInterval : 0
-
-        // Convert to consistency score (0-1, higher = more consistent)
-        return Math.max(0, 1 - cv)
-      }
-
-      function calculateExcitatoryResponse() {
-        // Calculate how strongly excitatory neurons responded to this pattern
-        let totalResponse = 0
-        for (let i = 0; i < layers.excitatory.length; i++) {
-          if (layers.excitatory[i].active) {
-            totalResponse += layers.excitatoryToOutputWeights[i]
-          }
-        }
-
-        // Normalize to 0-1 range (assuming max possible response is 2.4 for 6 neurons with max weight 0.4)
-        return Math.min(1, totalResponse / 2.4)
-      }
-
-      function updateAnomalyThreshold() {
-        anomalyThreshold = parseFloat(
-          document.getElementById('anomalyThresholdSlider').value,
-        )
-        document.getElementById('anomalyThresholdValue').textContent =
-          anomalyThreshold.toFixed(2)
       }
     </script>
   </body>

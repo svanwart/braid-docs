@@ -10,6 +10,7 @@ import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
 import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 import LinkCard from '@/components/LinkCard'
+import { useState } from 'react'
 
 const chapters = [
   {
@@ -164,25 +165,233 @@ function Navbar() {
   )
 }
 
+function TabbedSection() {
+  const [activeTab, setActiveTab] = useState(0)
+
+  const tabs = [
+    {
+      id: 0,
+      name: 'General Public',
+      content: (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Plain-language summary
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                What the tech is and why it matters in everyday life
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Explainer video or animation
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                1-minute overview of how brain-like chips work
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Real-world examples
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Smart hearing aids, wildfire sensors, adaptive drones
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Benefits and risks
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Faster, smarter machines vs. concerns like bias or surveillance
+              </p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 1,
+      name: 'Policymakers',
+      content: (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Policymakers
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300">
+            Text text text text
+          </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Executive summary
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                What the tech is, where it’s used, and why it matters
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Policy-relevant applications
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Smart infrastructure, defense systems, assistive health tech
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Ethics and governance
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Regulation, accountability, export control, transparency
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Policy recommendations
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                R&D funding, oversight frameworks, public engagement
+              </p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 2,
+      name: 'Engineering Students',
+      content: (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Potential Applications
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300">
+            Cerebellum-inspired hardware has potential applications across
+            multiple domains:
+          </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Concept explainers
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Memtransistor vs. CMOS, SNNs vs. DNNs, unsupervised learning
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Interactive demos
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Code walkthroughs or applets showing spike behavior and learning
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Career and research connections
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Applications in AI, neuroscience, robotics, and policy
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Ethics in practice
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Discussion prompts and case studies on responsible AI
+              </p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 3,
+      name: 'Researchers',
+      content: (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            For Researchers
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300">
+            <strong>Goal</strong>: Provide depth and references, identify active
+            research areas, and encourage collaboration.
+          </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Technical overviews
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Architecture, encoding methods, plasticity models, energy
+                benchmarks
+              </p>
+            </div>
+            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
+              <h4 className="font-medium text-gray-900 dark:text-white">
+                Key papers and datasets
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Curated research links, datasets, and open repositories
+              </p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ]
+
+  return (
+    <div className="mx-auto max-w-6xl">
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-200 dark:border-gray-700">
+        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium ${
+                activeTab === tab.id
+                  ? 'border-sky-500 text-sky-600 dark:text-sky-400'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+              } `}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-8">
+        <div className="min-h-[300px]">{tabs[activeTab].content}</div>
+      </div>
+    </div>
+  )
+}
+
 export default function HomePage({ children }) {
   return (
     <div className="flex w-full flex-col">
       <Navbar />
 
       {/* Section 1: Intro */}
-      <div className="bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-slate-900">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-base/7 font-semibold text-sky-600 dark:text-sky-500">
-            Frontiers in AI
-          </p>
-          <h2 className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">
+      <div className="bg-gradient-to-r from-blue-200 via-yellow-50  to-orange-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mt-2 text-center text-4xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">
             Cerebellum-Inspired Hardware Research
           </h2>
-          <p className="mt-8 text-pretty text-lg text-gray-500 sm:text-xl/8 dark:text-gray-300">
+          <p className="mt-8 text-pretty text-center text-lg text-gray-800 sm:text-xl/8 dark:text-gray-300">
             This is a work-in-progress resource to explore selected ideas and
             impacts of neuromorphic research...
           </p>
         </div>
+      </div>
+      <div className="bg-white px-6 py-12 lg:px-8 dark:bg-slate-900 dark:bg-none">
+        <TabbedSection />
       </div>
 
       {/* Section 2: Modules */}

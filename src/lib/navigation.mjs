@@ -21,13 +21,7 @@ const navigation = [
         title: 'Brainstorm',
         href: '/docs/notes',
         level: [1],
-      },
-      { title: 'Widgets', href: '/docs/notes/widgets', level: [1] },
-      {
-        title: 'Explainable AI',
-        href: '/docs/notes/explainable-ai',
-        level: [1, 2],
-      },
+      }
     ],
   },
   {
@@ -148,6 +142,11 @@ const navigation = [
       {
         title: 'Efficiency',
         href: '/docs/broader-impacts/efficiency',
+        level: [1, 2, 3],
+      },
+      {
+        title: 'Surveillance',
+        href: '/docs/broader-impacts/surveillance',
         level: [1, 2, 3],
       },
       {
