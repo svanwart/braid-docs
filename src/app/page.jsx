@@ -11,63 +11,66 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 import LinkCard from '@/components/LinkCard'
 import { useState } from 'react'
+import { audienceItems } from './data/audiences'
+const { generalPublic, policymakers, engineeringStudents, researchers } =
+  audienceItems
 
-const chapters = [
-  {
-    title: 'Executive Summary',
-    description: 'About this research project',
-    source: 'https://picsum.photos/300/300.jpg?a=0',
-    url: '/docs',
-  },
-  {
-    title: 'Computer Hardware',
-    description: 'How does a mix of metal, sand, and glass make a computer?',
-    source: '/braid-docs/images/computers/computer.jpg',
-    url: '/docs',
-  },
-  {
-    title: 'Biological Hardware: The Brain',
-    description: 'How does the brain work?',
-    source: '/braid-docs/images/brain/brain-card.png',
-    url: '/docs/the-brain',
-  },
-  {
-    title: 'Artificial Intelligence',
-    description: 'TBD',
-    source: '/braid-docs/images/ai/machine-learning.webp',
-    url: '/docs/ai',
-  },
-  {
-    title: 'Nanomaterials Research',
-    description: 'TBD',
-    source: '/braid-docs/images/materials/memtransistor.webp',
-    url: '#',
-  },
-  {
-    title: 'Brain-Inspired Computing (Neuromorphic Computing)',
-    description: 'TBD',
-    source: '/braid-docs/images/neuromorphic/neuromorphic.webp',
-    url: '/docs/neuromorphic-computing',
-  },
-  {
-    title: 'Cerebellum-Inspired Circuits',
-    description: 'TBD',
-    source: 'https://picsum.photos/300/300.jpg?a=4',
-    url: '/docs/cerebellum-inspired-hardware',
-  },
-  {
-    title: 'Applications',
-    description: '3.9 MB',
-    source: 'https://picsum.photos/300/300.jpg?a=5',
-    url: '#',
-  },
-  {
-    title: 'Broader Impacts',
-    description: '3.9 MB',
-    source: 'https://picsum.photos/300/300.jpg?a=6',
-    url: '#',
-  },
-]
+// const chapters = [
+//   {
+//     title: 'Executive Summary',
+//     description: 'About this research project',
+//     source: 'https://picsum.photos/300/300.jpg?a=0',
+//     url: '/docs',
+//   },
+//   {
+//     title: 'Computer Hardware',
+//     description: 'How does a mix of metal, sand, and glass make a computer?',
+//     source: '/braid-docs/images/computers/computer.jpg',
+//     url: '/docs',
+//   },
+//   {
+//     title: 'Biological Hardware: The Brain',
+//     description: 'How does the brain work?',
+//     source: '/braid-docs/images/brain/brain-card.png',
+//     url: '/docs/the-brain',
+//   },
+//   {
+//     title: 'Artificial Intelligence',
+//     description: 'TBD',
+//     source: '/braid-docs/images/ai/machine-learning.webp',
+//     url: '/docs/ai',
+//   },
+//   {
+//     title: 'Nanomaterials Research',
+//     description: 'TBD',
+//     source: '/braid-docs/images/materials/memtransistor.webp',
+//     url: '#',
+//   },
+//   {
+//     title: 'Brain-Inspired Computing (Neuromorphic Computing)',
+//     description: 'TBD',
+//     source: '/braid-docs/images/neuromorphic/neuromorphic.webp',
+//     url: '/docs/neuromorphic-computing',
+//   },
+//   {
+//     title: 'Cerebellum-Inspired Circuits',
+//     description: 'TBD',
+//     source: 'https://picsum.photos/300/300.jpg?a=4',
+//     url: '/docs/cerebellum-inspired-hardware',
+//   },
+//   {
+//     title: 'Applications',
+//     description: '3.9 MB',
+//     source: 'https://picsum.photos/300/300.jpg?a=5',
+//     url: '#',
+//   },
+//   {
+//     title: 'Broader Impacts',
+//     description: '3.9 MB',
+//     source: 'https://picsum.photos/300/300.jpg?a=6',
+//     url: '#',
+//   },
+// ]
 
 const footerLinks = {
   research: [
@@ -104,7 +107,7 @@ function Navbar() {
                 <Logo />
               </Link>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            {/* <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <a
                 href="/braid-docs/docs"
                 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
@@ -117,13 +120,12 @@ function Navbar() {
               >
                 About
               </a>
-            </div>
+            </div> */}
           </div>
 
           <div className="-mr-2 flex items-center gap-2 sm:gap-4">
-            {/* Mobile menu button */}
             <div className="sm:hidden">
-              <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-200">
+              {/* <DisclosureButton className="focus:outline-hidden group relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-indigo-900 dark:hover:text-gray-200">
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon
@@ -134,9 +136,9 @@ function Navbar() {
                   aria-hidden="true"
                   className="group-data-open:block hidden size-6"
                 />
-              </DisclosureButton>
+              </DisclosureButton> */}
             </div>
-            <LevelSelectorMenu className="relative z-10 my-5 ml-2" />
+            {/* <LevelSelectorMenu className="relative z-10 my-5 ml-2" /> */}
             <ThemeSelector className="relative z-10 my-5 ml-2" />
           </div>
         </div>
@@ -144,7 +146,6 @@ function Navbar() {
 
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 pb-3 pt-2">
-          {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
           <DisclosureButton
             as="a"
             href="/braid-docs/docs"
@@ -167,182 +168,50 @@ function Navbar() {
 
 function TabbedSection() {
   const [activeTab, setActiveTab] = useState(0)
-
-  const tabs = [
-    {
-      id: 0,
-      name: 'General Public',
-      content: (
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Plain-language summary
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                What the tech is and why it matters in everyday life
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Explainer video or animation
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                1-minute overview of how brain-like chips work
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Real-world examples
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Smart hearing aids, wildfire sensors, adaptive drones
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Benefits and risks
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Faster, smarter machines vs. concerns like bias or surveillance
-              </p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 1,
-      name: 'Policymakers',
-      content: (
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Policymakers
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Text text text text
-          </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Executive summary
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                What the tech is, where it’s used, and why it matters
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Policy-relevant applications
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Smart infrastructure, defense systems, assistive health tech
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Ethics and governance
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Regulation, accountability, export control, transparency
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Policy recommendations
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                R&D funding, oversight frameworks, public engagement
-              </p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 2,
-      name: 'Engineering Students',
-      content: (
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Potential Applications
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            Cerebellum-inspired hardware has potential applications across
-            multiple domains:
-          </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Concept explainers
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Memtransistor vs. CMOS, SNNs vs. DNNs, unsupervised learning
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Interactive demos
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Code walkthroughs or applets showing spike behavior and learning
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Career and research connections
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Applications in AI, neuroscience, robotics, and policy
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Ethics in practice
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Discussion prompts and case studies on responsible AI
-              </p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 3,
-      name: 'Researchers',
-      content: (
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            For Researchers
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300">
-            <strong>Goal</strong>: Provide depth and references, identify active
-            research areas, and encourage collaboration.
-          </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Technical overviews
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Architecture, encoding methods, plasticity models, energy
-                benchmarks
-              </p>
-            </div>
-            <div className="rounded-lg bg-gray-50 p-4 dark:bg-slate-700">
-              <h4 className="font-medium text-gray-900 dark:text-white">
-                Key papers and datasets
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Curated research links, datasets, and open repositories
-              </p>
-            </div>
-          </div>
-        </div>
-      ),
-    },
+  const audiences = [
+    generalPublic,
+    policymakers,
+    engineeringStudents,
+    researchers,
   ]
+  const tabs = audiences.map((audience, idx) => {
+    return {
+      id: idx,
+      name: audience.tabTitle,
+      content: (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {audience.title}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300">
+            {audience.description}
+          </p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {audience.pages.map((item, idx) => (
+              <div
+                key={item.title}
+                className="flex items-start gap-4 rounded-lg bg-gray-50 dark:bg-slate-700"
+              >
+                <div
+                  className={`flex h-full w-24 items-center justify-center rounded ${item.color} flex-shrink-0 flex-grow-0`}
+                >
+                  {/* Optional: icon or image */}
+                </div>
+                <div className="p-4">
+                  <h4 className="font-medium text-gray-900 dark:text-white">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    }
+  })
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -379,7 +248,7 @@ export default function HomePage({ children }) {
       <Navbar />
 
       {/* Section 1: Intro */}
-      <div className="bg-gradient-to-r from-blue-200 via-yellow-50  to-orange-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
+      <div className="bg-gradient-to-r from-blue-100 via-purple-50 to-indigo-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
         <div className="mx-auto max-w-3xl">
           <h2 className="mt-2 text-center text-4xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">
             Cerebellum-Inspired Hardware Research
@@ -395,7 +264,7 @@ export default function HomePage({ children }) {
       </div>
 
       {/* Section 2: Modules */}
-      <div className="bg-gray-100 dark:bg-slate-800">
+      {/* <div className="bg-gray-100 dark:bg-slate-800">
         <div className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
           <div
             role="list"
@@ -413,10 +282,10 @@ export default function HomePage({ children }) {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* footer */}
-      <footer className="bg-white dark:bg-slate-900">
+      <footer className="bg-gray-50 mt-96 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <img

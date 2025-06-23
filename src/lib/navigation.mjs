@@ -21,7 +21,7 @@ const navigation = [
         title: 'Brainstorm',
         href: '/docs/notes',
         level: [1],
-      }
+      },
     ],
   },
   {
@@ -135,30 +135,35 @@ const navigation = [
     title: 'Broader Impacts & Case Studies',
     links: [
       {
-        title: 'Broader Impacts',
+        title: 'Risk Frameworks',
         href: '/docs/broader-impacts',
         level: [1, 2],
       },
       {
-        title: 'Efficiency',
-        href: '/docs/broader-impacts/efficiency',
-        level: [1, 2, 3],
-      },
-      {
-        title: 'Surveillance',
-        href: '/docs/broader-impacts/surveillance',
-        level: [1, 2, 3],
-      },
-      {
-        title: 'Alina: Bias in AI',
-        href: '/docs/case-studies/alina',
+        title: 'ELSI Methods',
+        href: '/docs/broader-impacts/methods',
         level: [1, 2],
       },
-      {
-        title: 'Tess: The Environment',
-        href: '/docs/case-studies/tess',
-        level: [1, 2],
-      },
+      // {
+      //   title: 'Efficiency',
+      //   href: '/docs/broader-impacts/efficiency',
+      //   level: [1, 2, 3],
+      // },
+      // {
+      //   title: 'Surveillance',
+      //   href: '/docs/broader-impacts/surveillance',
+      //   level: [1, 2, 3],
+      // },
+      // {
+      //   title: 'Alina: Bias in AI',
+      //   href: '/docs/case-studies/alina',
+      //   level: [1, 2],
+      // },
+      // {
+      //   title: 'Tess: The Environment',
+      //   href: '/docs/case-studies/tess',
+      //   level: [1, 2],
+      // },
     ],
   },
 ]
