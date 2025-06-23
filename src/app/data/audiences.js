@@ -41,10 +41,10 @@ export const audienceItems = {
     description: (
       <>
         <strong>Goal</strong>: Policymakers need insight into how the technology
-        works, where it's being applied, and what ethical, legal, and societal
-        implications it raises. This information supports evidence-based
-        regulation, risk assessment, and the creation of frameworks that protect
-        public interests while enabling innovation.
+        works, where it&apos;s being applied, and what ethical, legal, and
+        societal implications it raises. This information supports
+        evidence-based regulation, risk assessment, and the creation of
+        frameworks that protect public interests while enabling innovation.
       </>
     ),
     pages: [
@@ -120,7 +120,7 @@ export const audienceItems = {
     description: (
       <>
         <strong>Goal</strong>: Researchers need a deep understanding of the
-        system’s architecture, capabilities, and theoretical underpinnings,
+        system&apos;s architecture, capabilities, and theoretical underpinnings,
         along with its broader implications across disciplines. This allows them
         to explore open questions, identify real-world challenges, and
         contribute to both scientific progress and responsible innovation.
