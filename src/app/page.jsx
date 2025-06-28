@@ -12,6 +12,8 @@ import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 import LinkCard from '@/components/LinkCard'
 import { useState } from 'react'
 import { audienceItems } from './data/audiences'
+import { Listbox } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 const { generalPublic, policymakers, engineeringStudents, researchers } =
   audienceItems
 
@@ -193,7 +195,7 @@ function TabbedSection() {
                 className="flex items-start gap-4 rounded-lg bg-gray-50 dark:bg-slate-700"
               >
                 <div
-                  className={`flex h-full w-24 items-center justify-center rounded ${item.color} flex-shrink-0 flex-grow-0`}
+                  className={`flex h-full w-32 items-center justify-center rounded ${item.color} flex-shrink-0 flex-grow-0`}
                 >
                   {/* Optional: icon or image */}
                 </div>
@@ -215,8 +217,8 @@ function TabbedSection() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      {/* Tab Navigation */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
+      {/* Desktop Tab Navigation */}
+      <div className="hidden border-b border-gray-200 md:block dark:border-gray-700">
         <nav className="-mb-px flex space-x-8" aria-label="Tabs">
           {tabs.map((tab) => (
             <button
@@ -232,6 +234,53 @@ function TabbedSection() {
             </button>
           ))}
         </nav>
+      </div>
+
+      {/* Mobile Dropdown Navigation */}
+      <div className="md:hidden">
+        <Listbox
+          value={tabs[activeTab]}
+          onChange={(tab) => setActiveTab(tab.id)}
+        >
+          <div className="relative">
+            <Listbox.Button className="relative w-full cursor-pointer rounded-lg border-2 bg-white py-3 pl-4 pr-10 text-left shadow-sm focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-slate-800 dark:text-white">
+              <span className="block truncate font-medium">
+                {tabs[activeTab].name}
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <ChevronDownIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </span>
+            </Listbox.Button>
+            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800">
+              {tabs.map((tab) => (
+                <Listbox.Option
+                  key={tab.id}
+                  className={({ active }) =>
+                    `relative cursor-pointer select-none py-2 pl-4 pr-4 ${
+                      active
+                        ? 'bg-sky-100 text-sky-900 dark:bg-sky-900 dark:text-sky-100'
+                        : 'text-gray-900 dark:text-gray-100'
+                    }`
+                  }
+                  value={tab}
+                >
+                  {({ selected }) => (
+                    <>
+                      <span
+                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
+                      >
+                        {tab.name}
+                      </span>
+                    </>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </div>
+        </Listbox>
       </div>
 
       {/* Tab Content */}
@@ -285,7 +334,7 @@ export default function HomePage({ children }) {
       </div> */}
 
       {/* footer */}
-      <footer className="bg-gray-50 mt-96 dark:bg-slate-900">
+      <footer className="mt-96 bg-gray-50 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <img

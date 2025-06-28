@@ -76,7 +76,7 @@ export const audienceItems = {
     title: 'For Students',
     description: (
       <>
-        <strong>Goal</strong>:Engineering students benefit from understanding
+        <strong>Goal</strong>: Engineering students benefit from understanding
         the principles behind the technology, how it differs from traditional
         systems, and how to design with ethical and societal impacts in mind.
         This equips them to build responsible systems that are both technically
