@@ -109,20 +109,14 @@ function Navbar() {
                 <Logo />
               </Link>
             </div>
-            {/* <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <a
                 href="/braid-docs/docs"
                 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
               >
                 Docs
               </a>
-              <a
-                href="#"
-                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
-              >
-                About
-              </a>
-            </div> */}
+            </div>
           </div>
 
           <div className="-mr-2 flex items-center gap-2 sm:gap-4">

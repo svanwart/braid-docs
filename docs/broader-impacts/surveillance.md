@@ -47,3 +47,4 @@ Each of these steps involves interfacing distinct AIs with different training ob
 ## References
 * [Palantir Gotham](https://www.nytimes.com/2025/05/30/technology/trump-palantir-data-americans.html)
 * [More on Gotham](https://www.youtube.com/watch?v=uZi-nqrhID0)
+* [New 2025 Surveillance Article in Nature](https://www.nature.com/articles/s41586-025-08972-6)

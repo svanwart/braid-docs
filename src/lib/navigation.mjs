@@ -144,16 +144,16 @@ const navigation = [
         href: '/docs/broader-impacts/methods',
         level: [1, 2],
       },
-      // {
-      //   title: 'Efficiency',
-      //   href: '/docs/broader-impacts/efficiency',
-      //   level: [1, 2, 3],
-      // },
-      // {
-      //   title: 'Surveillance',
-      //   href: '/docs/broader-impacts/surveillance',
-      //   level: [1, 2, 3],
-      // },
+      {
+        title: 'Efficiency',
+        href: '/docs/broader-impacts/efficiency',
+        level: [1, 2, 3],
+      },
+      {
+        title: 'Surveillance',
+        href: '/docs/broader-impacts/surveillance',
+        level: [1, 2, 3],
+      },
       // {
       //   title: 'Alina: Bias in AI',
       //   href: '/docs/case-studies/alina',
