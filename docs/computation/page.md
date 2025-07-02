@@ -10,6 +10,8 @@ TBD
 
 ## 1. Introduction
 * Basic structure of a computer.
+
+Wow!
 ---
 
 ## Section 2
