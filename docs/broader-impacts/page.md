@@ -205,3 +205,74 @@ The **United Nations Sustainable Development Goals (SDGs)** provide a global blu
   * **Selective pattern tuning**: Even though the system is designed to detect "anomalies" without labels, operators can shape what counts as "normal" by controlling training data, sensor placement, or model thresholds. This means specific groups or behaviors can be highlighted as anomalous if their patterns differ from a constructed baseline.
   * **Feature targeting**: The system could be configured to focus on particular biometric or behavioral signals (gait, speech patterns, heart rate variability, social interactions) known to correlate with certain identities, activities, or demographic traits.
   * **Emergent profiling**: Without explicit labels, unsupervised systems can still cluster data patterns that correlate with ethnicity, gender, or socioeconomic status, creating "implicit" profiling that's hard to audit or contest.
+
+
+## Anomaly Detection Risks by Domain
+  
+  | **Domain**                   | **Anomaly Detection Use**                             | **Societal Risks**                                                | **Examples**                                   |
+| ---------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------- |
+| **Finance**               | Fraud or suspicious transaction detection             | False positives lock out vulnerable users; opaque decision-making | Refugee blocked from using funds               |
+| **Policing**              | Predictive policing; unusual behavior spotting        | Reinforces racial bias, surveillance creep, algorithmic redlining | Overpolicing based on “anomalous” presence     |
+| **Healthcare**            | Irregular ECG/vitals, wearable alerts                 | Alarm fatigue; false negatives for minority groups                | Missed arrhythmia in underrepresented patients |
+| **Work Monitoring**       | Unusual work patterns (breaks, typing, usage)         | Erodes worker autonomy; used to justify firing                    | Worker flagged for “inactivity” during illness |
+| **Online Platforms** | Detecting bots, cheating, abuse                       | Neurodivergent users wrongly flagged; no appeal process           | Student with slow typing marked as cheater     |
+| **Border/Immigration**    | Travel pattern or behavior anomaly detection          | Detention based on cultural or trauma-based behavior differences  | Asylum seeker flagged for “suspicious” posture |
+| **Mental Health**         | Behavioral shifts detected via wearables/web activity | Privacy violation; stigma from misunderstood patterns             | Depression risk algorithm used by insurers     |
+
+
+## Case Studies: Real-World Harms from Anomaly Detection False Positives
+
+### 2011 — ICU Alarm Fatigue Highlighted
+- **Event**: The Joint Commission classifies alarm fatigue as a critical patient safety issue.
+- **System**: Anomaly detection in vital signs triggers constant alarms.
+- **Harm**: 85–95% of alarms are false → nurses miss actual medical emergencies.
+- **Link**: [The Joint Commission](https://www.jointcommission.org/resources/patient-safety-topics/sentinel-event/)
+
+---
+
+### 2015–2019 — Robodebt Scandal (Australia)
+- **Event**: Welfare recipients falsely accused of fraud via automated income anomaly detection.
+- **System**: Compared tax records to welfare data using simple heuristics.
+- **Harm**: Thousands issued unlawful debt notices; some suicides linked to stress.
+- **Link**: [ABC News Report](https://www.abc.net.au/news/2023-07-07/robodebt-royal-commission-report-key-findings/102571938)
+
+---
+
+### 2018 — Student Banned by Proctoring AI
+- **Event**: Online test-taker flagged by automated proctoring for “suspicious movement.”
+- **System**: Anomaly detection on webcam, eye movement, and audio.
+- **Harm**: Student falsely accused of cheating, appeal process unclear.
+- **Link**: [NY Times](https://www.nytimes.com/2020/05/10/us/online-testing-cheating-universities-coronavirus.html)
+
+---
+
+### 2020 — Robert Williams Wrongfully Arrested (Detroit, USA)
+- **Event**: First known U.S. wrongful arrest due to facial recognition.
+- **System**: Facial anomaly match on blurry security footage.
+- **Harm**: Arrest and detainment of innocent Black man.
+- **Link**: [ACLU Case Summary](https://www.aclu.org/news/privacy-technology/the-police-wrongly-arrested-me-because-of-facial-recognition)
+
+---
+
+### 2020–2021 — Pandemic Fraud Detection Failures (USA)
+- **Event**: State systems flag unemployment claims as fraudulent via anomaly detection.
+- **System**: Automated detection of “unusual” applications during COVID-19 crisis.
+- **Harm**: Tens of thousands denied benefits; some evicted or left without food.
+- **Link**: [The Guardian](https://www.theguardian.com/us-news/2021/aug/11/michigan-unemployment-benefits-algorithm)
+
+---
+
+### 2021 — AI Suicide Risk Tool Causes Panic
+- **Event**: Behavioral health system uses AI to predict suicide risk in teens.
+- **System**: Anomaly detection on mood, messages, and usage.
+- **Harm**: False positives lead to emergency police checks and trauma.
+- **Link**: [Stat News](https://www.statnews.com/2021/04/06/mental-health-apps-ai-suicide-prediction/)
+
+---
+
+### Ongoing — TSA & DHS No Fly List Errors
+- **Event**: Travelers wrongly placed on watchlists for “suspicious behavior.”
+- **System**: Behavior-based anomaly scoring at airports.
+- **Harm**: Journalists, veterans, and children blocked from flying, often with no explanation or appeal.
+- **Link**: [ACLU No Fly Lawsuit](https://www.aclu.org/cases/gulet-mohamud-v-eric-holder-challenging-no-fly-list)
+
