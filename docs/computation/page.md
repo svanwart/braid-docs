@@ -11,7 +11,6 @@ https://parikshapatr.com/solutions/von-neumann-architecture-explained-in-detail
 
 
 ## 1. Introduction
-* Layman's description of a Von Neumann Architecture
 Von Neumann Architecture is a form of computer system constructed with a central processing unit (CPU) and memory unit. The CPU is the logic center that processes instructions and data whilst the memory unit is a storage area for the CPU to read and write from. Execution of instructions in the CPU are done instruction by instruction in sequential order.  
 
 This form of computer architecture, pioneered by John von Neumann in 1945, is used in nearly all computers in the 21st century (as of 2025). Computers that are designed using Von Neumann Architecture include the supercomputer IBM Blue Gene, graphics cards produced by NVIDIA, and the device you are using to view this website.
