@@ -8,6 +8,14 @@ nextjs:
 
 TBD
 
+<!-- 
+# NIKKO WIP RESOURCES
+# https://www.britannica.com/technology/artificial-intelligence/Reasoning
+# https://www.nasa.gov/what-is-artificial-intelligence/
+# https://openai.com/index/infrastructure-for-deep-learning/
+# https://cloud.google.com/learn/what-is-artificial-intelligence
+-->
+
 ## Section 1
 Text text text...
 ---
