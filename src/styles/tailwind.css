@@ -8,3 +8,6 @@
     display: none;
   }
 }
+.slide {
+  @apply mt-8 rounded-lg border border-gray-300 px-16 py-16 dark:bg-slate-900;
+}
