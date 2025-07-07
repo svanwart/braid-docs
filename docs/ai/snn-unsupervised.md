@@ -6,11 +6,13 @@ nextjs:
     description: TBD.
 ---
 
-<!-- 
-# NIKKO WIP RESOURCES
-# https://na.uni-tuebingen.de/ex/ml_seminar_ss2022/Unsupervised_Learning%20Final.pdf
-# https://www.ibm.com/think/topics/supervised-learning
--->
+
+NIKKO WIP RESOURCES
+
+https://na.uni-tuebingen.de/ex/ml_seminar_ss2022/Unsupervised_Learning%20Final.pdf
+
+https://www.ibm.com/think/topics/supervised-learning
+
 
 ## Taken from ChatGPT (needs verification)
 

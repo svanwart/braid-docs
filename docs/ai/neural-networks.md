@@ -8,10 +8,11 @@ nextjs:
 
 TBD
 
-<!-- 
-# NIKKO WIP RESOURCES
-# https://www.3blue1brown.com/lessons/neural-networks
--->
+---
+NIKKO WIP RESOURCES
+https://www.3blue1brown.com/lessons/neural-networks
+
+---
 
 ## Section 1
 Text text text...
