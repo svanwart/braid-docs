@@ -1,33 +1,20 @@
-'use client'
-
-import Carousel from '@/components/carousel/Carousel'
-
-const MyPage = ({
-  loop = true,
-  align = 'start',
-  slideWidth = '100%',
-  slidesToScroll = 1,
-}) => {
-  const slideClass =
-    'flex h-full w-full flex-col items-center justify-center rounded-2xl border-2 text-3xl font-bold'
-
+import { snnSections } from '../data/snn'
+import PageLayout from '@/components/layouts/PageLayout'
+import TabbedSection from '@/components/TabbedSection'
+import HeaderPanel from '@/components/HeaderPanel'
+export default function SNNPage() {
   return (
-    <div className="mx-auto mt-10 h-[400px] w-[800px]">
-      <Carousel
-        loop={loop}
-        align={align}
-        slideWidth={slideWidth}
-        slidesToScroll={slidesToScroll}
-      >
-        <div className={slideClass}>1</div>
-        <div className={slideClass}>2</div>
-        <div className={slideClass}>3</div>
-        <div className={slideClass}>4</div>
-        <div className={slideClass}>5</div>
-        <div className={slideClass}>6</div>
-      </Carousel>
-    </div>
+    <PageLayout>
+      {/* Section 1: Intro */}
+      <HeaderPanel title="Biological Intelligence Primer: The Brain">
+        The goal of this page is to provide enough context and intuition about
+        the brain so that different audiences can understand how artificial and
+        biological intelligence are similar and different.
+      </HeaderPanel>
+
+      <div className="m-auto max-w-5xl bg-white px-6 py-12 lg:px-8 dark:bg-slate-900 dark:bg-none">
+        <TabbedSection sections={snnSections} />
+      </div>
+    </PageLayout>
   )
 }
-
-export default MyPage

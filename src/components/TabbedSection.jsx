@@ -1,0 +1,98 @@
+'use client'
+
+import { useState } from 'react'
+import { Listbox } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
+
+export default function TabbedSection({ sections }) {
+  const [activeTab, setActiveTab] = useState(0)
+  const tabs = sections.map((section, idx) => {
+    return {
+      id: idx,
+      name: section.tabTitle,
+      content: (
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {section.title}
+          </h3>
+          {section.description}
+        </div>
+      ),
+    }
+  })
+
+  return (
+    <div className="mx-auto max-w-6xl">
+      {/* Desktop Tab Navigation */}
+      <div className="hidden border-b border-gray-200 md:block dark:border-gray-700">
+        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium ${
+                activeTab === tab.id
+                  ? 'border-sky-500 text-sky-600 dark:text-sky-400'
+                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+              } `}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Mobile Dropdown Navigation */}
+      <div className="md:hidden">
+        <Listbox
+          value={tabs[activeTab]}
+          onChange={(tab) => setActiveTab(tab.id)}
+        >
+          <div className="relative">
+            <Listbox.Button className="relative w-full cursor-pointer rounded-lg border-2 bg-white py-3 pl-4 pr-10 text-left shadow-sm focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-slate-800 dark:text-white">
+              <span className="block truncate font-medium">
+                {tabs[activeTab].name}
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                <ChevronDownIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </span>
+            </Listbox.Button>
+            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-slate-800">
+              {tabs.map((tab) => (
+                <Listbox.Option
+                  key={tab.id}
+                  className={({ active }) =>
+                    `relative cursor-pointer select-none py-2 pl-4 pr-4 ${
+                      active
+                        ? 'bg-sky-100 text-sky-900 dark:bg-sky-900 dark:text-sky-100'
+                        : 'text-gray-900 dark:text-gray-100'
+                    }`
+                  }
+                  value={tab}
+                >
+                  {({ selected }) => (
+                    <>
+                      <span
+                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
+                      >
+                        {tab.name}
+                      </span>
+                    </>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </div>
+        </Listbox>
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-8">
+        <div className="min-h-[300px]">{tabs[activeTab].content}</div>
+      </div>
+    </div>
+  )
+}

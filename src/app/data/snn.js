@@ -1,5 +1,5 @@
-export const tiers = {
-  tier1: {
+export const snnSections = [
+  {
     tabTitle: 'Overview',
     title: 'General Introduction',
     description: (
@@ -36,12 +36,12 @@ export const tiers = {
           <p className="mb-4">
             <em>TODO: Explanation of benefits:</em>
           </p>
-          <ul className="list-disc pl-8">
+          <ol className="list-decimal pl-8">
             <li className="mb-4">
               <strong>Energy Efficiency:</strong> SNNs can do complex tasks
               using much less power than conventional AI. This matters for:
               <ul className="list-disc pl-8">
-                <li className="mb-4 mt-4">Meeting climate goals</li>
+                <li className="mt-4">Meeting climate goals</li>
                 <li className="mb-4">
                   Edge computing (e.g. phones, drones, wearables)
                 </li>
@@ -51,23 +51,21 @@ export const tiers = {
               <strong>New Capabilities</strong>: They are better suited to tasks
               that involve real-time sensing and response, like:
               <ul className="list-disc pl-8">
-                <li className="mb-4 mt-4">
+                <li className="mt-4">
                   Autonomous vehicles avoiding sudden obstacles
                 </li>
-                <li className="mb-4">
-                  Hearing aids that adapt to your environment
-                </li>
+                <li>Hearing aids that adapt to your environment</li>
                 <li className="mb-4">
                   Early warning systems in infrastructure
                 </li>
               </ul>
             </li>
-          </ul>
+          </ol>
         </section>
       </>
     ),
   },
-  tier2: {
+  {
     tabTitle: 'Technical Explainer',
     title: 'Technical Explainer',
     description: (
@@ -128,15 +126,27 @@ export const tiers = {
         <section className="slide">
           <h2 className="text-lg font-semibold">4. Interactive Examples</h2>
           <p>Different ways that SNNs can be used:</p>
+          <h3 className="text-lg font-semibold">Colors</h3>
           <ul className="mb-4 list-disc pl-8">
-            <li>Colors:</li>
-            <ul className="mb-4 list-disc pl-8">
-              <li>Classification: What type of color is this?</li>
-              <li>Anomaly detection: outlier colors</li>
-            </ul>
-            <li>ECG: Detecting heart conditions</li>
-            <li>Clap v.s. snap</li>
+            <li>Classification: What type of color is this?</li>
+            <li>Anomaly detection: outlier colors</li>
           </ul>
+          <img
+            className="mb-8 w-full rounded border border-gray-200"
+            src="/braid-docs/images/neuromorphic/snn.png"
+            alt="SNN Architecture"
+          />
+          <h3 className="text-lg font-semibold">
+            ECG: Detecting heart conditions
+          </h3>
+          <p className="mb-8">
+            TODO: Explain the idea of using ECG to detect heart conditions.
+          </p>
+          <h3 className="text-lg font-semibold">Clap v. Snap</h3>
+          <p>
+            TODO: Explain the idea of using Clap v.s. snap to detect heart
+            conditions.
+          </p>
         </section>
         {/* Slide 5 */}
         <section className="slide">
@@ -153,7 +163,7 @@ export const tiers = {
       </>
     ),
   },
-  tier3: {
+  {
     tabTitle: 'Applications & Use Cases',
     title: 'Applications & Use Cases',
     description: (
@@ -207,4 +217,4 @@ export const tiers = {
       </>
     ),
   },
-}
+]

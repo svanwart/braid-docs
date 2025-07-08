@@ -44,14 +44,13 @@ const chapters = [
   {
     title: '4. Biological Intelligence Primer: The Brain',
     description: 'How does the brain work?',
-    url: '#',
+    url: '/the-brain',
     status: 'TODO',
     color: 'bg-indigo-100',
   },
   {
     title: '5. Brain-Inspired Spiking Neural Networks',
     description: 'TBD',
-    source: '/braid-docs/images/neuromorphic/neuromorphic.webp',
     url: '/snn',
     status: 'In Progress',
     color: 'bg-teal-50',
@@ -161,12 +160,12 @@ export default function HomePage({ children }) {
           {chapters.map((item, index) => (
             <Link
               href={item.url}
-              className={`flex cursor-pointer items-stretch gap-4 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 h-48 items-center justify-center bg-gray-50 p-16 md:col-span-2' : ''}`}
+              className={`flex cursor-pointer items-stretch gap-4 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 items-center justify-center bg-gray-50 p-24 md:col-span-2' : ''}`}
               key={`${item.title}-${index}`}
             >
               {index !== 0 && (
                 <div
-                  className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none ${item.color} flex-shrink-0 flex-grow-0`}
+                  className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center uppercase ${item.color} flex-shrink-0 flex-grow-0`}
                 >
                   {item.status}
                 </div>
@@ -174,11 +173,13 @@ export default function HomePage({ children }) {
               <div
                 className={`p-4 ${index === 0 ? 'flex flex-col items-center justify-center text-2xl' : ''}`}
               >
-                <h4 className="font-medium text-gray-900 dark:text-white">
+                <h4
+                  className={`font-medium text-gray-900 dark:text-white ${index === 0 ? 'mb-4' : ''}`}
+                >
                   {item.title}
                 </h4>
                 <p
-                  className={` ${index === 0 ? 'text-center text-lg' : 'text-sm'}`}
+                  className={`dark:slate:100 text-gray-700 ${index === 0 ? 'text-center text-lg' : 'text-sm'}`}
                 >
                   {item.description}
                 </p>
