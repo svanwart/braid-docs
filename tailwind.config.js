@@ -28,6 +28,9 @@ module.exports = {
       maxWidth: {
         '8xl': '88rem',
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
+      },
       gridTemplateColumns: {
         // Simple 16 column grid
         15: 'repeat(15, minmax(0, 1fr))',
