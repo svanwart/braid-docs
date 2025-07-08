@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export const snnSections = [
   {
     tabTitle: 'Overview',
@@ -20,7 +22,7 @@ export const snnSections = [
         {/* Slide 2 */}
         <section className="slide">
           <h2 className="mb-4 text-lg font-semibold">
-            2. How are they similar and different from "traditional" neural
+            2. How are they similar and different from traditional neural
             networks?
           </h2>
           <p>
@@ -78,7 +80,7 @@ export const snnSections = [
           <h2 className="text-lg font-semibold">1. Neurons</h2>
           <p className="mb-4">
             Define the basic concepts that are needed to understand a SNN
-            "neuron," including:
+            artificialneuron, including:
           </p>
           <ul className="mb-4 list-disc pl-8">
             <li>Membrane potential</li>
@@ -131,7 +133,7 @@ export const snnSections = [
             <li>Classification: What type of color is this?</li>
             <li>Anomaly detection: outlier colors</li>
           </ul>
-          <img
+          <Image
             className="mb-8 w-full rounded border border-gray-200"
             src="/braid-docs/images/neuromorphic/snn.png"
             alt="SNN Architecture"
