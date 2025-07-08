@@ -70,9 +70,11 @@ export default function PageLayout({ children }) {
       <main>{children}</main>
 
       {/* Footer */}
-      <footer className="mt-96 bg-gray-50 dark:bg-slate-900">
+      <footer className="mt-36 bg-gray-50 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
-          <p>TODO: Footer</p>
+          <p className="text-center text-md text-gray-500 dark:text-gray-400">
+            Footer goes here...
+          </p>
         </div>
       </footer>
     </div>

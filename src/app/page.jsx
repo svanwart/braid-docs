@@ -12,54 +12,59 @@ const chapters = [
   {
     title: 'Executive Summary',
     description:
-      'Gives an overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
+      'An overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
     url: '#',
     status: 'TODO',
     color: 'bg-yellow-50',
   },
   {
-    title: '1. Broader Impacts',
+    title: 'Biological Intelligence Primer',
     description:
-      'Takes a deeper dive into the broader impacts of the research project, including potential applications, benefits, and risks.',
-    source: 'https://picsum.photos/300/300.jpg?a=6',
-    url: '#',
-    status: 'TODO',
-    color: 'bg-indigo-100',
-  },
-  {
-    title: '2. Biological Intelligence Primer',
-    description: 'How does the brain work?',
+      'What makes biological intelligence so efficient and adaptable. Provides an overview of how the brain processes information through neurons and synapses.',
     url: '/the-brain',
     status: 'TODO',
     color: 'bg-indigo-100',
   },
   {
-    title: '3. Artificial Intelligence Primer',
-    description: 'TBD',
+    title: 'Artificial Intelligence Primer',
+    description:
+      'An overview of the AI/ML landscape. Aimed to help learners appreciate how current AI systems differ from biological intelligence in both capabilities and limitations.',
     url: '#',
     status: 'TODO',
     color: 'bg-indigo-100',
   },
   {
-    title: '4. Innovations in Computer Hardware',
-    description: 'Provides a background on ',
+    title: 'Innovations in Computer Hardware',
+    description:
+      'An overview of traditional and neuromorphic computing hardware, including the von Neumann bottleneck, memristors, and neuromorphic chips.',
     source: '/braid-docs/images/computers/computer.jpg',
-    url: '#',
+    url: '/hardware',
     status: 'In Progress',
     color: 'bg-teal-50',
   },
   {
-    title: '5. Brain-Inspired Spiking Neural Networks',
-    description: 'TBD',
+    title: 'Brain-Inspired Spiking Neural Networks',
+    description:
+      'Explanations and demos of spiking neural networks: how they process information and learn through spike timing (vis-a-vis traditional neural networks and biological learning).',
     url: '/snn',
     status: 'In Progress',
     color: 'bg-teal-50',
   },
   {
-    title: '6. Cerebellum-Inspired Circuits',
-    description: 'TBD',
+    title: 'Cerebellum-Inspired Circuits',
+    description:
+      "An overview of the cerebellum's architecture for motor control and learning, how it has inspired this research, and potential applications.",
     status: 'TODO',
     url: '#',
+    color: 'bg-indigo-100',
+  },
+  {
+    title: 'Broader Impacts',
+    description:
+      'Examine the broader impacts of the research project, including potential applications, benefits, and risks.',
+    source: 'https://picsum.photos/300/300.jpg?a=6',
+    url: '#',
+    status: 'TODO',
     color: 'bg-indigo-100',
   },
 ]
@@ -155,12 +160,12 @@ export default function HomePage({ children }) {
       <div className="mx-auto max-w-6xl px-4 py-28 sm:px-6 lg:px-8">
         <div
           role="list"
-          className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12"
+          className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8"
         >
           {chapters.map((item, index) => (
             <Link
               href={item.url}
-              className={`flex cursor-pointer items-stretch gap-4 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 items-center justify-center bg-gray-50 p-24 md:col-span-2' : ''}`}
+              className={`flex cursor-pointer items-stretch gap-2 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 mb-4 items-center justify-center bg-gray-50 p-24 md:col-span-2' : ''}`}
               key={`${item.title}-${index}`}
             >
               {index !== 0 && (
@@ -171,15 +176,15 @@ export default function HomePage({ children }) {
                 </div>
               )}
               <div
-                className={`p-4 ${index === 0 ? 'flex flex-col items-center justify-center text-2xl' : ''}`}
+                className={`px-2 py-4 ${index === 0 ? 'flex flex-col items-center justify-center text-2xl' : ''}`}
               >
                 <h4
                   className={`font-medium text-gray-900 dark:text-white ${index === 0 ? 'mb-4' : ''}`}
                 >
-                  {item.title}
+                  {index !== 0 && `${index}.`} {item.title}
                 </h4>
                 <p
-                  className={`dark:slate:100 text-gray-700 ${index === 0 ? 'text-center text-lg' : 'text-sm'}`}
+                  className={`dark:slate:100 text-gray-500 ${index === 0 ? 'text-center text-lg' : 'text-sm leading-5'}`}
                 >
                   {item.description}
                 </p>

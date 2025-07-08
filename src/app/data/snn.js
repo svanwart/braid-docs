@@ -68,8 +68,8 @@ export const snnSections = [
     ),
   },
   {
-    tabTitle: 'Technical Explainer',
-    title: 'Technical Explainer',
+    tabTitle: 'Technical Explainers',
+    title: 'How Do Spiking Neural Networks Work?',
     description: (
       <>
         <strong>Goal</strong>: Provides a more in-depth explanation of the the
@@ -133,7 +133,7 @@ export const snnSections = [
             <li>Classification: What type of color is this?</li>
             <li>Anomaly detection: outlier colors</li>
           </ul>
-          <Image
+          <img
             className="mb-8 w-full rounded border border-gray-200"
             src="/braid-docs/images/neuromorphic/snn.png"
             alt="SNN Architecture"

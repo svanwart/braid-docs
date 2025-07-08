@@ -12,7 +12,7 @@ export default function TabbedSection({ sections }) {
       name: section.tabTitle,
       content: (
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 className="mb-2 mt-8 text-xl font-semibold text-gray-900 dark:text-white">
             {section.title}
           </h3>
           {section.description}
@@ -21,8 +21,14 @@ export default function TabbedSection({ sections }) {
     }
   })
 
+  const boxStyling = {
+    marginTop: '-114px',
+    background: 'white',
+    padding: '10px 30px',
+  }
+
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="mx-auto max-w-6xl" style={boxStyling}>
       {/* Desktop Tab Navigation */}
       <div className="hidden border-b border-gray-200 md:block dark:border-gray-700">
         <nav className="-mb-px flex space-x-8" aria-label="Tabs">
@@ -30,7 +36,7 @@ export default function TabbedSection({ sections }) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium ${
+              className={`text-md whitespace-nowrap border-b-2 px-1 py-4 font-medium ${
                 activeTab === tab.id
                   ? 'border-sky-500 text-sky-600 dark:text-sky-400'
                   : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
@@ -49,7 +55,7 @@ export default function TabbedSection({ sections }) {
           onChange={(tab) => setActiveTab(tab.id)}
         >
           <div className="relative">
-            <Listbox.Button className="relative w-full cursor-pointer rounded-lg border-2 bg-white py-3 pl-4 pr-10 text-left shadow-sm focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-slate-800 dark:text-white">
+            <Listbox.Button className="relative mt-4 w-full cursor-pointer rounded-lg border-2 bg-white py-3 pl-4 pr-10 text-left shadow-sm focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-slate-800 dark:text-white">
               <span className="block truncate font-medium">
                 {tabs[activeTab].name}
               </span>
