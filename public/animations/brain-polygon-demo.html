@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brain Polygon Calculator Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      .controls {
+        text-align: center;
+        margin: 20px 0;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 0 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      button.active {
+        background: #28a745;
+      }
+      .tile-controls {
+        text-align: center;
+        margin: 10px 0;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 5px;
+      }
+      .tile-controls label {
+        margin: 0 10px;
+        font-size: 14px;
+      }
+      .tile-controls input[type='range'] {
+        width: 100px;
+        margin: 0 5px;
+      }
+      canvas {
+        border: 1px solid #ddd;
+        display: block;
+        margin: 20px auto;
+        background: white;
+      }
+      .info {
+        text-align: center;
+        color: #666;
+        margin: 10px 0;
+      }
+      .coordinates {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        max-height: 200px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px 0;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 5px;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #007bff;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Brain Polygon Calculator Demo</h1>
+
+      <div class="controls">
+        <button onclick="showPolygon('convex')" id="btn-convex">
+          Convex Hull
+        </button>
+        <button onclick="showPolygon('bounding')" id="btn-bounding">
+          Bounding Box
+        </button>
+        <button onclick="showPolygon('alpha')" id="btn-alpha">
+          Alpha Shape
+        </button>
+        <button onclick="showBrainOnly()" id="btn-brain">Brain Only</button>
+      </div>
+
+      <div class="tile-controls">
+        <label>
+          <input type="checkbox" id="showTiles" onchange="toggleTiles()" /> Show
+          Tiles
+        </label>
+        <label>
+          Tile Size:
+          <input
+            type="range"
+            id="tileSize"
+            min="10"
+            max="50"
+            value="20"
+            onchange="updateTiles()"
+          />
+          <span id="tileSizeValue">20px</span>
+        </label>
+        <label>
+          Tile Opacity:
+          <input
+            type="range"
+            id="tileOpacity"
+            min="0.1"
+            max="1"
+            step="0.1"
+            value="0.3"
+            onchange="updateTiles()"
+          />
+          <span id="tileOpacityValue">0.3</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            id="showTileBorders"
+            onchange="updateTiles()"
+          />
+          Show Tile Borders
+        </label>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="totalTiles">0</div>
+          <div class="stat-label">Total Tiles</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="coveredArea">0%</div>
+          <div class="stat-label">Coverage</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="polygonVertices">0</div>
+          <div class="stat-label">Polygon Vertices</div>
+        </div>
+      </div>
+
+      <div class="info">
+        <span id="polygon-info"
+          >Click a button to see different polygon types</span
+        >
+      </div>
+
+      <canvas id="brainCanvas" width="800" height="600"></canvas>
+
+      <div class="coordinates">
+        <strong>Polygon Coordinates:</strong>
+        <div id="coordinates-display">No polygon selected</div>
+      </div>
+    </div>
+
+    <!-- Load the brain coordinates first -->
+    <script src="brain-coords.js"></script>
+
+    <!-- Load the polygon calculator -->
+    <script src="brain-polygon-calculator.js"></script>
+
+    <script>
+      const canvas = document.getElementById('brainCanvas')
+      const ctx = canvas.getContext('2d')
+      let currentPolygon = null
+      let polygonType = null
+      let tiles = []
+      let showTiles = false
+
+      // Scale and offset for better visualization
+      const scale = 0.8
+      const offsetX = 100
+      const offsetY = 50
+
+      function transformPoint(point) {
+        return [point[0] * scale + offsetX, point[1] * scale + offsetY]
+      }
+
+      function untransformPoint(point) {
+        return [(point[0] - offsetX) / scale, (point[1] - offsetY) / scale]
+      }
+
+      // Point-in-polygon test using ray casting algorithm
+      function pointInPolygon(point, polygon) {
+        let inside = false
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          if (
+            polygon[i][1] > point[1] !== polygon[j][1] > point[1] &&
+            point[0] <
+              ((polygon[j][0] - polygon[i][0]) * (point[1] - polygon[i][1])) /
+                (polygon[j][1] - polygon[i][1]) +
+                polygon[i][0]
+          ) {
+            inside = !inside
+          }
+        }
+        return inside
+      }
+
+      // Generate tiles that cover the polygon
+      function generateTiles(polygon, tileSize = 20) {
+        if (!polygon || polygon.length < 3) return []
+
+        // Find bounding box of the polygon
+        let minX = polygon[0][0],
+          maxX = polygon[0][0]
+        let minY = polygon[0][1],
+          maxY = polygon[0][1]
+
+        for (const [x, y] of polygon) {
+          minX = Math.min(minX, x)
+          maxX = Math.max(maxX, x)
+          minY = Math.min(minY, y)
+          maxY = Math.max(maxY, y)
+        }
+
+        // Generate tiles
+        const tiles = []
+        for (let x = minX; x <= maxX; x += tileSize) {
+          for (let y = minY; y <= maxY; y += tileSize) {
+            // Check if tile center is inside polygon
+            const centerX = x + tileSize / 2
+            const centerY = y + tileSize / 2
+
+            if (pointInPolygon([centerX, centerY], polygon)) {
+              tiles.push({
+                x: x,
+                y: y,
+                size: tileSize,
+                centerX: centerX,
+                centerY: centerY,
+              })
+            }
+          }
+        }
+
+        return tiles
+      }
+
+      function drawTiles() {
+        if (!showTiles || !tiles.length) return
+
+        const opacity = parseFloat(document.getElementById('tileOpacity').value)
+        const showBorders = document.getElementById('showTileBorders').checked
+
+        ctx.save()
+        ctx.globalAlpha = opacity
+
+        for (const tile of tiles) {
+          const transformedTile = {
+            x: tile.x * scale + offsetX,
+            y: tile.y * scale + offsetY,
+            size: tile.size * scale,
+          }
+
+          // Fill tile
+          ctx.fillStyle = '#4CAF50'
+          ctx.fillRect(
+            transformedTile.x,
+            transformedTile.y,
+            transformedTile.size,
+            transformedTile.size,
+          )
+
+          // Draw border if enabled
+          if (showBorders) {
+            ctx.strokeStyle = '#2E7D32'
+            ctx.lineWidth = 1
+            ctx.strokeRect(
+              transformedTile.x,
+              transformedTile.y,
+              transformedTile.size,
+              transformedTile.size,
+            )
+          }
+        }
+
+        ctx.restore()
+      }
+
+      function updateTileStats() {
+        const totalTiles = tiles.length
+        const tileSize = parseInt(document.getElementById('tileSize').value)
+        const tileArea = tileSize * tileSize
+        const totalTileArea = totalTiles * tileArea
+
+        // Calculate polygon area for coverage percentage
+        let polygonArea = 0
+        if (currentPolygon && currentPolygon.length >= 3) {
+          for (let i = 0; i < currentPolygon.length; i++) {
+            const j = (i + 1) % currentPolygon.length
+            polygonArea += currentPolygon[i][0] * currentPolygon[j][1]
+            polygonArea -= currentPolygon[j][0] * currentPolygon[i][1]
+          }
+          polygonArea = Math.abs(polygonArea) / 2
+        }
+
+        const coverage =
+          polygonArea > 0 ? ((totalTileArea / polygonArea) * 100).toFixed(1) : 0
+
+        document.getElementById('totalTiles').textContent = totalTiles
+        document.getElementById('coveredArea').textContent = coverage + '%'
+        document.getElementById('polygonVertices').textContent = currentPolygon
+          ? currentPolygon.length
+          : 0
+      }
+
+      function toggleTiles() {
+        showTiles = document.getElementById('showTiles').checked
+        redraw()
+      }
+
+      function updateTiles() {
+        const tileSize = parseInt(document.getElementById('tileSize').value)
+        const opacity = parseFloat(document.getElementById('tileOpacity').value)
+
+        document.getElementById('tileSizeValue').textContent = tileSize + 'px'
+        document.getElementById('tileOpacityValue').textContent = opacity
+
+        if (currentPolygon) {
+          tiles = generateTiles(currentPolygon, tileSize)
+          updateTileStats()
+        }
+
+        redraw()
+      }
+
+      function drawBrain() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        // Draw brain paths
+        ctx.strokeStyle = '#333'
+        ctx.lineWidth = 1
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
+
+        for (const path of flattenedPaths) {
+          if (path.length === 0) continue
+
+          ctx.beginPath()
+          const firstPoint = transformPoint(path[0])
+          ctx.moveTo(firstPoint[0], firstPoint[1])
+
+          for (let i = 1; i < path.length; i++) {
+            const point = transformPoint(path[i])
+            ctx.lineTo(point[0], point[1])
+          }
+
+          ctx.stroke()
+          ctx.fill()
+        }
+      }
+
+      function drawPolygon(polygon, color = '#ff0000', lineWidth = 3) {
+        if (!polygon || polygon.length < 3) return
+
+        ctx.strokeStyle = color
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.1)'
+        ctx.lineWidth = lineWidth
+
+        ctx.beginPath()
+        const firstPoint = transformPoint(polygon[0])
+        ctx.moveTo(firstPoint[0], firstPoint[1])
+
+        for (let i = 1; i < polygon.length; i++) {
+          const point = transformPoint(polygon[i])
+          ctx.lineTo(point[0], point[1])
+        }
+
+        ctx.closePath()
+        ctx.stroke()
+        ctx.fill()
+      }
+
+      function redraw() {
+        drawBrain()
+        if (currentPolygon) {
+          drawPolygon(currentPolygon)
+        }
+        drawTiles()
+      }
+
+      function showPolygon(type) {
+        // Update button states
+        document
+          .querySelectorAll('button')
+          .forEach((btn) => btn.classList.remove('active'))
+        document.getElementById(`btn-${type}`).classList.add('active')
+
+        // Calculate polygon
+        currentPolygon = calculateBrainPolygon(type)
+        polygonType = type
+
+        // Generate tiles for convex hull
+        if (type === 'convex') {
+          const tileSize = parseInt(document.getElementById('tileSize').value)
+          tiles = generateTiles(currentPolygon, tileSize)
+          updateTileStats()
+        } else {
+          tiles = []
+          updateTileStats()
+        }
+
+        // Update info
+        const typeNames = {
+          convex: 'Convex Hull',
+          bounding: 'Bounding Box',
+          alpha: 'Alpha Shape',
+        }
+        document.getElementById('polygon-info').textContent =
+          `${typeNames[type]} - ${currentPolygon.length} vertices`
+
+        // Update coordinates display
+        document.getElementById('coordinates-display').textContent =
+          JSON.stringify(currentPolygon, null, 2)
+
+        // Redraw
+        redraw()
+      }
+
+      function showBrainOnly() {
+        // Update button states
+        document
+          .querySelectorAll('button')
+          .forEach((btn) => btn.classList.remove('active'))
+        document.getElementById('btn-brain').classList.add('active')
+
+        currentPolygon = null
+        polygonType = null
+        tiles = []
+        updateTileStats()
+
+        document.getElementById('polygon-info').textContent =
+          'Brain outline only'
+        document.getElementById('coordinates-display').textContent =
+          'No polygon selected'
+
+        redraw()
+      }
+
+      // Initialize
+      drawBrain()
+      showPolygon('convex') // Start with convex hull
+    </script>
+  </body>
+</html>
