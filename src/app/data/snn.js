@@ -77,7 +77,20 @@ export const snnSections = [
         approaches.
         {/* Slide 1 */}
         <section className="slide">
-          <h2 className="text-lg font-semibold">1. Neurons</h2>
+          <h2 className="text-lg font-semibold">1. Teaser</h2>
+          <p className="mb-4">
+            Cool demo of a SNN in action (MNIST). Talk about what you will learn
+            how do to (detecting categories; detecting anomalies; etc.). Gets
+            learners excited about learning how stuff works.
+          </p>
+          <p>
+            Also create some interactive elements to show what each of these
+            concepts means.
+          </p>
+        </section>
+        {/* Slide 2 */}
+        <section className="slide">
+          <h2 className="text-lg font-semibold">2. Neurons</h2>
           <p className="mb-4">
             Define the basic concepts that are needed to understand a SNN
             artificialneuron, including:
@@ -96,10 +109,10 @@ export const snnSections = [
             concepts means.
           </p>
         </section>
-        {/* Slide 2 */}
+        {/* Slide 3 */}
         <section className="slide">
           <h2 className="text-lg font-semibold">
-            2. Spike Timing Dependent Plasticity
+            3. Spike Timing Dependent Plasticity
           </h2>
           <p className="mb-4">Define the basic concepts around STDP:</p>
           <ul className="mb-4 list-disc pl-8">
@@ -112,9 +125,9 @@ export const snnSections = [
             concepts means.
           </p>
         </section>
-        {/* Slide 3 */}
+        {/* Slide 4 */}
         <section className="slide">
-          <h2 className="text-lg font-semibold">3. SNN Architecture</h2>
+          <h2 className="text-lg font-semibold">4. SNN Architecture</h2>
           <p>Explain the architecture of a SNN, including:</p>
           <ul className="mb-4 list-disc pl-8">
             <li>Encoding Inputs as Spike Trains</li>
@@ -124,9 +137,9 @@ export const snnSections = [
             <li>Weights</li>
           </ul>
         </section>
-        {/* Slide 4 */}
+        {/* Slide 5 */}
         <section className="slide">
-          <h2 className="text-lg font-semibold">4. Interactive Examples</h2>
+          <h2 className="text-lg font-semibold">5. Interactive Examples</h2>
           <p>Different ways that SNNs can be used:</p>
           <h3 className="text-lg font-semibold">Colors</h3>
           <ul className="mb-4 list-disc pl-8">
@@ -150,9 +163,9 @@ export const snnSections = [
             conditions.
           </p>
         </section>
-        {/* Slide 5 */}
+        {/* Slide 6 */}
         <section className="slide">
-          <h2 className="text-lg font-semibold">5. Accuracy</h2>
+          <h2 className="text-lg font-semibold">6. Accuracy</h2>
           <p>Understanding potential pitfalls:</p>
           <ul className="mb-4 list-disc pl-8">
             <li>False positives</li>
@@ -161,6 +174,36 @@ export const snnSections = [
             <li>Data requirements</li>
             <li>Interpretability</li>
           </ul>
+          <p>
+            After it's run through the training process, allow the user to label
+            the different buckets, and then "see how it does with new examples."
+            Congratulations! You've just made your own SNN! Print it out and get
+            this gold star!
+          </p>
+        </section>
+        {/* Slide 7 */}
+        <section className="slide">
+          <h2 className="mb-4 text-lg font-semibold">7. Appendix</h2>
+          <img
+            src="/braid-docs/images/wireframes/01-neurons.jpg"
+            className="mb-4 w-full"
+          />
+          <img
+            src="/braid-docs/images/wireframes/02-stdp.jpg"
+            className="mb-4 w-full"
+          />
+          <img
+            src="/braid-docs/images/wireframes/03-specialization.jpg"
+            className="mb-4 w-full"
+          />
+          <img
+            src="/braid-docs/images/wireframes/04-spike-trains.jpg"
+            className="mb-4 w-full"
+          />
+          <img
+            src="/braid-docs/images/wireframes/05-color-demo-epilogue.jpg"
+            className="mb-4 w-full"
+          />
         </section>
       </>
     ),

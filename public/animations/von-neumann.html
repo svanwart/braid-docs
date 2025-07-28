@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Von Neumann Architecture Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #f8fafc;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      h1 {
+        color: #1e293b;
+        margin-bottom: 10px;
+      }
+      p {
+        color: #64748b;
+        margin-bottom: 20px;
+      }
+      #sketch-container {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        background: white;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Von Neumann Architecture</h1>
+      <p>
+        Watch how a simple task (adding numbers) requires multiple memory
+        accesses, creating the "von Neumann bottleneck"
+      </p>
+      <div id="sketch-container"></div>
+    </div>
+
+    <script>
+      let dataPackets = []
+      let instructionPackets = []
+      let time = 0
+      let showBottleneck = false
+      let taskStep = 0
+      let taskNumbers = [5, 3, 7, 2, 8]
+      let currentSum = 0
+      let currentIndex = 0
+      let taskComplete = false
+      let efficiencyMeter = 0
+      let clockCycles = 0
+
+      function setup() {
+        const canvas = createCanvas(850, 600)
+        canvas.parent('sketch-container')
+        textAlign(CENTER, CENTER)
+        textSize(14)
+      }
+
+      function draw() {
+        background(255)
+
+        // Draw title
+        fill(30)
+        textSize(18)
+        text('Von Neumann Architecture - Adding Numbers', width / 2, 30)
+
+        // Draw components
+        drawCPU()
+        drawMemory()
+        drawIO()
+        drawBus()
+        drawTaskDisplay()
+        drawEfficiencyMeter()
+
+        // Animate data flow
+        animateDataFlow()
+
+        // Draw bottleneck indicator
+        if (showBottleneck) {
+          drawBottleneck()
+        }
+
+        // Instructions
+        fill(100)
+        textSize(12)
+        text('Click to toggle bottleneck visualization', width / 2, height - 20)
+
+        time += 0.02
+        clockCycles++
+      }
+
+      function drawCPU() {
+        // CPU box
+        fill(255, 200, 200)
+        stroke(200, 100, 100)
+        strokeWeight(2)
+        rect(50, 100, 120, 80, 10)
+
+        // CPU label
+        fill(100)
+        noStroke()
+        textSize(14)
+        text('CPU\n(Processor)', 110, 140)
+
+        // ALU and Control Unit
+        fill(255, 220, 220)
+        stroke(200, 100, 100)
+        strokeWeight(1)
+        rect(60, 200, 45, 30, 5)
+        rect(115, 200, 45, 30, 5)
+
+        fill(100)
+        noStroke()
+        textSize(10)
+        text('ALU', 82.5, 215)
+        text('Control', 137.5, 215)
+
+        // Show current operation
+        fill(200, 100, 100)
+        textSize(12)
+        text(`Sum: ${currentSum}`, 110, 250)
+      }
+
+      function drawMemory() {
+        // Memory box
+        fill(200, 255, 200)
+        stroke(100, 200, 100)
+        strokeWeight(2)
+        rect(300, 100, 120, 80, 10)
+
+        // Memory label
+        fill(100)
+        noStroke()
+        textSize(14)
+        text('Memory\n(RAM)', 360, 140)
+
+        // Memory cells with numbers
+        fill(220, 255, 220)
+        stroke(100, 200, 100)
+        strokeWeight(1)
+        for (let i = 0; i < 5; i++) {
+          let x = 310 + i * 20
+          let y = 200
+          rect(x, y, 15, 20, 2)
+
+          // Highlight current number being accessed
+          if (i === currentIndex && taskStep % 2 === 0) {
+            fill(255, 255, 100)
+            stroke(255, 200, 0)
+            strokeWeight(2)
+            rect(x, y, 15, 20, 2)
+          }
+
+          fill(100)
+          noStroke()
+          textSize(10)
+          text(taskNumbers[i], x + 7.5, y + 10)
+        }
+      }
+
+      function drawIO() {
+        // I/O box
+        fill(200, 200, 255)
+        stroke(100, 100, 200)
+        strokeWeight(2)
+        rect(550, 100, 120, 80, 10)
+
+        // I/O label
+        fill(100)
+        noStroke()
+        textSize(14)
+        text('I/O\n(Input/Output)', 610, 140)
+
+        // I/O devices
+        fill(220, 220, 255)
+        stroke(100, 100, 200)
+        strokeWeight(1)
+        ellipse(580, 210, 20, 20) // Keyboard
+        rect(600, 200, 30, 20, 5) // Display
+        ellipse(640, 210, 15, 15) // Mouse
+      }
+
+      function drawBus() {
+        // Data bus
+        stroke(100)
+        strokeWeight(3)
+        line(170, 140, 300, 140)
+
+        // Address bus
+        stroke(150, 100, 0)
+        strokeWeight(2)
+        line(170, 160, 300, 160)
+
+        // Control bus
+        stroke(100, 0, 150)
+        strokeWeight(2)
+        line(170, 180, 300, 180)
+
+        // I/O bus
+        stroke(0, 100, 100)
+        strokeWeight(2)
+        line(420, 140, 550, 140)
+
+        // Bus labels
+        fill(100)
+        noStroke()
+        textSize(10)
+        text('Data Bus', 235, 125)
+        text('Address Bus', 235, 145)
+        text('Control Bus', 235, 165)
+        text('I/O Bus', 485, 125)
+      }
+
+      function drawTaskDisplay() {
+        // Task description
+        fill(50)
+        noStroke()
+        textSize(16)
+        text('Task: Add 5 numbers', width / 2, 320)
+
+        // Show current step
+        let stepText = ''
+        if (taskComplete) {
+          stepText = `Complete! Result: ${currentSum}`
+        } else if (currentIndex < taskNumbers.length) {
+          stepText = `Step ${currentIndex + 1}: Loading number ${taskNumbers[currentIndex]}`
+        }
+
+        textSize(14)
+        text(stepText, width / 2, 340)
+
+        // Show clock cycles
+        textSize(12)
+        text(`Clock Cycles: ${clockCycles}`, width / 2, 360)
+
+        // Show efficiency
+        let efficiency = taskComplete ? ((5 / clockCycles) * 100).toFixed(1) : 0
+        text(`Efficiency: ${efficiency}%`, width / 2, 375)
+      }
+
+      function drawEfficiencyMeter() {
+        // Efficiency meter
+        let meterWidth = 200
+        let meterHeight = 20
+        let meterX = width / 2 - meterWidth / 2
+        let meterY = 400
+
+        // Background
+        fill(240)
+        stroke(200)
+        strokeWeight(1)
+        rect(meterX, meterY, meterWidth, meterHeight, 5)
+
+        // Efficiency bar
+        let efficiency = taskComplete ? (5 / clockCycles) * 100 : 0
+        let barWidth = (efficiency / 100) * meterWidth
+
+        if (efficiency > 50) fill(100, 255, 100)
+        else if (efficiency > 25) fill(255, 255, 100)
+        else fill(255, 100, 100)
+
+        noStroke()
+        rect(meterX, meterY, barWidth, meterHeight, 5)
+
+        // Label
+        fill(100)
+        noStroke()
+        textSize(12)
+        text('Efficiency Meter', width / 2, meterY - 10)
+      }
+
+      function animateDataFlow() {
+        // Create new data packets based on task
+        if (frameCount % 30 === 0 && !taskComplete) {
+          taskStep++
+
+          if (taskStep % 2 === 1) {
+            // Fetch instruction
+            instructionPackets.push({
+              x: 360,
+              y: 140,
+              targetX: 110,
+              targetY: 140,
+              type: 'instruction',
+              id: instructionPackets.length,
+              value: taskNumbers[currentIndex],
+            })
+          } else {
+            // Fetch data
+            dataPackets.push({
+              x: 110,
+              y: 140,
+              targetX: 360,
+              targetY: 140,
+              type: 'data',
+              id: dataPackets.length,
+              value: taskNumbers[currentIndex],
+            })
+
+            // Move to next number
+            currentIndex++
+            if (currentIndex >= taskNumbers.length) {
+              taskComplete = true
+            }
+          }
+        }
+
+        // Update and draw data packets
+        for (let i = dataPackets.length - 1; i >= 0; i--) {
+          let packet = dataPackets[i]
+          packet.x += (packet.targetX - packet.x) * 0.05
+          packet.y += (packet.targetY - packet.y) * 0.05
+
+          // Draw packet
+          fill(255, 100, 100)
+          stroke(200, 50, 50)
+          strokeWeight(2)
+          ellipse(packet.x, packet.y, 12, 12)
+
+          // Show value
+          fill(255)
+          noStroke()
+          textSize(8)
+          text(packet.value, packet.x, packet.y)
+
+          // Remove packet if it's close to target
+          if (dist(packet.x, packet.y, packet.targetX, packet.targetY) < 5) {
+            dataPackets.splice(i, 1)
+            // Add to sum when data reaches CPU
+            currentSum += packet.value
+          }
+        }
+
+        // Update and draw instruction packets
+        for (let i = instructionPackets.length - 1; i >= 0; i--) {
+          let packet = instructionPackets[i]
+          packet.x += (packet.targetX - packet.x) * 0.05
+          packet.y += (packet.targetY - packet.y) * 0.05
+
+          // Draw packet
+          fill(100, 100, 255)
+          stroke(50, 50, 200)
+          strokeWeight(2)
+          rect(packet.x - 6, packet.y - 6, 12, 12, 3)
+
+          // Remove packet if it's close to target
+          if (dist(packet.x, packet.y, packet.targetX, packet.targetY) < 5) {
+            instructionPackets.splice(i, 1)
+          }
+        }
+      }
+
+      function drawBottleneck() {
+        // Highlight the data bus to show bottleneck
+        stroke(255, 0, 0)
+        strokeWeight(6)
+        line(170, 140, 300, 140)
+
+        // Add bottleneck text
+        fill(255, 0, 0)
+        noStroke()
+        textSize(16)
+        text('VON NEUMANN BOTTLENECK', width / 2, 450)
+        textSize(12)
+        text(
+          'Each number requires 2 memory accesses (fetch + store)',
+          width / 2,
+          470,
+        )
+        text(
+          'Simple addition of 5 numbers takes many clock cycles!',
+          width / 2,
+          485,
+        )
+
+        // Show comparison
+        textSize(10)
+        text('Biological brain: Parallel processing', width / 2, 505)
+        text('Von Neumann: Sequential bottleneck', width / 2, 520)
+
+        // Add congestion effect
+        fill(255, 0, 0, 50)
+        noStroke()
+        ellipse(235, 140, 20 + sin(time * 3) * 10, 20 + sin(time * 3) * 10)
+      }
+
+      function mousePressed() {
+        showBottleneck = !showBottleneck
+      }
+    </script>
+  </body>
+</html>
