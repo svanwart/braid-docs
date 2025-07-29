@@ -1,8 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
+import HeaderPanel from '@/components/HeaderPanel'
 import { Prose } from '@/components/Prose'
 import { Navbar } from '@/components/DocsNavbar'
+import { Navigation } from '@/components/Navigation'
+import { useLevel } from '@/components/LevelProvider'
 
+import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -57,15 +61,41 @@ function BackToTopButton() {
   )
 }
 
-export default function PageLayout({ children }) {
+export function PageLayoutMarkdoc({ children, frontmatter, nodes }) {
+  const { userLevel, currentChapter, setCurrentChapter } = useLevel()
+
   return (
     <div className="flex w-full flex-col">
       <Navbar />
+      <HeaderPanel title="Spiking Neural Networks" chapter={currentChapter}>
+        The goal of this page is to provide enough context and intuition about
+        Spiking Neural Networks (SNNs) so that different audiences can
+        understand how they work, how they differ from other types of neural
+        networks, and potential uses.
+      </HeaderPanel>
 
       {/* Main content */}
-      <main>
+      {/* <main>
         <Prose>{children}</Prose>
-      </main>
+      </main> */}
+
+      <div className="relative mx-auto flex w-full max-w-8xl flex-auto justify-center">
+        <div className="hidden lg:relative lg:block lg:flex-none">
+          <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
+          <div className="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
+          <div className="absolute bottom-0 right-0 top-28 hidden w-px bg-slate-800 dark:block" />
+          <div className="sticky top-[50px] -ml-0.5 h-[calc(100vh-4.75rem)] w-56 overflow-x-hidden overflow-y-hidden xl:w-64">
+            <Navigation userLevel={1} />
+          </div>
+        </div>
+        <h2 className="fixed top-[40vh] -z-10 -rotate-[30deg] text-[150px] font-bold text-gray-100 lg:top-[30vh] lg:text-[250px] dark:text-gray-800">
+          Draft
+        </h2>
+        <div>
+          <LevelSelectorMenu className="relative z-10" />
+          {children}
+        </div>
+      </div>
 
       {/* Back to top button */}
       <BackToTopButton />

@@ -18,4 +18,4 @@ export default function DocsPage() {
       {Markdoc.renderers.react(content, React)}
     </Layout>
   )
-} 
+}

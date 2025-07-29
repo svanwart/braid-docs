@@ -1,6 +1,7 @@
 const navigation = [
   {
     title: 'About this work',
+    chapter: 1,
     links: [
       {
         title: 'Overview',
@@ -16,6 +17,7 @@ const navigation = [
   },
   {
     title: 'Notes on Interactive Demos',
+    chapter: 2,
     links: [
       {
         title: 'Brainstorm',
@@ -26,6 +28,7 @@ const navigation = [
   },
   {
     title: 'How a Computer Works',
+    chapter: 3,
     links: [
       { title: 'Von Neumann', href: '/docs/computation', level: [1] },
       {
@@ -52,6 +55,7 @@ const navigation = [
   },
   {
     title: 'How the Brain Works',
+    chapter: 4,
     links: [
       {
         title: 'Introduction to the brain',
@@ -77,6 +81,7 @@ const navigation = [
   },
   {
     title: 'AI Overview',
+    chapter: 5,
     links: [
       {
         title: 'Intro to Artificial Intelligence (AI)',
@@ -97,6 +102,7 @@ const navigation = [
   },
   {
     title: 'Neuromorphic Computing',
+    chapter: 6,
     links: [
       {
         title: 'Intro to Neuromorphic Computing',
@@ -112,6 +118,7 @@ const navigation = [
   },
   {
     title: 'Potential Applications',
+    chapter: 7,
     links: [
       { title: 'Applications', href: '/docs/applications', level: [1, 2] },
       {
@@ -133,6 +140,7 @@ const navigation = [
   },
   {
     title: 'Broader Impacts & Case Studies',
+    chapter: 8,
     links: [
       {
         title: 'Risk Frameworks',
