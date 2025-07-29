@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import {
   Disclosure,
   DisclosureButton,
@@ -61,6 +62,60 @@ function Navbar() {
   )
 }
 
+function BackToTopButton() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      // Show button when user scrolls down 300px
+      if (window.pageYOffset > 300) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', toggleVisibility)
+
+    // Cleanup
+    return () => window.removeEventListener('scroll', toggleVisibility)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  return (
+    <>
+      {isVisible && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-gray-300 dark:focus:ring-gray-400"
+          aria-label="Back to top"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      )}
+    </>
+  )
+}
+
 export default function PageLayout({ children }) {
   return (
     <div className="flex w-full flex-col">
@@ -69,10 +124,13 @@ export default function PageLayout({ children }) {
       {/* Main content */}
       <main>{children}</main>
 
+      {/* Back to top button */}
+      <BackToTopButton />
+
       {/* Footer */}
       <footer className="mt-36 bg-gray-50 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
-          <p className="text-center text-md text-gray-500 dark:text-gray-400">
+          <p className="text-md text-center text-gray-500 dark:text-gray-400">
             Footer goes here...
           </p>
         </div>

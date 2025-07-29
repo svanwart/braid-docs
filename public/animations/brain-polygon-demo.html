@@ -62,6 +62,7 @@
         display: block;
         margin: 20px auto;
         background: white;
+        cursor: crosshair;
       }
       .info {
         text-align: center;
@@ -97,6 +98,25 @@
       .stat-label {
         font-size: 12px;
         color: #666;
+      }
+      .interaction-controls {
+        text-align: center;
+        margin: 10px 0;
+        padding: 10px;
+        background: #fff3cd;
+        border-radius: 5px;
+        border: 1px solid #ffeaa7;
+      }
+      .interaction-controls button {
+        background: #ff6b6b;
+        margin: 0 5px;
+      }
+      .interaction-controls button:hover {
+        background: #ee5a52;
+      }
+      .interaction-controls button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
       }
     </style>
   </head>
@@ -157,6 +177,59 @@
         </label>
       </div>
 
+      <div class="interaction-controls">
+        <label>
+          <input
+            type="checkbox"
+            id="enableInteraction"
+            onchange="toggleInteraction()"
+          />
+          Enable Chain Reaction
+        </label>
+        <button onclick="clearChainReaction()" id="clearBtn" disabled>
+          Clear Reaction
+        </button>
+        <button onclick="resetTiles()" id="resetBtn" disabled>Reset All</button>
+        <span id="chainInfo">Click tiles to start chain reaction!</span>
+      </div>
+
+      <div class="tile-controls">
+        <label>
+          <input
+            type="checkbox"
+            id="autoTurnOff"
+            checked
+            onchange="updateAutoTurnOff()"
+          />
+          Auto Turn-Off
+        </label>
+        <label>
+          Turn-Off Delay:
+          <input
+            type="range"
+            id="turnOffDelay"
+            min="10"
+            max="200"
+            value="50"
+            onchange="updateAutoTurnOff()"
+          />
+          <span id="turnOffDelayValue">50ms</span>
+        </label>
+        <label>
+          Hold Time:
+          <input
+            type="range"
+            id="holdTime"
+            min="500"
+            max="3000"
+            step="100"
+            value="1000"
+            onchange="updateAutoTurnOff()"
+          />
+          <span id="holdTimeValue">1000ms</span>
+        </label>
+      </div>
+
       <div class="stats">
         <div class="stat">
           <div class="stat-value" id="totalTiles">0</div>
@@ -169,6 +242,10 @@
         <div class="stat">
           <div class="stat-value" id="polygonVertices">0</div>
           <div class="stat-label">Polygon Vertices</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="litTiles">0</div>
+          <div class="stat-label">Lit Tiles</div>
         </div>
       </div>
 
@@ -199,6 +276,10 @@
       let polygonType = null
       let tiles = []
       let showTiles = false
+      let enableInteraction = false
+      let litTiles = new Set()
+      let chainReactionActive = false
+      let animationFrame = null
 
       // Scale and offset for better visualization
       const scale = 0.8
@@ -262,12 +343,205 @@
                 size: tileSize,
                 centerX: centerX,
                 centerY: centerY,
+                id: `${Math.floor(x / tileSize)}_${Math.floor(y / tileSize)}`,
+                lit: false,
+                brightness: 0,
+                animationStart: 0,
               })
             }
           }
         }
 
         return tiles
+      }
+
+      // Find adjacent tiles
+      function findAdjacentTiles(tile, allTiles) {
+        const tileSize = tile.size
+        const adjacent = []
+
+        // Check all 8 directions
+        const directions = [
+          [-tileSize, 0], // left
+          [tileSize, 0], // right
+          [0, -tileSize], // up
+          [0, tileSize], // down
+          [-tileSize, -tileSize], // top-left
+          [tileSize, -tileSize], // top-right
+          [-tileSize, tileSize], // bottom-left
+          [tileSize, tileSize], // bottom-right
+        ]
+
+        for (const [dx, dy] of directions) {
+          const adjacentTile = allTiles.find(
+            (t) => t.x === tile.x + dx && t.y === tile.y + dy,
+          )
+          if (adjacentTile && !adjacentTile.lit) {
+            adjacent.push(adjacentTile)
+          }
+        }
+
+        return adjacent
+      }
+
+      // Chain reaction function
+      async function chainReaction(startTile) {
+        if (chainReactionActive) return
+        chainReactionActive = true
+
+        console.log('Starting chain reaction with tile:', startTile.id)
+
+        const queue = [startTile]
+        const delay = 100 // milliseconds between each wave
+
+        while (queue.length > 0) {
+          const currentTile = queue.shift()
+
+          if (!currentTile.lit) {
+            // Light up current tile
+            currentTile.lit = true
+            currentTile.animationStart = Date.now()
+            litTiles.add(currentTile.id)
+
+            console.log(
+              `Lit tile ${currentTile.id} at ${currentTile.animationStart}`,
+            )
+
+            // Find adjacent unlit tiles (only unlit tiles)
+            const adjacent = findAdjacentTiles(currentTile, tiles)
+
+            // Randomly select 2 adjacent tiles (or all if less than 2)
+            const selectedAdjacent = []
+            if (adjacent.length <= 2) {
+              selectedAdjacent.push(...adjacent)
+            } else {
+              // Shuffle and take first 2
+              const shuffled = [...adjacent].sort(() => Math.random() - 0.5)
+              selectedAdjacent.push(shuffled[0], shuffled[1])
+            }
+
+            // Add selected adjacent tiles to queue (only if they're not already lit)
+            for (const adjacentTile of selectedAdjacent) {
+              if (!adjacentTile.lit && !queue.includes(adjacentTile)) {
+                queue.push(adjacentTile)
+              }
+            }
+
+            // Update stats
+            updateChainStats()
+
+            // Force a redraw to see the changes immediately
+            redraw()
+
+            // Wait before next wave
+            if (queue.length > 0) {
+              await new Promise((resolve) => setTimeout(resolve, delay))
+            }
+          }
+        }
+
+        chainReactionActive = false
+        updateChainInfo()
+        console.log('Chain reaction complete. Total lit tiles:', litTiles.size)
+
+        // Start the auto-turn-off process after the hold time
+        const holdTime = parseInt(document.getElementById('holdTime').value)
+        setTimeout(() => {
+          if (document.getElementById('autoTurnOff').checked) {
+            startAutoTurnOff()
+          }
+        }, holdTime)
+      }
+
+      // Auto turn-off function
+      function startAutoTurnOff() {
+        console.log('Starting auto turn-off process')
+
+        const turnOffDelay = parseInt(
+          document.getElementById('turnOffDelay').value,
+        )
+        const litTilesArray = Array.from(litTiles)
+
+        let index = 0
+
+        function turnOffNextTile() {
+          if (index >= litTilesArray.length) {
+            console.log('Auto turn-off complete')
+            return
+          }
+
+          const tileId = litTilesArray[index]
+          const tile = tiles.find((t) => t.id === tileId)
+
+          if (tile) {
+            tile.lit = false
+            tile.animationStart = 0
+            litTiles.delete(tileId)
+
+            console.log(`Turned off tile ${tileId}`)
+            updateChainStats()
+            redraw()
+          }
+
+          index++
+
+          // Continue with next tile
+          setTimeout(turnOffNextTile, turnOffDelay)
+        }
+
+        turnOffNextTile()
+      }
+
+      function updateChainStats() {
+        document.getElementById('litTiles').textContent = litTiles.size
+        document.getElementById('clearBtn').disabled = litTiles.size === 0
+        document.getElementById('resetBtn').disabled = litTiles.size === 0
+      }
+
+      function updateChainInfo() {
+        const info = document.getElementById('chainInfo')
+        if (chainReactionActive) {
+          info.textContent = 'Chain reaction in progress...'
+        } else if (litTiles.size > 0) {
+          info.textContent = `Chain reaction complete! ${litTiles.size} tiles lit.`
+        } else {
+          info.textContent = 'Click tiles to start chain reaction!'
+        }
+      }
+
+      function clearChainReaction() {
+        litTiles.clear()
+        for (const tile of tiles) {
+          tile.lit = false
+          tile.brightness = 0
+          tile.animationStart = 0
+        }
+        updateChainStats()
+        updateChainInfo()
+        redraw()
+      }
+
+      function resetTiles() {
+        clearChainReaction()
+      }
+
+      function toggleInteraction() {
+        enableInteraction = document.getElementById('enableInteraction').checked
+        if (!enableInteraction) {
+          clearChainReaction()
+        }
+        updateChainInfo()
+      }
+
+      function updateAutoTurnOff() {
+        const turnOffDelay = parseInt(
+          document.getElementById('turnOffDelay').value,
+        )
+        const holdTime = parseInt(document.getElementById('holdTime').value)
+
+        document.getElementById('turnOffDelayValue').textContent =
+          turnOffDelay + 'ms'
+        document.getElementById('holdTimeValue').textContent = holdTime + 'ms'
       }
 
       function drawTiles() {
@@ -277,7 +551,6 @@
         const showBorders = document.getElementById('showTileBorders').checked
 
         ctx.save()
-        ctx.globalAlpha = opacity
 
         for (const tile of tiles) {
           const transformedTile = {
@@ -286,8 +559,40 @@
             size: tile.size * scale,
           }
 
+          // Calculate brightness for lit tiles
+          let brightness = 0
+          if (tile.lit) {
+            const elapsed = Date.now() - tile.animationStart
+            const duration = 2000 // 2 second animation for more visible effect
+            brightness = Math.min(1, elapsed / duration)
+
+            // Add pulsing effect
+            const pulse = Math.sin(elapsed * 0.01) * 0.2 + 0.8 // Pulsing between 0.6 and 1.0
+            brightness *= pulse
+
+            // Debug: log the first few lit tiles
+            if (litTiles.size <= 5) {
+              console.log(
+                `Tile ${tile.id}: lit=${tile.lit}, brightness=${brightness.toFixed(2)}, elapsed=${elapsed}ms`,
+              )
+            }
+          }
+
+          // Set fill color based on lit state with MUCH more dramatic changes
+          if (tile.lit) {
+            // Very dramatic color transition: green -> bright red
+            const hue = 120 - brightness * 120 // 120 (green) to 0 (red)
+            const saturation = 100 // Always 100% saturation
+            const lightness = 50 + brightness * 30 // 50% to 80%
+
+            ctx.globalAlpha = 1.0 // Full opacity for lit tiles
+            ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+          } else {
+            ctx.globalAlpha = opacity
+            ctx.fillStyle = '#4CAF50'
+          }
+
           // Fill tile
-          ctx.fillStyle = '#4CAF50'
           ctx.fillRect(
             transformedTile.x,
             transformedTile.y,
@@ -295,10 +600,15 @@
             transformedTile.size,
           )
 
-          // Draw border if enabled
+          // Draw border if enabled with more dramatic changes
           if (showBorders) {
-            ctx.strokeStyle = '#2E7D32'
-            ctx.lineWidth = 1
+            if (tile.lit) {
+              ctx.strokeStyle = '#FF0000' // Bright red border
+              ctx.lineWidth = 3 // Thick border
+            } else {
+              ctx.strokeStyle = '#2E7D32'
+              ctx.lineWidth = 1
+            }
             ctx.strokeRect(
               transformedTile.x,
               transformedTile.y,
@@ -309,6 +619,13 @@
         }
 
         ctx.restore()
+
+        // Continue animation if there are lit tiles
+        if (litTiles.size > 0) {
+          animationFrame = requestAnimationFrame(() => {
+            drawTiles()
+          })
+        }
       }
 
       function updateTileStats() {
@@ -336,6 +653,7 @@
         document.getElementById('polygonVertices').textContent = currentPolygon
           ? currentPolygon.length
           : 0
+        updateChainStats()
       }
 
       function toggleTiles() {
@@ -352,11 +670,65 @@
 
         if (currentPolygon) {
           tiles = generateTiles(currentPolygon, tileSize)
+          clearChainReaction() // Reset chain reaction when tiles change
           updateTileStats()
         }
 
         redraw()
       }
+
+      // Handle canvas clicks
+      function handleCanvasClick(event) {
+        if (!enableInteraction || !showTiles || !tiles.length) {
+          console.log('Click ignored: interaction disabled or no tiles')
+          return
+        }
+
+        // Don't allow new chain reactions if one is already active or tiles are lit
+        if (chainReactionActive || litTiles.size > 0) {
+          console.log(
+            'Click ignored: chain reaction active or tiles already lit',
+          )
+          return
+        }
+
+        const rect = canvas.getBoundingClientRect()
+        const x = event.clientX - rect.left
+        const y = event.clientY - rect.top
+
+        // Convert canvas coordinates to tile coordinates
+        const untransformedX = (x - offsetX) / scale
+        const untransformedY = (y - offsetY) / scale
+
+        console.log(
+          `Click at canvas (${x}, ${y}), transformed to (${untransformedX.toFixed(1)}, ${untransformedY.toFixed(1)})`,
+        )
+
+        // Find clicked tile
+        const clickedTile = tiles.find(
+          (tile) =>
+            untransformedX >= tile.x &&
+            untransformedX < tile.x + tile.size &&
+            untransformedY >= tile.y &&
+            untransformedY < tile.y + tile.size,
+        )
+
+        if (clickedTile) {
+          console.log(
+            `Clicked tile: ${clickedTile.id} at (${clickedTile.x}, ${clickedTile.y}), already lit: ${clickedTile.lit}`,
+          )
+          if (!clickedTile.lit) {
+            chainReaction(clickedTile)
+          } else {
+            console.log('Tile already lit, ignoring click')
+          }
+        } else {
+          console.log('No tile found at click location')
+        }
+      }
+
+      // Add click event listener
+      canvas.addEventListener('click', handleCanvasClick)
 
       function drawBrain() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -405,6 +777,12 @@
       }
 
       function redraw() {
+        // Only cancel animation if we're not in the middle of a chain reaction
+        if (animationFrame && litTiles.size === 0) {
+          cancelAnimationFrame(animationFrame)
+          animationFrame = null
+        }
+
         drawBrain()
         if (currentPolygon) {
           drawPolygon(currentPolygon)
@@ -427,9 +805,11 @@
         if (type === 'convex') {
           const tileSize = parseInt(document.getElementById('tileSize').value)
           tiles = generateTiles(currentPolygon, tileSize)
+          clearChainReaction() // Reset chain reaction
           updateTileStats()
         } else {
           tiles = []
+          clearChainReaction()
           updateTileStats()
         }
 
@@ -460,6 +840,7 @@
         currentPolygon = null
         polygonType = null
         tiles = []
+        clearChainReaction()
         updateTileStats()
 
         document.getElementById('polygon-info').textContent =
