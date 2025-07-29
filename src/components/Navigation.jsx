@@ -16,16 +16,28 @@ export function Navigation({ className, onLinkClick }) {
 
   function getChapterNav(chapter) {
     return (
-      <div className="border-b bg-pink-50">
+      <div className="border-b border-r border-gray-100 bg-white">
         <div className="flex items-center justify-between py-6">
           {selectedChapter.chapter > 1 ? (
             <button
-              className="w-[30px]"
+              className="flex h-[30px] w-[30px] items-center justify-center rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               onClick={() =>
                 setCurrentChapter(Math.max(selectedChapter.chapter - 1, 1))
               }
             >
-              &laquo;
+              <svg
+                className="h-5 w-5 text-gray-600 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
             </button>
           ) : (
             <span className="w-[30px]"></span>
@@ -40,12 +52,24 @@ export function Navigation({ className, onLinkClick }) {
           </div>
           {selectedChapter.chapter < 7 ? (
             <button
-              className="w-[30px]"
+              className="flex h-[30px] w-[30px] items-center justify-center rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               onClick={() =>
                 setCurrentChapter(Math.min(selectedChapter.chapter + 1, 8))
               }
             >
-              &raquo;
+              <svg
+                className="h-5 w-5 text-gray-600 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </button>
           ) : (
             <span className="w-[30px]"></span>
