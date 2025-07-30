@@ -1,6 +1,6 @@
 ---
 title: Introduction to Neuromorphic Computing
-layout: plain
+# layout: plain
 nextjs:
   metadata:
     title: Introduction to Neuromorphic Computing
