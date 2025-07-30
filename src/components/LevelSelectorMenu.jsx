@@ -1,39 +1,3 @@
-// 'use client'
-
-// import { Popover } from '@headlessui/react'
-// import { LevelSelector } from './LevelSelector'
-// import { useLevel } from './LevelProvider'
-
-// export function LevelSelectorMenu() {
-//   const { userLevel, setUserLevel } = useLevel()
-
-//   return (
-//     <Popover className="relative">
-//       {({ close }) => (
-//         <>
-//           <Popover.Button
-//             className="ml-4 w-32"
-//             aria-label="Select expertise level"
-//           >
-//             <span className="text-sm font-medium text-gray-500 dark:text-white">
-//               Level: {userLevel}
-//             </span>
-//           </Popover.Button>
-//           <Popover.Panel className="absolute right-0 z-20 mt-2 w-96">
-//             <div className="rounded-xl bg-white p-2 shadow-lg ring-1 ring-black/5 dark:bg-slate-800 dark:ring-white/5">
-//               <LevelSelector
-//                 initialLevel={userLevel}
-//                 onLevelChange={setUserLevel}
-//                 onClose={close}
-//               />
-//             </div>
-//           </Popover.Panel>
-//         </>
-//       )}
-//     </Popover>
-//   )
-// }
-
 'use client'
 
 import { useState } from 'react'
@@ -41,10 +5,10 @@ import { Listbox } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { levels } from './LevelSelector'
 
-import { useLevel } from './LevelProvider'
+import { useApp } from './AppContext'
 
 export function LevelSelectorMenu() {
-  const { userLevel, setUserLevel } = useLevel()
+  const { userLevel, handleLevelChange } = useApp()
   const [activeTab, setActiveTab] = useState(0)
   const tabs = levels.map((level, idx) => {
     return {
@@ -77,7 +41,7 @@ export function LevelSelectorMenu() {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setUserLevel(tab.id)}
+              onClick={() => handleLevelChange(tab.id)}
               className={`text-md whitespace-nowrap border-b-2 px-1 py-4 font-medium ${
                 userLevel === tab.id
                   ? 'border-sky-500 text-sky-600 dark:text-sky-400'

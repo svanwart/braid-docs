@@ -1,12 +1,12 @@
 'use client'
 
 import { ThemeProvider } from 'next-themes'
-import { LevelProvider } from '@/components/LevelProvider'
+import { AppProvider } from '@/components/AppContext'
 
 export function Providers({ children }) {
   return (
     <ThemeProvider attribute="class" disableTransitionOnChange>
-      <LevelProvider>{children}</LevelProvider>
+      <AppProvider>{children}</AppProvider>
     </ThemeProvider>
   )
 }

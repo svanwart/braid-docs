@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-import { navigation } from '@/lib/navigation'
-import { useLevel } from './LevelProvider'
+import { navigation } from '@/lib/navigation.mjs'
+import { useApp } from './AppContext'
 
 function ArrowIcon(props) {
   return (
@@ -44,7 +44,7 @@ function PageLink({ title, href, dir = 'next', ...props }) {
 
 export function PrevNextLinks() {
   let pathname = usePathname()
-  const { userLevel } = useLevel()
+  const { userLevel } = useApp()
 
   // Filter links based on user level
   let allLinks = navigation.flatMap((section) =>
@@ -53,37 +53,37 @@ export function PrevNextLinks() {
     ),
   )
 
-  console.log('PrevNextLinks debug:', {
-    pathname,
-    userLevel,
-    allLinks: allLinks.map((link) => ({
-      title: link.title,
-      href: link.href,
-      level: link.level,
-    })),
-  })
+  // console.log('PrevNextLinks debug:', {
+  //   pathname,
+  //   userLevel,
+  //   allLinks: allLinks.map((link) => ({
+  //     title: link.title,
+  //     href: link.href,
+  //     level: link.level,
+  //   })),
+  // })
 
   let linkIndex = allLinks.findIndex((link) => link.href === pathname)
   let previousPage = linkIndex > -1 ? allLinks[linkIndex - 1] : null
   let nextPage = linkIndex > -1 ? allLinks[linkIndex + 1] : null
 
-  console.log('Navigation state:', {
-    linkIndex,
-    previousPage: previousPage
-      ? {
-          title: previousPage.title,
-          href: previousPage.href,
-          level: previousPage.level,
-        }
-      : null,
-    nextPage: nextPage
-      ? {
-          title: nextPage.title,
-          href: nextPage.href,
-          level: nextPage.level,
-        }
-      : null,
-  })
+  // console.log('Navigation state:', {
+  //   linkIndex,
+  //   previousPage: previousPage
+  //     ? {
+  //         title: previousPage.title,
+  //         href: previousPage.href,
+  //         level: previousPage.level,
+  //       }
+  //     : null,
+  //   nextPage: nextPage
+  //     ? {
+  //         title: nextPage.title,
+  //         href: nextPage.href,
+  //         level: nextPage.level,
+  //       }
+  //     : null,
+  // })
 
   if (!nextPage && !previousPage) {
     return null

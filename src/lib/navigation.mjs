@@ -1,7 +1,11 @@
+'use client'
+import React from 'react'
 const navigation = [
   {
-    title: 'About this work',
-    chapter: 1,
+    title: 'Executive Summary',
+    id: 1,
+    description:
+      'An overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
     links: [
       {
         title: 'Overview',
@@ -16,8 +20,10 @@ const navigation = [
     ],
   },
   {
-    title: 'Notes on Interactive Demos',
-    chapter: 2,
+    title: 'Biological Intelligence Primer',
+    id: 2,
+    description:
+      'What makes biological intelligence so efficient and adaptable. Provides an overview of how the brain processes information through neurons and synapses.',
     links: [
       {
         title: 'Brainstorm',
@@ -27,8 +33,10 @@ const navigation = [
     ],
   },
   {
-    title: 'How a Computer Works',
-    chapter: 3,
+    title: 'Artificial Intelligence Primer',
+    id: 3,
+    description:
+      'An overview of the AI/ML landscape. Aimed to help learners appreciate how current AI systems differ from biological intelligence in both capabilities and limitations.',
     links: [
       { title: 'Von Neumann', href: '/docs/computation', level: [1] },
       {
@@ -54,8 +62,10 @@ const navigation = [
     ],
   },
   {
-    title: 'How the Brain Works',
-    chapter: 4,
+    title: 'Innovations in Computer Hardware',
+    id: 4,
+    description:
+      'An overview of traditional and neuromorphic computing hardware, including the von Neumann bottleneck, memristors, and neuromorphic chips.',
     links: [
       {
         title: 'Introduction to the brain',
@@ -80,8 +90,10 @@ const navigation = [
     ],
   },
   {
-    title: 'AI Overview',
-    chapter: 5,
+    title: 'Brain-Inspired Spiking Neural Networks',
+    description:
+      'Explanations and demos of spiking neural networks: how they process information and learn through spike timing (vis-a-vis traditional neural networks and biological learning).',
+    id: 5,
     links: [
       {
         title: 'Intro to Artificial Intelligence (AI)',
@@ -101,8 +113,10 @@ const navigation = [
     ],
   },
   {
-    title: 'Neuromorphic Computing',
-    chapter: 6,
+    title: 'Cerebellum-Inspired Circuits',
+    description:
+      "An overview of the cerebellum's architecture for motor control and learning, how it has inspired this research, and potential applications.",
+    id: 6,
     links: [
       {
         title: 'Intro to Neuromorphic Computing',
@@ -117,8 +131,10 @@ const navigation = [
     ],
   },
   {
-    title: 'Potential Applications',
-    chapter: 7,
+    title: 'Broader Impacts & Case Studies',
+    description:
+      'Examine the broader impacts of the research project, including potential applications, benefits, and risks.',
+    id: 7,
     links: [
       { title: 'Applications', href: '/docs/applications', level: [1, 2] },
       {
@@ -136,12 +152,6 @@ const navigation = [
         href: '/docs/applications/robotics',
         level: [1, 2, 3],
       },
-    ],
-  },
-  {
-    title: 'Broader Impacts & Case Studies',
-    chapter: 8,
-    links: [
       {
         title: 'Risk Frameworks',
         href: '/docs/broader-impacts',
@@ -176,4 +186,20 @@ const navigation = [
   },
 ]
 
-export { navigation }
+function getChapter(chapterId) {
+  return navigation.find((section) => section.id === chapterId)
+}
+
+function getChapterByHref(href) {
+  return navigation.find((section) =>
+    section.links.some((link) => link.href === href),
+  )
+}
+
+function getLinksByLevel(chapter, level) {
+  return chapter.links.filter(
+    (link) => level === 0 || link.level.includes(level),
+  )
+}
+
+export { navigation, getChapter, getLinksByLevel, getChapterByHref }

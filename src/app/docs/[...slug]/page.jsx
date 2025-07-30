@@ -19,8 +19,8 @@ export async function generateStaticParams() {
 
 export default function DocPage({ params }) {
   const { content, frontmatter, nodes } = getMarkdownContent(params.slug)
-  const Layout = layouts[frontmatter?.layout || 'inner'] || InnerDocsLayout
-
+  // const Layout = layouts[frontmatter?.layout || 'inner'] || InnerDocsLayout
+  const Layout = layouts.inner
   return (
     <Layout frontmatter={frontmatter} nodes={nodes}>
       {Markdoc.renderers.react(content, React)}

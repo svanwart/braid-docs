@@ -17,8 +17,8 @@ import { createAutocomplete } from '@algolia/autocomplete-core'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
 
-import { navigation } from '@/lib/navigation'
-import { useLevel } from './LevelProvider'
+import { navigation } from '@/lib/navigation.mjs'
+import { useApp } from './AppContext'
 
 function SearchIcon(props) {
   return (
@@ -32,16 +32,8 @@ function useAutocomplete({ close }) {
   let id = useId()
   let router = useRouter()
   let [autocompleteState, setAutocompleteState] = useState({})
-  let { userLevel } = useLevel()
+  let { userLevel } = useApp()
 
-  // Temporary debug logging
-  useEffect(() => {
-    console.log('Search component state:', {
-      userLevel,
-      type: typeof userLevel,
-      localStorage: localStorage.getItem('userLevel'),
-    })
-  }, [userLevel])
 
   function navigate({ itemUrl }) {
     if (!itemUrl) {

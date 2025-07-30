@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import HeaderPanel from '@/components/HeaderPanel'
 import { Prose } from '@/components/Prose'
 import { Navbar } from '@/components/DocsNavbar'
+import { getChapter } from '@/lib/navigation.mjs'
 import { Navigation } from '@/components/Navigation'
-import { useLevel } from '@/components/LevelProvider'
+import { useApp } from '@/components/AppContext'
 
 import { LevelSelectorMenu } from '@/components/LevelSelectorMenu'
 function BackToTopButton() {
@@ -62,16 +63,13 @@ function BackToTopButton() {
 }
 
 export function PageLayoutMarkdoc({ children, frontmatter, nodes }) {
-  const { userLevel, currentChapter, setCurrentChapter } = useLevel()
-
+  const { currentChapter } = useApp()
+  const selectedChapter = getChapter(currentChapter)
   return (
     <div className="flex w-full flex-col">
       <Navbar />
-      <HeaderPanel title="Spiking Neural Networks" chapter={currentChapter}>
-        The goal of this page is to provide enough context and intuition about
-        Spiking Neural Networks (SNNs) so that different audiences can
-        understand how they work, how they differ from other types of neural
-        networks, and potential uses.
+      <HeaderPanel title={selectedChapter.title} chapter={currentChapter}>
+        {selectedChapter.description}
       </HeaderPanel>
 
       {/* Main content */}
@@ -91,9 +89,9 @@ export function PageLayoutMarkdoc({ children, frontmatter, nodes }) {
         <h2 className="fixed top-[40vh] -z-10 -rotate-[30deg] text-[150px] font-bold text-gray-100 lg:top-[30vh] lg:text-[250px] dark:text-gray-800">
           Draft
         </h2>
-        <div>
+        <div className="w-full">
           <LevelSelectorMenu className="relative z-10" />
-          {children}
+          <Prose>{children}</Prose>
         </div>
       </div>
 
