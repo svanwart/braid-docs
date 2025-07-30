@@ -4,6 +4,8 @@ const navigation = [
   {
     title: 'Executive Summary',
     id: 1,
+    status: 'TODO',
+    color: 'bg-indigo-100',
     description:
       'An overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
     links: [
@@ -15,26 +17,30 @@ const navigation = [
       {
         title: 'Policy Brief',
         href: '/docs/policy-brief',
-        level: [1],
+        level: [1, 2, 3],
       },
     ],
   },
   {
     title: 'Biological Intelligence Primer',
     id: 2,
+    status: 'TODO',
+    color: 'bg-indigo-100',
     description:
       'What makes biological intelligence so efficient and adaptable. Provides an overview of how the brain processes information through neurons and synapses.',
     links: [
       {
         title: 'Brainstorm',
         href: '/docs/notes',
-        level: [1],
+        level: [1, 2, 3],
       },
     ],
   },
   {
     title: 'Artificial Intelligence Primer',
     id: 3,
+    status: 'TODO',
+    color: 'bg-indigo-100',
     description:
       'An overview of the AI/ML landscape. Aimed to help learners appreciate how current AI systems differ from biological intelligence in both capabilities and limitations.',
     links: [
@@ -62,8 +68,10 @@ const navigation = [
     ],
   },
   {
-    title: 'Innovations in Computer Hardware',
+    title: 'Neuromorphic Computing',
     id: 4,
+    status: 'In Progress',
+    color: 'bg-teal-50',
     description:
       'An overview of traditional and neuromorphic computing hardware, including the von Neumann bottleneck, memristors, and neuromorphic chips.',
     links: [
@@ -94,6 +102,8 @@ const navigation = [
     description:
       'Explanations and demos of spiking neural networks: how they process information and learn through spike timing (vis-a-vis traditional neural networks and biological learning).',
     id: 5,
+    status: 'In Progress',
+    color: 'bg-teal-50',
     links: [
       {
         title: 'Intro to Artificial Intelligence (AI)',
@@ -117,6 +127,8 @@ const navigation = [
     description:
       "An overview of the cerebellum's architecture for motor control and learning, how it has inspired this research, and potential applications.",
     id: 6,
+    status: 'TODO',
+    color: 'bg-indigo-100',
     links: [
       {
         title: 'Intro to Neuromorphic Computing',
@@ -135,6 +147,8 @@ const navigation = [
     description:
       'Examine the broader impacts of the research project, including potential applications, benefits, and risks.',
     id: 7,
+    status: 'TODO',
+    color: 'bg-indigo-100',
     links: [
       { title: 'Applications', href: '/docs/applications', level: [1, 2] },
       {
@@ -172,16 +186,16 @@ const navigation = [
         href: '/docs/broader-impacts/surveillance',
         level: [1, 2, 3],
       },
-      // {
-      //   title: 'Alina: Bias in AI',
-      //   href: '/docs/case-studies/alina',
-      //   level: [1, 2],
-      // },
-      // {
-      //   title: 'Tess: The Environment',
-      //   href: '/docs/case-studies/tess',
-      //   level: [1, 2],
-      // },
+      {
+        title: 'Alina: Bias in AI',
+        href: '/docs/case-studies/alina',
+        level: [1, 2],
+      },
+      {
+        title: 'Tess: The Environment',
+        href: '/docs/case-studies/tess',
+        level: [1, 2],
+      },
     ],
   },
 ]

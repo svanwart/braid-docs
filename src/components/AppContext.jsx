@@ -77,9 +77,10 @@ export function AppProvider({ children }) {
           }
         }
       } else {
-        throw new Error(
-          "Check logic of AppContext useEffect. Something isn't working as expected!",
-        )
+        console.log(`${pathname} is not in the navigation! Homepage?`)
+        // throw new Error(
+        //   "Check logic of AppContext useEffect. Something isn't working as expected!",
+        // )
       }
     }
     // }

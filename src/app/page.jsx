@@ -7,67 +7,8 @@ import {
 } from '@headlessui/react'
 import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
-
-const chapters = [
-  {
-    title: 'Executive Summary',
-    description:
-      'An overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
-    url: '#',
-    status: 'TODO',
-    color: 'bg-yellow-50',
-  },
-  {
-    title: 'Biological Intelligence Primer',
-    description:
-      'What makes biological intelligence so efficient and adaptable. Provides an overview of how the brain processes information through neurons and synapses.',
-    url: '/the-brain',
-    status: 'TODO',
-    color: 'bg-indigo-100',
-  },
-  {
-    title: 'Artificial Intelligence Primer',
-    description:
-      'An overview of the AI/ML landscape. Aimed to help learners appreciate how current AI systems differ from biological intelligence in both capabilities and limitations.',
-    url: '#',
-    status: 'TODO',
-    color: 'bg-indigo-100',
-  },
-  {
-    title: 'Innovations in Computer Hardware',
-    description:
-      'An overview of traditional and neuromorphic computing hardware, including the von Neumann bottleneck, memristors, and neuromorphic chips.',
-    source: '/braid-docs/images/computers/computer.jpg',
-    url: '/hardware',
-    status: 'In Progress',
-    color: 'bg-teal-50',
-  },
-  {
-    title: 'Brain-Inspired Spiking Neural Networks',
-    description:
-      'Explanations and demos of spiking neural networks: how they process information and learn through spike timing (vis-a-vis traditional neural networks and biological learning).',
-    url: '/snn',
-    status: 'In Progress',
-    color: 'bg-teal-50',
-  },
-  {
-    title: 'Cerebellum-Inspired Circuits',
-    description:
-      "An overview of the cerebellum's architecture for motor control and learning, how it has inspired this research, and potential applications.",
-    status: 'TODO',
-    url: '#',
-    color: 'bg-indigo-100',
-  },
-  {
-    title: 'Broader Impacts',
-    description:
-      'Examine the broader impacts of the research project, including potential applications, benefits, and risks.',
-    source: 'https://picsum.photos/300/300.jpg?a=6',
-    url: '#',
-    status: 'TODO',
-    color: 'bg-indigo-100',
-  },
-]
+import { navigation, getLinksByLevel } from '@/lib/navigation.mjs'
+import { useApp } from '@/components/AppContext'
 
 function Navbar() {
   return (
@@ -138,6 +79,7 @@ function Navbar() {
 }
 
 export default function HomePage({ children }) {
+  const { userLevel } = useApp()
   return (
     <div className="flex w-full flex-col">
       <Navbar />
@@ -162,35 +104,38 @@ export default function HomePage({ children }) {
           role="list"
           className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8"
         >
-          {chapters.map((item, index) => (
-            <Link
-              href={item.url}
-              className={`flex cursor-pointer items-stretch gap-2 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 mb-4 items-center justify-center bg-gray-50 p-24 md:col-span-2' : ''}`}
-              key={`${item.title}-${index}`}
-            >
-              {index !== 0 && (
-                <div
-                  className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center uppercase ${item.color} flex-shrink-0 flex-grow-0`}
-                >
-                  {item.status}
-                </div>
-              )}
-              <div
-                className={`px-2 py-4 ${index === 0 ? 'flex flex-col items-center justify-center text-2xl' : ''}`}
+          {navigation.map((item, index) => {
+            const url = getLinksByLevel(item, userLevel)[0].href
+            return (
+              <Link
+                href={url}
+                className={`flex cursor-pointer items-stretch gap-2 rounded-lg border transition-colors dark:bg-slate-700 dark:hover:bg-slate-600 ${index === 0 ? 'col-span-1 mb-4 items-center justify-center bg-gray-50 p-24 md:col-span-2' : ''}`}
+                key={`${item.title}-${index}`}
               >
-                <h4
-                  className={`font-medium text-gray-900 dark:text-white ${index === 0 ? 'mb-4' : ''}`}
+                {index !== 0 && (
+                  <div
+                    className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center uppercase ${item.color} flex-shrink-0 flex-grow-0`}
+                  >
+                    {item.status}
+                  </div>
+                )}
+                <div
+                  className={`px-2 py-4 ${index === 0 ? 'flex flex-col items-center justify-center text-2xl' : ''}`}
                 >
-                  {index !== 0 && `${index}.`} {item.title}
-                </h4>
-                <p
-                  className={`dark:slate:100 text-gray-500 ${index === 0 ? 'text-center text-lg' : 'text-sm leading-5'}`}
-                >
-                  {item.description}
-                </p>
-              </div>
-            </Link>
-          ))}
+                  <h4
+                    className={`font-medium text-gray-900 dark:text-white ${index === 0 ? 'mb-4' : ''}`}
+                  >
+                    {item.id}. {item.title}
+                  </h4>
+                  <p
+                    className={`dark:slate:100 text-gray-500 ${index === 0 ? 'text-center text-lg' : 'text-sm leading-5'}`}
+                  >
+                    {item.description}
+                  </p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
 
