@@ -175,10 +175,10 @@ export const snnSections = [
             <li>Interpretability</li>
           </ul>
           <p>
-            After it's run through the training process, allow the user to label
-            the different buckets, and then "see how it does with new examples."
-            Congratulations! You've just made your own SNN! Print it out and get
-            this gold star!
+            After the SNN runs through the training process, allow the user to
+            label the different buckets, and then see how it does with new
+            examples. Congratulations! You have just made your own SNN! Print it
+            out and get this gold star!
           </p>
         </section>
         {/* Slide 7 */}

@@ -76,23 +76,8 @@ const navigation = [
       'An overview of traditional and neuromorphic computing hardware, including the von Neumann bottleneck, memristors, and neuromorphic chips.',
     links: [
       {
-        title: 'Introduction to the brain',
-        href: '/docs/the-brain',
-        level: [1, 2],
-      },
-      {
-        title: 'How neurons work',
-        href: '/docs/the-brain/neurons',
-        level: [1, 2],
-      },
-      {
-        title: 'How does the brain learn?',
-        href: '/docs/the-brain/biological-learning',
-        level: [1, 2, 3],
-      },
-      {
-        title: 'What is the cerebellum?',
-        href: '/docs/the-brain/the-cerebellum',
+        title: 'Introduction to Neuromorphic Computing',
+        href: '/docs/neuromorphic-computing',
         level: [1, 2, 3],
       },
     ],
@@ -130,11 +115,6 @@ const navigation = [
     status: 'TODO',
     color: 'bg-indigo-100',
     links: [
-      {
-        title: 'Intro to Neuromorphic Computing',
-        href: '/docs/neuromorphic-computing',
-        level: [1, 2, 3],
-      },
       {
         title: 'Introduction to Cerebellum-Inspired Hardware',
         href: '/docs/cerebellum-inspired-hardware',

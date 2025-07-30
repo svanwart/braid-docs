@@ -94,20 +94,6 @@ export function PageLayoutMarkdoc({ children, frontmatter, nodes }) {
           <LevelSelectorMenu className="relative z-10" />
           <div className="flex">{children}</div>
         </div>
-        {/* Right-hand column for inner page menu */}
-        {/* <div className="hidden lg:relative lg:block lg:flex-none">
-          <div className="absolute inset-y-0 left-0 w-[50vw] bg-slate-50 dark:hidden" />
-          <div className="absolute bottom-0 left-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
-          <div className="absolute bottom-0 left-0 top-28 hidden w-px bg-slate-800 dark:block" />
-          <div className="sticky top-[4.75rem] -mr-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-8 pr-0.5 xl:w-72 xl:pl-16">
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
-                On this page
-              </h3>
-              Navigation goes here
-            </div>
-          </div>
-        </div> */}
       </div>
 
       {/* Back to top button */}
