@@ -16,7 +16,7 @@ export function Navigation({ className, onLinkClick }) {
     const previousChapterId = chapterId > 1 ? chapterId - 1 : null
     const nextChapterId = chapterId < navigation.length ? chapterId + 1 : null
     return (
-      <div className="border-b border-gray-100 bg-white sm:border-r">
+      <div className="border-b border-gray-100 dark:border-slate-800 bg-white sm:border-r dark:bg-slate-900">
         <div className="flex items-center justify-between">
           {previousChapterId ? (
             <button

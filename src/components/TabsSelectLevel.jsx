@@ -1,15 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Listbox } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
-import { levels } from './LevelSelector'
 
 import { useApp } from './AppContext'
 
 export function LevelSelectorMenu() {
   const { userLevel, handleLevelChange } = useApp()
-  const [activeTab, setActiveTab] = useState(0)
+  const [activeTab, setActiveTab] = useState(userLevel)
+  const levels = [
+    {
+      id: 1,
+      name: 'Overview',
+    },
+    {
+      id: 2,
+      name: 'Technical Explainer',
+    },
+    {
+      id: 3,
+      name: 'Applications & Use Cases',
+    },
+  ]
   const tabs = levels.map((level, idx) => {
     return {
       id: level.id,
@@ -25,14 +38,23 @@ export function LevelSelectorMenu() {
     }
   })
 
+  // Update activeTab when userLevel changes
+  useEffect(() => {
+    setActiveTab(userLevel)
+  }, [userLevel])
+
   const boxStyling = {
     marginTop: '-68px',
     padding: '10px 30px',
   }
 
   return (
+    // <div
+    //   className="m-auto mx-0 bg-white px-6 py-12 md:max-w-4xl lg:px-8 dark:bg-slate-900 dark:bg-transparent dark:bg-none"
+    //   style={boxStyling}
+    // >
     <div
-      className="m-auto mx-0 bg-white px-6 py-12 md:max-w-4xl lg:px-8 dark:bg-slate-900 dark:bg-transparent dark:bg-none"
+      className="m-auto mx-0 bg-white px-6 py-12 lg:px-8 dark:bg-slate-900 dark:bg-transparent dark:bg-none"
       style={boxStyling}
     >
       {/* Desktop Tab Navigation */}
@@ -57,13 +79,16 @@ export function LevelSelectorMenu() {
       {/* Mobile Dropdown Navigation */}
       <div className="md:hidden">
         <Listbox
-          value={tabs[activeTab]}
-          onChange={(tab) => setActiveTab(tab.id)}
+          value={tabs.find((tab) => tab.id === activeTab) || tabs[0]}
+          onChange={(tab) => {
+            setActiveTab(tab.id)
+            handleLevelChange(tab.id)
+          }}
         >
           <div className="relative">
             <Listbox.Button className="relative mt-4 w-full cursor-pointer rounded-lg border-2 bg-white py-3 pl-4 pr-10 text-left shadow-sm focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-slate-800 dark:text-white">
               <span className="block truncate font-medium">
-                {tabs[activeTab].name}
+                {tabs.find((tab) => tab.id === activeTab)?.name || tabs[0].name}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon
@@ -86,13 +111,11 @@ export function LevelSelectorMenu() {
                   value={tab}
                 >
                   {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
-                      >
-                        {tab.name}
-                      </span>
-                    </>
+                    <span
+                      className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}
+                    >
+                      {tab.name}
+                    </span>
                   )}
                 </Listbox.Option>
               ))}
