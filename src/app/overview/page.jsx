@@ -8,9 +8,9 @@ function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="sticky left-0 top-0 z-20 w-full bg-white dark:bg-slate-900"
+      className="sticky left-0 top-0 z-20 w-full dark:bg-slate-900"
     >
-      <div className="flex w-full flex-none flex-wrap items-center justify-between bg-white px-4 transition duration-500 sm:px-6 lg:px-8 dark:bg-transparent dark:shadow-none">
+      <div className="flex w-full flex-none flex-wrap items-center justify-between px-4 transition duration-500 sm:px-6 lg:px-8 dark:bg-transparent dark:shadow-none">
         <div className="flex h-16 w-full justify-between">
           <div className="flex w-full justify-between">
             <div className="flex shrink-0 items-center">
@@ -29,7 +29,7 @@ function Navbar() {
             </div>
           </div>
 
-          <div className="-mr-2 flex items-center gap-2 sm:gap-4">
+          <div className="sm:gapx-8 -mr-2 flex items-center gap-2">
             <ThemeSelector className="relative z-10 my-5 ml-2" />
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function MatrixPage({ children }) {
       <Navbar />
 
       {/* Section 1: Intro */}
-      <div className="bg-gradient-to-r from-blue-100 via-purple-50 to-indigo-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
+      {/* <div className="bg-gradient-to-r from-blue-100 via-purple-50 to-indigo-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
         <div className="mx-auto max-w-3xl">
           <h2 className="mt-2 text-center text-4xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">
             Overview of biological and artificial intelligence
@@ -55,24 +55,27 @@ export default function MatrixPage({ children }) {
             different.
           </p>
         </div>
-      </div>
+      </div> */}
 
-      <div className="mx-auto grid w-full max-w-8xl grid-cols-1 gap-x-6 px-4 py-28 sm:px-6 md:grid-cols-3 lg:px-8">
-        <h2 className="bg-teal-50 p-4 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+      <div className="mx-auto -mt-[100px] grid w-full grid-cols-1 md:grid-cols-3">
+        <h2 className="sticky -top-[130px] border-b-2 border-black bg-teal-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           The Brain
         </h2>
-        <h2 className="bg-indigo-50 p-4 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        <h2 className="sticky -top-[130px] border-b-2 border-black bg-indigo-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           Traditional Computers
         </h2>
-        <h2 className="bg-pink-50 p-4 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+        <h2 className="sticky -top-[130px] border-b-2 border-black bg-pink-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           Neuromorphic Computers
         </h2>
 
         {/* Building Blocks */}
-        <h3 className="col-span-1 bg-slate-800 p-2 text-center text-2xl font-semibold text-white md:col-span-3">
+        <h3 className="bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Building Blocks
         </h3>
-        <div className="min-h-56 bg-teal-50 p-4">
+        <span className="bg-indigo-50 px-8 py-2"></span>
+        <span className="bg-pink-50 px-8 py-2"></span>
+
+        <div className="min-h-56 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neurons
           </h3>
@@ -84,7 +87,7 @@ export default function MatrixPage({ children }) {
             synapses in the human body.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 p-4">
+        <div className="min-h-56 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Transistors
           </h3>
@@ -95,7 +98,7 @@ export default function MatrixPage({ children }) {
             and 1s).
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 p-4">
+        <div className="min-h-56 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Memristors & Memtransistors
           </h3>
@@ -108,10 +111,13 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Connections */}
-        <h3 className="col-span-1 bg-slate-800 p-2 text-center text-2xl font-semibold text-white md:col-span-3">
+        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Connections
         </h3>
-        <div className="min-h-56 bg-teal-50 p-4">
+        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+
+        <div className="min-h-56 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neural Circuits
           </h3>
@@ -122,7 +128,7 @@ export default function MatrixPage({ children }) {
             another.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 p-4">
+        <div className="min-h-56 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Circuits and microchips
           </h3>
@@ -133,7 +139,7 @@ export default function MatrixPage({ children }) {
             calculations and make decisions.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 p-4">
+        <div className="min-h-56 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neuromorphic circuits
           </h3>
@@ -141,33 +147,36 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Coordination */}
-        <h3 className="col-span-1 bg-slate-800 p-2 text-center text-2xl font-semibold text-white md:col-span-3">
+        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Coordination
         </h3>
-        <div className="min-h-56 bg-teal-50 p-4">
+        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+
+        <div className="min-h-56 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             The Nervous System
           </h3>
           <p>
             The brain is like a massively parallel, self-rewiring CPU that never
-            turns off and can be powered by a sandwich! The brain doesn't have a
-            single “central processor.” Rather, many regions work together to
-            complete tasks and respond to the environment.
+            turns off and can be powered by a sandwich! The brain doesn&apos;t
+            have a single &quot;central processor.&quot; Rather, many regions
+            work together to complete tasks and respond to the environment.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 p-4">
+        <div className="min-h-56 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             The Von Neumann Architecture
           </h3>
           <p>
             Most computers follow the Von Neumann architecture (designed in the
-            1940s).The CPU fetches an instruction, decodes it, executes it, and
-            repeats (very quickly), based on the computer's clock speed. Most
-            modern CPUs operate in the gigahertz range. 2.4 GHz is equivalent to
-            2.4 billion cycles (calculations) per second.
+            1940s). The CPU fetches an instruction, decodes it, executes it, and
+            repeats (very quickly), based on the computer&apos;s clock speed.
+            Most modern CPUs operate in the gigahertz range. 2.4 GHz is
+            equivalent to 2.4 billion cycles (calculations) per second.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 p-4">
+        <div className="min-h-56 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neuromorphic Chips
           </h3>
@@ -175,10 +184,13 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Learning */}
-        <h3 className="col-span-1 bg-slate-800 p-2 text-center text-2xl font-semibold text-white md:col-span-3">
+        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Learning
         </h3>
-        <div className="min-h-56 bg-teal-50 p-4">
+        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+
+        <div className="min-h-56 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Synaptic Plasticity
           </h3>
@@ -191,7 +203,7 @@ export default function MatrixPage({ children }) {
             synapses is called synaptic plasticity.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 p-4">
+        <div className="min-h-56 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neural Networks
           </h3>
@@ -203,29 +215,24 @@ export default function MatrixPage({ children }) {
             connected via weighted edges. Over time, each of the connection
             strengths between the neurons (weights) are adjusted so that labeled
             data are classified as accurately as possible - through a process
-            known as backpropagation. Once the network is "trained," it can
-            classify new examples it has never seen before.
+            known as backpropagation. Once the network is &quot;trained,&quot;
+            it can classify new examples it has never seen before.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 p-4">
+        <div className="min-h-56 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Spiking Neural Networks
           </h3>
           <p>
             Neuromorphic systems enable a new class of algorithms inspired by
-            the brain's efficiency and adaptability. Spiking Neural Networks
-            (SNNs) use discrete spikes instead of continuous activations,
-            requiring new approaches to training and architecture. Small Data
-            Learning: Learns from limited data, ideal for low-power and edge
-            applications.
+            the brain&apos;s efficiency and adaptability. Spiking Neural
+            Networks (SNNs) use discrete spikes instead of continuous
+            activations, requiring new approaches to training and architecture.
+            Small Data Learning: Learns from limited data, ideal for low-power
+            and edge applications.
           </p>
         </div>
       </div>
-
-      {/* footer */}
-      <footer className="mt-32 flex items-center justify-center bg-gray-50 p-16 dark:bg-slate-900">
-        <p>Footer Text...</p>
-      </footer>
     </div>
   )
 }
