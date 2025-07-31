@@ -1,8 +1,11 @@
 'use client'
+import { useState } from 'react'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import './page.css'
 
 function Navbar() {
   return (
@@ -39,6 +42,27 @@ function Navbar() {
 }
 
 export default function MatrixPage({ children }) {
+  const [layout, setLayout] = useState({})
+  const [open, setOpen] = useState(false)
+
+  function grow(idx) {
+    if (idx === 1) {
+      setLayout({ gc1: !open })
+    } else if (idx === 2) {
+      setLayout({ gc2: !open })
+    } else if (idx === 3) {
+      setLayout({ gc3: !open })
+    } else {
+      setLayout({})
+    }
+    setOpen(!open)
+  }
+  function getLayout() {
+    return clsx(
+      'mx-auto -mt-[100px] grid w-full grid-cols-1 md:grid-cols-3',
+      layout,
+    )
+  }
   return (
     <div className="flex w-full flex-col">
       <Navbar />
@@ -57,25 +81,55 @@ export default function MatrixPage({ children }) {
         </div>
       </div> */}
 
-      <div className="mx-auto -mt-[100px] grid w-full grid-cols-1 md:grid-cols-3">
-        <h2 className="sticky -top-[130px] border-b-2 border-black bg-teal-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          The Brain
-        </h2>
-        <h2 className="sticky -top-[130px] border-b-2 border-black bg-indigo-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Traditional Computers
-        </h2>
-        <h2 className="sticky -top-[130px] border-b-2 border-black bg-pink-50 px-8 pb-12 pt-48 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Neuromorphic Computers
-        </h2>
+      <div className={getLayout()} id="matrix">
+        <div className="col1 relative sticky -top-[130px] border-b-2 border-black bg-teal-50 px-8 pb-12 pt-48">
+          <h2 className="text-5xl font-extrabold text-gray-900 dark:text-white">
+            The Brain
+          </h2>
+          <button
+            onClick={function () {
+              grow(1)
+            }}
+            className="absolute bottom-4 right-4 border-2 border-black px-4 py-2 font-bold text-gray-900 dark:text-white"
+          >
+            More
+          </button>
+        </div>
+        <div className="col2 relative sticky -top-[130px] border-b-2 border-black bg-indigo-50 px-8 pb-12 pt-48">
+          <h2 className="text-5xl font-extrabold text-gray-900 dark:text-white">
+            Traditional Computing
+          </h2>
+          <button
+            onClick={function () {
+              grow(2)
+            }}
+            className="absolute bottom-4 right-4 border-2 border-black px-4 py-2 font-bold text-gray-900 dark:text-white"
+          >
+            More
+          </button>
+        </div>
+        <div className="col3 relative sticky -top-[130px] border-b-2 border-black bg-pink-50 px-8 pb-12 pt-48">
+          <h2 className="text-5xl font-extrabold text-gray-900 dark:text-white">
+            Neuromorphic Computing
+          </h2>
+          <button
+            onClick={function () {
+              grow(3)
+            }}
+            className="absolute bottom-4 right-4 border-2 border-black px-4 py-2 font-bold text-gray-900 dark:text-white"
+          >
+            More
+          </button>
+        </div>
 
         {/* Building Blocks */}
-        <h3 className="bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
+        <h3 className="col1 bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Building Blocks
         </h3>
-        <span className="bg-indigo-50 px-8 py-2"></span>
-        <span className="bg-pink-50 px-8 py-2"></span>
+        <span className="col2 bg-indigo-50 px-8 py-2"></span>
+        <span className="col3 bg-pink-50 px-8 py-2"></span>
 
-        <div className="min-h-56 bg-teal-50 px-8 py-12">
+        <div className="col1 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neurons
           </h3>
@@ -87,7 +141,7 @@ export default function MatrixPage({ children }) {
             synapses in the human body.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 px-8 py-12">
+        <div className="col2 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Transistors
           </h3>
@@ -98,7 +152,7 @@ export default function MatrixPage({ children }) {
             and 1s).
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 px-8 py-12">
+        <div className="col3 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Memristors & Memtransistors
           </h3>
@@ -111,13 +165,13 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Connections */}
-        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
+        <h3 className="col1 border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Connections
         </h3>
-        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
-        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+        <span className="col2 border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="col3 border-t-2 border-black bg-pink-50 px-8 py-2"></span>
 
-        <div className="min-h-56 bg-teal-50 px-8 py-12">
+        <div className="col1 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neural Circuits
           </h3>
@@ -128,7 +182,7 @@ export default function MatrixPage({ children }) {
             another.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 px-8 py-12">
+        <div className="col2 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Circuits and microchips
           </h3>
@@ -139,7 +193,7 @@ export default function MatrixPage({ children }) {
             calculations and make decisions.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 px-8 py-12">
+        <div className="col3 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neuromorphic circuits
           </h3>
@@ -147,13 +201,13 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Coordination */}
-        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
+        <h3 className="col1 border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Coordination
         </h3>
-        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
-        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+        <span className="col2 border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="col3 border-t-2 border-black bg-pink-50 px-8 py-2"></span>
 
-        <div className="min-h-56 bg-teal-50 px-8 py-12">
+        <div className="col1 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             The Nervous System
           </h3>
@@ -164,7 +218,7 @@ export default function MatrixPage({ children }) {
             work together to complete tasks and respond to the environment.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 px-8 py-12">
+        <div className="col2 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             The Von Neumann Architecture
           </h3>
@@ -176,7 +230,7 @@ export default function MatrixPage({ children }) {
             equivalent to 2.4 billion cycles (calculations) per second.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 px-8 py-12">
+        <div className="col3 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neuromorphic Chips
           </h3>
@@ -184,13 +238,13 @@ export default function MatrixPage({ children }) {
         </div>
 
         {/* Learning */}
-        <h3 className="border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
+        <h3 className="col1 border-t-2 border-black bg-teal-50 px-8 pb-8 pt-12 text-3xl font-extrabold">
           Learning
         </h3>
-        <span className="border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
-        <span className="border-t-2 border-black bg-pink-50 px-8 py-2"></span>
+        <span className="col2 border-t-2 border-black bg-indigo-50 px-8 py-2"></span>
+        <span className="col3 border-t-2 border-black bg-pink-50 px-8 py-2"></span>
 
-        <div className="min-h-56 bg-teal-50 px-8 py-12">
+        <div className="col1 bg-teal-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Synaptic Plasticity
           </h3>
@@ -203,7 +257,7 @@ export default function MatrixPage({ children }) {
             synapses is called synaptic plasticity.
           </p>
         </div>
-        <div className="min-h-56 bg-indigo-50 px-8 py-12">
+        <div className="col2 bg-indigo-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Neural Networks
           </h3>
@@ -219,7 +273,7 @@ export default function MatrixPage({ children }) {
             it can classify new examples it has never seen before.
           </p>
         </div>
-        <div className="min-h-56 bg-pink-50 px-8 py-12">
+        <div className="col3 bg-pink-50 px-8 py-12">
           <h3 className="text-xl font-semibold text-blue-950 dark:text-slate-100">
             Spiking Neural Networks
           </h3>
