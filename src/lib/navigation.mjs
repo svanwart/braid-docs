@@ -2,7 +2,7 @@
 import React from 'react'
 const navigation = [
   {
-    title: 'Executive Summary',
+    title: 'Overview of This Website',
     id: 1,
     status: 'TODO',
     color: 'bg-indigo-100',
@@ -10,13 +10,8 @@ const navigation = [
       'An overview of the research project, including a discussion of the underlying motivations, an explanation of the technologies explored, and a discussion of potential applications and impacts.',
     links: [
       {
-        title: 'Overview',
-        href: '/docs',
-        level: [1],
-      },
-      {
-        title: 'Policy Brief',
-        href: '/docs/policy-brief',
+        title: 'What is this?',
+        href: '/docs/why',
         level: [1, 2, 3],
       },
     ],
