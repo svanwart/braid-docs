@@ -18,3 +18,7 @@
   @apply bg-gradient-radial from-10% from-white to-[#f7f1f9];
 }
 
+td,
+th {
+  @apply align-top;
+}

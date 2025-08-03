@@ -3,12 +3,11 @@ body {
 }
 
 #matrix {
-  transition: all 0.3s ease-in-out;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 #matrix > * {
-  transition: all 0.3s ease-in-out;
+  transition: min-width 0.3s ease-in-out;
 }
 
 .gc1 {
