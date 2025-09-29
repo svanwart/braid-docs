@@ -43,10 +43,12 @@ function Navbar() {
 
 export default function MatrixPage({ children }) {
   const [tableState, setTableState] = useState({
-    layout: { 'w-[100vw]': true },
-    col1Width: 'w-[33.33vw]',
-    col2Width: 'w-[33.33vw]',
-    col3Width: 'w-[33.33vw]',
+    tableWidth: '100vw',
+    transition: 'all 500ms ease-in-out',
+    transform: 'translateX(0vw)',
+    col1Width: '33.33vw',
+    col2Width: '33.33vw',
+    col3Width: '33.33vw',
     open: false,
   })
 
@@ -54,15 +56,11 @@ export default function MatrixPage({ children }) {
     if (tableState.open) {
       setTableState((prev) => ({
         ...prev,
-        layout: {
-          'w-[100vw]': true,
-          transform: true,
-          '-translate-x-[0vw]': true,
-          transition: true,
-        },
-        col1Width: 'w-[33.33vw]',
-        col2Width: 'w-[33.33vw]',
-        col3Width: 'w-[33.33vw]',
+        tableWidth: '100vw',
+        transform: 'translateX(0vw)',
+        col1Width: '33.33vw',
+        col2Width: '33.33vw',
+        col3Width: '33.33vw',
         open: !prev.open,
       }))
       return
@@ -70,48 +68,35 @@ export default function MatrixPage({ children }) {
     if (idx === 1) {
       setTableState((prev) => ({
         ...prev,
-        layout: {
-          'w-[168vw]': true,
-          transform: true,
-          '-translate-x-[0vw]': true,
-        },
-        col1Width: 'w-[100vw]',
+        tableWidth: '168vw',
+        transform: 'translateX(0vw)',
+        col1Width: '100vw',
         open: !prev.open,
       }))
     } else if (idx === 2) {
       setTableState((prev) => ({
         ...prev,
-        layout: {
-          'w-[168vw]': true,
-          transform: true,
-          '-translate-x-[33.33vw]': true,
-        },
-        col2Width: 'w-[100vw]',
+        tableWidth: '168vw',
+        transform: 'translateX(-33.33vw)',
+        col2Width: '100vw',
         open: !prev.open,
       }))
     } else if (idx === 3) {
       setTableState((prev) => ({
         ...prev,
-        layout: {
-          'w-[168vw]': true,
-          transform: true,
-          '-translate-x-[66.66vw]': true,
-        },
-        col3Width: 'w-[100vw]',
+        tableWidth: '168vw',
+        transform: 'translateX(-66.66vw)',
+        col3Width: '100vw',
         open: !prev.open,
       }))
     } else {
       setTableState((prev) => ({
         ...prev,
-        layout: {
-          'w-[100vw]': true,
-          transform: true,
-          '-translate-x-[0vw]': true,
-          transition: true,
-        },
-        col1Width: 'w-[33.33vw]',
-        col2Width: 'w-[33.33vw]',
-        col3Width: 'w-[33.33vw]',
+        tableWidth: '100vw',
+        transform: 'translateX(0vw)',
+        col1Width: '33.33vw',
+        col2Width: '33.33vw',
+        col3Width: '33.33vw',
         open: !prev.open,
       }))
     }
@@ -120,7 +105,6 @@ export default function MatrixPage({ children }) {
   function getTableLayout() {
     return clsx(
       '-mt-[100px] border-collapse border border-black dark:border-gray-600',
-      tableState.layout,
     )
   }
 
@@ -148,32 +132,31 @@ export default function MatrixPage({ children }) {
     return (
       // <table className={getTableLayout()}>
       <table
-        className={getTableLayout()}
+        // className={getTableLayout()}
         style={{
-          transition: 'all 1000ms ease-in-out',
+          width: tableState.tableWidth,
+          transform: tableState.transform,
+          transition: 'all 500ms ease-in-out',
         }}
       >
         <colgroup>
           <col
-            className={clsx(tableState.col1Width, {
-              transition: true,
-              '!duration-[1000]': true,
-              'ease-in-out': true,
-            })}
+            style={{
+              width: tableState.col1Width,
+              transition: 'width 500ms ease-in-out',
+            }}
           />
           <col
-            className={clsx(tableState.col2Width, {
-              transition: true,
-              '!duration-[1000]': true,
-              'ease-in-out': true,
-            })}
+            style={{
+              width: tableState.col2Width,
+              transition: 'width 500ms ease-in-out',
+            }}
           />
           <col
-            className={clsx(tableState.col3Width, {
-              transition: true,
-              '!duration-[1000]': true,
-              'ease-in-out': true,
-            })}
+            style={{
+              width: tableState.col3Width,
+              transition: 'width 500ms ease-in-out',
+            }}
           />
         </colgroup>
         <thead className="sticky top-[0px] z-40 shadow-sm shadow-black/100">
@@ -189,7 +172,7 @@ export default function MatrixPage({ children }) {
                   }}
                   className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {open ? 'Less' : 'More'}
+                  {tableState.open ? 'Less' : 'More'}
                 </button>
               </div>
             </th>
@@ -204,7 +187,7 @@ export default function MatrixPage({ children }) {
                   }}
                   className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {open ? 'Less' : 'More'}
+                  {tableState.open ? 'Less' : 'More'}
                 </button>
               </div>
             </th>
@@ -219,7 +202,7 @@ export default function MatrixPage({ children }) {
                   }}
                   className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {open ? 'Less' : 'More'}
+                  {tableState.open ? 'Less' : 'More'}
                 </button>
               </div>
             </th>
