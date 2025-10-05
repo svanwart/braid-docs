@@ -119,8 +119,9 @@ export default function MatrixPage({ children }) {
               Overview of biological and artificial intelligence
             </h2>
             <p className="mt-8 text-pretty text-center text-lg text-gray-800 sm:text-xl/8 dark:text-gray-300">
-              A comparison of some of the ways that the human brain, traditional computers, and neuromorphic computers process are
-              similar and different.
+              A comparison of some of the ways that the human brain, traditional
+              computers, and neuromorphic computers process are similar and
+              different.
             </p>
           </div>
         </div>
@@ -160,7 +161,7 @@ export default function MatrixPage({ children }) {
             }}
           />
         </colgroup>
-        <thead className="sticky top-[0px] z-40 shadow-sm shadow-black/100">
+        <thead className="sticky top-[0px] z-40 shadow-sm shadow-black/100 dark:shadow-white/100">
           <tr className="bg-gray-50 dark:bg-gray-700">
             <th className="bg-teal-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-700">
               <div className="flex items-start justify-between">
@@ -171,7 +172,7 @@ export default function MatrixPage({ children }) {
                   onClick={function () {
                     grow(1)
                   }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
                   {tableState.open ? (
                     <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
@@ -190,7 +191,7 @@ export default function MatrixPage({ children }) {
                   onClick={function () {
                     grow(2)
                   }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
                   {tableState.open ? (
                     <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
@@ -203,13 +204,13 @@ export default function MatrixPage({ children }) {
             <th className="bg-pink-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-950">
               <div className="flex items-start justify-between">
                 <h2 className="text-4xl font-extrabold text-black dark:text-white">
-                  Neuromorphic Computing
+                  Neuromorphic
                 </h2>
                 <button
                   onClick={function () {
                     grow(3)
                   }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
                   {tableState.open ? (
                     <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
@@ -224,20 +225,20 @@ export default function MatrixPage({ children }) {
         <tbody>
           <tr>
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">Building Blocks</h2>
+              <h2 className="text-2xl font-extrabold">1. Building Blocks</h2>
             </td>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               <h2
                 className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
-                Building Blocks
+                1. Building Blocks
               </h2>
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               <h2
                 className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
-                Building Blocks
+                1. Building Blocks
               </h2>
             </td>
           </tr>
@@ -258,8 +259,12 @@ export default function MatrixPage({ children }) {
                 world around them.
               </p>
               <ul className="mb-4 list-disc pl-8">
-                <li className="mb-2">Spikes enter a neuron through dendrites</li>
-                <li className="mb-2">Charge is then aggregated in the cell body</li>
+                <li className="mb-2">
+                  Spikes enter a neuron through dendrites
+                </li>
+                <li className="mb-2">
+                  Charge is then aggregated in the cell body
+                </li>
                 <li className="mb-2">
                   When a threshold is reached, an electrical pulse travels down
                   the axon (called an “action potential”). The charge is then
@@ -300,21 +305,21 @@ export default function MatrixPage({ children }) {
               </p>
             </td>
           </tr>
-          <tr>
+          <tr className="border-t border-black dark:border-gray-400">
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">Connectivity</h2>
+              <h2 className="text-2xl font-extrabold">2. Connectivity</h2>
             </td>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Connectivity
+                  2. Connectivity
                 </h2>
               )}
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Connectivity
+                  2. Connectivity
                 </h2>
               )}
             </td>
@@ -330,21 +335,21 @@ export default function MatrixPage({ children }) {
               Event-based spiking connections with configurable topology
             </td>
           </tr>
-          <tr>
+          <tr className="border-t border-black dark:border-gray-400">
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">Memory</h2>
+              <h2 className="text-2xl font-extrabold">3. Memory</h2>
             </td>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Memory
+                  3. Memory
                 </h2>
               )}
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Memory
+                  3. Memory
                 </h2>
               )}
             </td>
@@ -361,23 +366,23 @@ export default function MatrixPage({ children }) {
               synapses
             </td>
           </tr>
-          <tr>
+          <tr className="border-t border-black dark:border-gray-400">
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
               <h2 className="text-2xl font-extrabold">
-                Computation &amp; Coordination
+                4. Computation &amp; Coordination
               </h2>
             </td>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Computation &amp; Coordination
+                  4. Computation &amp; Coordination
                 </h2>
               )}
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Computation &amp; Coordination
+                  4. Computation &amp; Coordination
                 </h2>
               )}
             </td>
@@ -397,21 +402,23 @@ export default function MatrixPage({ children }) {
               <p>TODO: link to SNN demo.</p>
             </td>
           </tr>
-          <tr>
+          <tr className="border-t border-black dark:border-gray-400">
             <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
-              Learning
+              <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                5. Learning
+              </h2>
             </th>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Learning
+                  5. Learning
                 </h2>
               )}
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Learning
+                  5. Learning
                 </h2>
               )}
             </td>
@@ -438,21 +445,21 @@ export default function MatrixPage({ children }) {
               to spikes
             </td>
           </tr>
-          <tr>
+          <tr className="border-t border-black dark:border-gray-400">
             <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
-              Efficiency &amp; Scale
+              6. Efficiency &amp; Scale
             </th>
-            <td className="pT-16 bg-indigo-50 px-10 dark:bg-gray-800">
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Efficiency &amp; Scale
+                  6. Efficiency &amp; Scale
                 </h2>
               )}
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               {tableState.open && (
                 <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  Efficiency &amp; Scale
+                  6. Efficiency &amp; Scale
                 </h2>
               )}
             </td>

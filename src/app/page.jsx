@@ -95,6 +95,15 @@ export default function HomePage({ children }) {
             technical ideas and potential impacts of our neuromorphic research
             inquiries.
           </p>
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/docs/sitemap"
+              className="inline-flex items-center rounded-md bg-indigo-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-600 dark:focus:ring-offset-slate-900"
+            >
+              View Proposed Sitemap
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -114,7 +123,7 @@ export default function HomePage({ children }) {
               >
                 {index !== 0 && (
                   <div
-                    className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center dark:text-gray-900 uppercase ${item.color} flex-shrink-0 flex-grow-0`}
+                    className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center uppercase dark:text-gray-900 ${item.color} flex-shrink-0 flex-grow-0`}
                   >
                     {item.status}
                   </div>
