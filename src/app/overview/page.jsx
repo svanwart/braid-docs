@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import './page.css'
 
 function Navbar() {
@@ -118,8 +119,7 @@ export default function MatrixPage({ children }) {
               Overview of biological and artificial intelligence
             </h2>
             <p className="mt-8 text-pretty text-center text-lg text-gray-800 sm:text-xl/8 dark:text-gray-300">
-              A comparison of some of the ways that the human brain,
-              "traditional computers", and neuromorphic computers process are
+              A comparison of some of the ways that the human brain, traditional computers, and neuromorphic computers process are
               similar and different.
             </p>
           </div>
@@ -137,6 +137,7 @@ export default function MatrixPage({ children }) {
           width: tableState.tableWidth,
           transform: tableState.transform,
           transition: 'all 500ms ease-in-out',
+          'margin-top': '-66px',
         }}
       >
         <colgroup>
@@ -170,9 +171,13 @@ export default function MatrixPage({ children }) {
                   onClick={function () {
                     grow(1)
                   }}
-                  className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {tableState.open ? 'Less' : 'More'}
+                  {tableState.open ? (
+                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
+                  )}
                 </button>
               </div>
             </th>
@@ -185,9 +190,13 @@ export default function MatrixPage({ children }) {
                   onClick={function () {
                     grow(2)
                   }}
-                  className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {tableState.open ? 'Less' : 'More'}
+                  {tableState.open ? (
+                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
+                  )}
                 </button>
               </div>
             </th>
@@ -200,9 +209,13 @@ export default function MatrixPage({ children }) {
                   onClick={function () {
                     grow(3)
                   }}
-                  className="border-2 border-black px-4 py-2 font-bold text-gray-900 dark:border-white dark:text-white"
+                  className="flex items-center justify-center rounded-full border-2 border-black p-4 font-bold text-gray-900 dark:border-white dark:text-white"
                 >
-                  {tableState.open ? 'Less' : 'More'}
+                  {tableState.open ? (
+                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
+                  )}
                 </button>
               </div>
             </th>
@@ -213,43 +226,107 @@ export default function MatrixPage({ children }) {
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
               <h2 className="text-2xl font-extrabold">Building Blocks</h2>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+              <h2
+                className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
+              >
+                Building Blocks
+              </h2>
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              <h2
+                className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
+              >
+                Building Blocks
+              </h2>
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
-              <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
                 Neurons
               </h3>
-              <p>Neurons, axons, synapses...</p>
+              <img
+                src="/braid-docs/images/brain/neuron-anatomy.png"
+                alt="Placeholder image"
+                className="mb-4 w-full max-w-xl dark:invert"
+              />
+              <p className="mb-4">
+                Neurons are cells in the nervous system that communicate with
+                one another by sending and receiving electrical pulses (called
+                spikes). These signals help people think, feel, and react to the
+                world around them.
+              </p>
+              <ul className="mb-4 list-disc pl-8">
+                <li className="mb-2">Spikes enter a neuron through dendrites</li>
+                <li className="mb-2">Charge is then aggregated in the cell body</li>
+                <li className="mb-2">
+                  When a threshold is reached, an electrical pulse travels down
+                  the axon (called an “action potential”). The charge is then
+                  passed to connected neurons through small gaps called
+                  synapses.
+                </li>
+              </ul>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              Arithmetic Logic Unit (ALU), control unit, registers, memory
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
+                Transistors
+              </h3>
+              <img
+                src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                alt="Placeholder image"
+                className="mb-4 w-full max-w-md dark:invert"
+              />
+              <p>
+                Arithmetic Logic Unit (ALU), control unit, registers, memory
+              </p>
             </td>
-            <td className="min- bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
-              Memristors, memtransistors, and other devices that mimic neurons
-              and synapses in hardware
-              <br />
-              These emerging devices allow for energy-efficient, local
-              computation and memory storage — enabling brain-like processing in
-              silicon.
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
+                Memristors and Memtransistors
+              </h3>
+              <img
+                src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                alt="Placeholder image"
+                className="mb-4 w-full max-w-md dark:invert"
+              />
+              <p>
+                Memristors, memtransistors, and other devices that mimic neurons
+                and synapses in hardware
+                <br />
+                These emerging devices allow for energy-efficient, local
+                computation and memory storage — enabling brain-like processing
+                in silicon.
+              </p>
             </td>
           </tr>
           <tr>
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
               <h2 className="text-2xl font-extrabold">Connectivity</h2>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Connectivity
+                </h2>
+              )}
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Connectivity
+                </h2>
+              )}
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
               Synapses form sparse, dynamic, directed networks
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               Data buses connect CPU, memory, and I/O components
             </td>
-            <td className="bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
               Event-based spiking connections with configurable topology
             </td>
           </tr>
@@ -257,17 +334,29 @@ export default function MatrixPage({ children }) {
             <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
               <h2 className="text-2xl font-extrabold">Memory</h2>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Memory
+                </h2>
+              )}
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Memory
+                </h2>
+              )}
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
               Distributed across the network; stored in synaptic weights
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               Centralized RAM and storage, separate from processing
             </td>
-            <td className="bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
               Co-located with processing units; memory often embedded in
               synapses
             </td>
@@ -278,18 +367,30 @@ export default function MatrixPage({ children }) {
                 Computation &amp; Coordination
               </h2>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Computation &amp; Coordination
+                </h2>
+              )}
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Computation &amp; Coordination
+                </h2>
+              )}
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
               Parallel, asynchronous, locally driven by neural activity
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               Centralized, synchronous, sequential instruction processing
               (clocked)
             </td>
-            <td className="bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
               <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
                 Asynchronous, event-driven, massively parallel
               </h3>
@@ -300,11 +401,23 @@ export default function MatrixPage({ children }) {
             <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
               Learning
             </th>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Learning
+                </h2>
+              )}
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Learning
+                </h2>
+              )}
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
               <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
                 Synaptic Plasticity
               </h3>
@@ -317,10 +430,10 @@ export default function MatrixPage({ children }) {
                 weakening synapses is called synaptic plasticity.
               </p>
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               External: Learning occurs via software/programming
             </td>
-            <td className="bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
               On-chip learning (e.g., Hebbian, STDP); weights adapt in response
               to spikes
             </td>
@@ -329,17 +442,29 @@ export default function MatrixPage({ children }) {
             <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
               Efficiency &amp; Scale
             </th>
-            <td className="bg-indigo-50 px-10 py-10 dark:bg-gray-800"></td>
-            <td className="bg-pink-50 px-10 py-10 dark:bg-gray-950"></td>
+            <td className="pT-16 bg-indigo-50 px-10 dark:bg-gray-800">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Efficiency &amp; Scale
+                </h2>
+              )}
+            </td>
+            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+              {tableState.open && (
+                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
+                  Efficiency &amp; Scale
+                </h2>
+              )}
+            </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
               Ultra-low power (~20W), scales to ~86B neurons
             </td>
-            <td className="bg-indigo-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               Power-hungry, limited by memory bandwidth and Moore&apos;s Law
             </td>
-            <td className="bg-pink-50 px-10 py-10 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
               Ultra-low power (e.g., &lt;1W), well-suited for edge computing and
               large-scale networks
             </td>

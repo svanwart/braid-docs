@@ -114,7 +114,7 @@ export default function HomePage({ children }) {
               >
                 {index !== 0 && (
                   <div
-                    className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center uppercase ${item.color} flex-shrink-0 flex-grow-0`}
+                    className={`flex h-full min-h-32 w-32 items-center justify-center rounded rounded-r-none p-6 text-center dark:text-gray-900 uppercase ${item.color} flex-shrink-0 flex-grow-0`}
                   >
                     {item.status}
                   </div>
@@ -128,7 +128,7 @@ export default function HomePage({ children }) {
                     {item.id}. {item.title}
                   </h4>
                   <p
-                    className={`dark:slate:100 text-gray-500 ${index === 0 ? 'text-center text-lg' : 'text-sm leading-5'}`}
+                    className={`dark:slate:100 text-gray-500 dark:text-gray-300 ${index === 0 ? 'text-center text-lg' : 'text-sm leading-5'}`}
                   >
                     {item.description}
                   </p>

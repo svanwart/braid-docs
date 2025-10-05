@@ -11,7 +11,7 @@ const navigation = [
     links: [
       {
         title: 'What is this?',
-        href: '/docs/why',
+        href: '/overview',
         level: [1, 2, 3],
       },
     ],
