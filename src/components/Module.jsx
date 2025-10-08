@@ -1,3 +1,6 @@
+'use client'
+import { useState } from 'react'
+
 export default function Module({
   title = 'Module',
   description = 'Module description',
@@ -5,8 +8,10 @@ export default function Module({
   imgSrc,
   children,
 }) {
+  const [showMore, setShowMore] = useState(false)
+
   return (
-    <div className="w-full max-w-5xl">
+    <div className="m-auto w-full max-w-5xl">
       <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
         {title}
       </h3>
@@ -18,7 +23,15 @@ export default function Module({
         />
       )}
       <p className="mb-4">{description}</p>
-      {isOpen && children}
+      {isOpen && (
+        <button
+          onClick={() => setShowMore(!showMore)}
+          className="flex items-center justify-center rounded border border-black px-5 mb-4 py-2 font-bold text-gray-900 dark:border-white dark:!text-white"
+        >
+          {showMore ? 'Less' : 'Learn More'}
+        </button>
+      )}
+      {isOpen && showMore && children}
     </div>
   )
 }

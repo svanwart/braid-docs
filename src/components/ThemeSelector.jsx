@@ -83,7 +83,7 @@ export function ThemeSelector(props) {
           )}
         />
       </ListboxButton>
-      <ListboxOptions className="absolute right-1 top-full mt-3 w-36  space-y-1 rounded-xl bg-white p-3 text-sm font-medium shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-slate-800 dark:ring-white/5">
+      <ListboxOptions className="fixed right-[10px] top-[40px] mt-3 w-36 space-y-1 rounded-xl bg-white p-3 text-sm font-medium shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-slate-800 dark:ring-white/5">
         {themes.map((theme) => (
           <ListboxOption
             key={theme.value}

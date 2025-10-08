@@ -34,7 +34,7 @@ function Navbar() {
             </div>
           </div>
 
-          <div className="sm:gap-x-8 -mr-2 flex items-center gap-2">
+          <div className="-mr-2 flex items-center gap-2 sm:gap-x-8">
             <ThemeSelector className="relative z-10 my-5 ml-2" />
           </div>
         </div>
@@ -104,12 +104,10 @@ export default function MatrixPage() {
     }
   }
 
- 
-
   function getHeader(title, idx) {
     return (
       <div className="flex items-start justify-between">
-        <h2 className="h2">{title}</h2>
+        <h2 className="h2 mx-auto w-full max-w-5xl">{title}</h2>
         <button className="arrow-button" onClick={() => grow(idx)}>
           {tableState.open ? (
             <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
@@ -153,30 +151,30 @@ export default function MatrixPage() {
         </colgroup>
         <thead className="sticky top-[0px] z-40 shadow-sm shadow-black/100 dark:shadow-white/100">
           <tr className="bg-gray-50 dark:bg-gray-700">
-            <th className="bg-teal-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-700">
+            <th className="cell1-header-primary">
               {getHeader('The Brain', 1)}
             </th>
-            <th className="bg-indigo-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-800">
+            <th className="cell2-header-primary">
               {getHeader('Von Neumann', 2)}
             </th>
-            <th className="bg-pink-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-950">
+            <th className="cell3-header-primary">
               {getHeader('Neuromorphic', 3)}
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">1. Building Blocks</h2>
+            <td className="cell1-header">
+              <h2 className="h2-small">1. Building Blocks</h2>
             </td>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+            <td className="cell2-header">
               <h2
                 className={`h2-small ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
                 1. Building Blocks
               </h2>
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+            <td className="cell3-header">
               <h2
                 className={`h2-small ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
@@ -263,7 +261,7 @@ export default function MatrixPage() {
             </td>
             <td className="cell3">
               <Module
-                title="Event-based Spiking Connections"
+                title="Crossbar Arrays"
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Event-based spiking connections with configurable topology"
@@ -283,14 +281,29 @@ export default function MatrixPage() {
           </tr>
           <tr>
             <td className="cell1">
-              Distributed across the network; stored in synaptic weights
+              <Module
+                title="Distributed Memory"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Distributed across the network; stored in synaptic weights"
+              />
             </td>
             <td className="cell2">
-              Centralized RAM and storage, separate from processing
+              <Module
+                title="Centralized Memory"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Centralized RAM and storage, separate from processing"
+              />
             </td>
             <td className="cell3">
-              Co-located with processing units; memory often embedded in
-              synapses
+              <Module
+                title="Distributed Memory"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Co-located with processing units; memory often embedded in
+              synapses"
+              />
             </td>
           </tr>
           <tr className="row-border">
@@ -310,17 +323,29 @@ export default function MatrixPage() {
           </tr>
           <tr>
             <td className="cell1">
-              Parallel, asynchronous, locally driven by neural activity
+              <Module
+                title="Recurrent Neural Networks"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Parallel, asynchronous, locally driven by neural activity"
+              />
             </td>
             <td className="cell2">
-              Centralized, synchronous, sequential instruction processing
-              (clocked)
+              <Module
+                title="CPU Architecture"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Centralized, synchronous, sequential instruction processing
+              (clocked)"
+              />
             </td>
             <td className="cell3">
-              <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
-                Asynchronous, event-driven, massively parallel
-              </h3>
-              <p>TODO: link to SNN demo.</p>
+              <Module
+                title="Event-Driven Processing"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Asynchronous, event-driven, massively parallel"
+              />
             </td>
           </tr>
           <tr className="row-border">
@@ -351,11 +376,21 @@ export default function MatrixPage() {
               </Module>
             </td>
             <td className="cell2">
-              External: Learning occurs via software/programming
+              <Module
+                title="Software Learning"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="External: Learning occurs via software/programming"
+              />
             </td>
             <td className="cell3">
-              On-chip learning (e.g., Hebbian, STDP); weights adapt in response
-              to spikes
+              <Module
+                title="On-Chip Learning"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="On-chip learning (e.g., Hebbian, STDP); weights adapt in response
+              to spikes"
+              />
             </td>
           </tr>
           <tr className="row-border">
@@ -375,14 +410,29 @@ export default function MatrixPage() {
           </tr>
           <tr>
             <td className="cell1">
-              Ultra-low power (~20W), scales to ~86B neurons
+              <Module
+                title="Biological Efficiency"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Ultra-low power (~20W), scales to ~86B neurons"
+              />
             </td>
             <td className="cell2">
-              Power-hungry, limited by memory bandwidth and Moore&apos;s Law
+              <Module
+                title="Traditional Computing"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Power-hungry, limited by memory bandwidth and Moore's Law"
+              />
             </td>
             <td className="cell3">
-              Ultra-low power (e.g., &lt;1W), well-suited for edge computing and
-              large-scale networks
+              <Module
+                title="Edge Computing"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Ultra-low power (e.g., &lt;1W), well-suited for edge computing and
+              large-scale networks"
+              />
             </td>
           </tr>
         </tbody>
