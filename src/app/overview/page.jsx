@@ -8,6 +8,9 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import './page.css'
 import Module from '@/components/Module'
+import Neurons from '@/components/modules/brain/Neurons'
+import GenericDetails from '@/components/modules/GenericDetails'
+import SynapticPlasticity from '@/components/modules/brain/SynapticPlasticity'
 
 function Navbar() {
   return (
@@ -190,22 +193,8 @@ export default function MatrixPage() {
                   isOpen={tableState.open}
                   imgSrc="/braid-docs/images/brain/neuron-anatomy.png"
                   description="Neurons are cells in the nervous system that communicate with one another by sending and receiving electrical pulses (called spikes). These signals help people think, feel, and react to the world around them."
-                >
-                  <ul className="mb-4 list-disc pl-8">
-                    <li className="mb-2">
-                      Spikes enter a neuron through dendrites
-                    </li>
-                    <li className="mb-2">
-                      Charge is then aggregated in the cell body
-                    </li>
-                    <li className="mb-2">
-                      When a threshold is reached, an electrical pulse travels
-                      down the axon (called an “action potential”). The charge
-                      is then passed to connected neurons through small gaps
-                      called synapses.
-                    </li>
-                  </ul>
-                </Module>
+                  detailModule={<Neurons />}
+                />
               }
             </td>
             <td className="cell2">
@@ -214,6 +203,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Arithmetic Logic Unit (ALU), control unit, registers, memory"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -222,11 +212,8 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Memristors, memtransistors, and other devices that mimic neurons and synapses in hardware."
-              >
-                These emerging devices allow for energy-efficient, local
-                computation and memory storage — enabling brain-like processing
-                in silicon.
-              </Module>
+                detailModule={<GenericDetails />}
+              />
             </td>
           </tr>
           <tr className="row-border">
@@ -248,6 +235,7 @@ export default function MatrixPage() {
                   isOpen={tableState.open}
                   imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                   description="Synapses form sparse, dynamic, directed networks"
+                  detailModule={<GenericDetails />}
                 />
               }
             </td>
@@ -257,6 +245,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Data buses connect CPU, memory, and I/O components"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -265,6 +254,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Event-based spiking connections with configurable topology"
+                detailModule={<GenericDetails />}
               />
             </td>
           </tr>
@@ -286,6 +276,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Distributed across the network; stored in synaptic weights"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell2">
@@ -294,6 +285,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Centralized RAM and storage, separate from processing"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -303,6 +295,7 @@ export default function MatrixPage() {
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Co-located with processing units; memory often embedded in
               synapses"
+                detailModule={<GenericDetails />}
               />
             </td>
           </tr>
@@ -328,6 +321,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Parallel, asynchronous, locally driven by neural activity"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell2">
@@ -337,6 +331,7 @@ export default function MatrixPage() {
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Centralized, synchronous, sequential instruction processing
               (clocked)"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -345,6 +340,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Asynchronous, event-driven, massively parallel"
+                detailModule={<GenericDetails />}
               />
             </td>
           </tr>
@@ -366,14 +362,8 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="The number of connections and the strength of the connections between neurons allows the brain to learn, remember, and adapt over time."
-              >
-                <p>
-                  When two neurons repeatedly activate together, their synapse
-                  becomes stronger. If neurons rarely fire together, the
-                  connection weakens over time. This process of strengthening
-                  and weakening synapses is called synaptic plasticity.
-                </p>
-              </Module>
+                detailModule={<SynapticPlasticity />}
+              ></Module>
             </td>
             <td className="cell2">
               <Module
@@ -381,6 +371,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="External: Learning occurs via software/programming"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -390,6 +381,7 @@ export default function MatrixPage() {
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="On-chip learning (e.g., Hebbian, STDP); weights adapt in response
               to spikes"
+                detailModule={<GenericDetails />}
               />
             </td>
           </tr>
@@ -415,6 +407,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Ultra-low power (~20W), scales to ~86B neurons"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell2">
@@ -423,6 +416,7 @@ export default function MatrixPage() {
                 isOpen={tableState.open}
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Power-hungry, limited by memory bandwidth and Moore's Law"
+                detailModule={<GenericDetails />}
               />
             </td>
             <td className="cell3">
@@ -432,6 +426,7 @@ export default function MatrixPage() {
                 imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
                 description="Ultra-low power (e.g., &lt;1W), well-suited for edge computing and
               large-scale networks"
+                detailModule={<GenericDetails />}
               />
             </td>
           </tr>

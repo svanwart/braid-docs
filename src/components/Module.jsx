@@ -6,7 +6,7 @@ export default function Module({
   description = 'Module description',
   isOpen = false,
   imgSrc,
-  children,
+  detailModule,
 }) {
   const [showMore, setShowMore] = useState(false)
 
@@ -23,15 +23,15 @@ export default function Module({
         />
       )}
       <p className="mb-4">{description}</p>
-      {isOpen && (
+      {isOpen && detailModule && (
         <button
           onClick={() => setShowMore(!showMore)}
-          className="flex items-center justify-center rounded border border-black px-5 mb-4 py-2 font-bold text-gray-900 dark:border-white dark:!text-white"
+          className="mb-4 flex items-center justify-center rounded border border-black px-5 py-2 font-bold text-gray-900 dark:border-white dark:!text-white"
         >
           {showMore ? 'Less' : 'Learn More'}
         </button>
       )}
-      {isOpen && showMore && children}
+      {isOpen && showMore && detailModule}
     </div>
   )
 }
