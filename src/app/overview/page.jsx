@@ -7,6 +7,7 @@ import { Logo, Logomark } from '@/components/Logo'
 import { ThemeSelector } from '@/components/ThemeSelector'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import './page.css'
+import Module from '@/components/Module'
 
 function Navbar() {
   return (
@@ -33,7 +34,7 @@ function Navbar() {
             </div>
           </div>
 
-          <div className="sm:gapx-8 -mr-2 flex items-center gap-2">
+          <div className="sm:gap-x-8 -mr-2 flex items-center gap-2">
             <ThemeSelector className="relative z-10 my-5 ml-2" />
           </div>
         </div>
@@ -42,7 +43,7 @@ function Navbar() {
   )
 }
 
-export default function MatrixPage({ children }) {
+export default function MatrixPage() {
   const [tableState, setTableState] = useState({
     tableWidth: '100vw',
     transition: 'all 500ms ease-in-out',
@@ -103,37 +104,26 @@ export default function MatrixPage({ children }) {
     }
   }
 
-  function getTableLayout() {
-    return clsx(
-      '-mt-[100px] border-collapse border border-black dark:border-gray-600',
-    )
-  }
+ 
 
-  function drawIntro() {
+  function getHeader(title, idx) {
     return (
-      <>
-        {/* Section 1: Intro */}
-        <div className="bg-gradient-to-r from-blue-100 via-purple-50 to-indigo-100 px-6 py-20 lg:px-8 dark:bg-slate-900 dark:bg-none">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="mt-2 text-center text-4xl font-semibold tracking-tight text-gray-900 sm:text-7xl dark:text-white">
-              Overview of biological and artificial intelligence
-            </h2>
-            <p className="mt-8 text-pretty text-center text-lg text-gray-800 sm:text-xl/8 dark:text-gray-300">
-              A comparison of some of the ways that the human brain, traditional
-              computers, and neuromorphic computers process are similar and
-              different.
-            </p>
-          </div>
-        </div>
-      </>
+      <div className="flex items-start justify-between">
+        <h2 className="h2">{title}</h2>
+        <button className="arrow-button" onClick={() => grow(idx)}>
+          {tableState.open ? (
+            <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
+          ) : (
+            <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
+          )}
+        </button>
+      </div>
     )
   }
 
   function drawTable() {
     return (
-      // <table className={getTableLayout()}>
       <table
-        // className={getTableLayout()}
         style={{
           width: tableState.tableWidth,
           transform: tableState.transform,
@@ -164,61 +154,13 @@ export default function MatrixPage({ children }) {
         <thead className="sticky top-[0px] z-40 shadow-sm shadow-black/100 dark:shadow-white/100">
           <tr className="bg-gray-50 dark:bg-gray-700">
             <th className="bg-teal-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-700">
-              <div className="flex items-start justify-between">
-                <h2 className="text-4xl font-extrabold text-black dark:text-white">
-                  The Brain
-                </h2>
-                <button
-                  onClick={function () {
-                    grow(1)
-                  }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
-                >
-                  {tableState.open ? (
-                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
-                  ) : (
-                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
-                  )}
-                </button>
-              </div>
+              {getHeader('The Brain', 1)}
             </th>
             <th className="bg-indigo-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-800">
-              <div className="flex items-start justify-between">
-                <h2 className="text-4xl font-extrabold text-black dark:text-white">
-                  Von Neumann
-                </h2>
-                <button
-                  onClick={function () {
-                    grow(2)
-                  }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
-                >
-                  {tableState.open ? (
-                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
-                  ) : (
-                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
-                  )}
-                </button>
-              </div>
+              {getHeader('Von Neumann', 2)}
             </th>
             <th className="bg-pink-50 px-10 pb-10 pt-[100px] text-left dark:border-gray-600 dark:bg-gray-950">
-              <div className="flex items-start justify-between">
-                <h2 className="text-4xl font-extrabold text-black dark:text-white">
-                  Neuromorphic
-                </h2>
-                <button
-                  onClick={function () {
-                    grow(3)
-                  }}
-                  className="flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white"
-                >
-                  {tableState.open ? (
-                    <ChevronLeftIcon className="h-4 w-4" strokeWidth={3} />
-                  ) : (
-                    <ChevronRightIcon className="h-4 w-4" strokeWidth={3} />
-                  )}
-                </button>
-              </div>
+              {getHeader('Neuromorphic', 3)}
             </th>
           </tr>
         </thead>
@@ -229,249 +171,216 @@ export default function MatrixPage({ children }) {
             </td>
             <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
               <h2
-                className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
+                className={`h2-small ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
                 1. Building Blocks
               </h2>
             </td>
             <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
               <h2
-                className={`text-2xl font-extrabold transition-opacity duration-500 ease-in-out ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
+                className={`h2-small ${tableState.open ? 'opacity-100' : 'opacity-0'}`}
               >
                 1. Building Blocks
               </h2>
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
-              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
-                Neurons
-              </h3>
-              <img
-                src="/braid-docs/images/brain/neuron-anatomy.png"
-                alt="Placeholder image"
-                className="mb-4 w-full max-w-xl dark:invert"
-              />
-              <p className="mb-4">
-                Neurons are cells in the nervous system that communicate with
-                one another by sending and receiving electrical pulses (called
-                spikes). These signals help people think, feel, and react to the
-                world around them.
-              </p>
-              <ul className="mb-4 list-disc pl-8">
-                <li className="mb-2">
-                  Spikes enter a neuron through dendrites
-                </li>
-                <li className="mb-2">
-                  Charge is then aggregated in the cell body
-                </li>
-                <li className="mb-2">
-                  When a threshold is reached, an electrical pulse travels down
-                  the axon (called an “action potential”). The charge is then
-                  passed to connected neurons through small gaps called
-                  synapses.
-                </li>
-              </ul>
+            <td className="cell1">
+              {
+                <Module
+                  title="Neurons"
+                  isOpen={tableState.open}
+                  imgSrc="/braid-docs/images/brain/neuron-anatomy.png"
+                  description="Neurons are cells in the nervous system that communicate with one another by sending and receiving electrical pulses (called spikes). These signals help people think, feel, and react to the world around them."
+                >
+                  <ul className="mb-4 list-disc pl-8">
+                    <li className="mb-2">
+                      Spikes enter a neuron through dendrites
+                    </li>
+                    <li className="mb-2">
+                      Charge is then aggregated in the cell body
+                    </li>
+                    <li className="mb-2">
+                      When a threshold is reached, an electrical pulse travels
+                      down the axon (called an “action potential”). The charge
+                      is then passed to connected neurons through small gaps
+                      called synapses.
+                    </li>
+                  </ul>
+                </Module>
+              }
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
-                Transistors
-              </h3>
-              <img
-                src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
-                alt="Placeholder image"
-                className="mb-4 w-full max-w-md dark:invert"
+            <td className="cell2">
+              <Module
+                title="Transistors"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Arithmetic Logic Unit (ALU), control unit, registers, memory"
               />
-              <p>
-                Arithmetic Logic Unit (ALU), control unit, registers, memory
-              </p>
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
-              <h3 className="mb-4 mt-0 text-lg font-bold text-blue-950 dark:text-slate-100">
-                Memristors and Memtransistors
-              </h3>
-              <img
-                src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
-                alt="Placeholder image"
-                className="mb-4 w-full max-w-md dark:invert"
-              />
-              <p>
-                Memristors, memtransistors, and other devices that mimic neurons
-                and synapses in hardware
-                <br />
+            <td className="cell3">
+              <Module
+                title="Memristors and Memtransistors"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Memristors, memtransistors, and other devices that mimic neurons and synapses in hardware."
+              >
                 These emerging devices allow for energy-efficient, local
                 computation and memory storage — enabling brain-like processing
                 in silicon.
-              </p>
+              </Module>
             </td>
           </tr>
-          <tr className="border-t border-black dark:border-gray-400">
-            <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">2. Connectivity</h2>
+          <tr className="row-border">
+            <td className="cell1-header">
+              <h2 className="h2-small">2. Connectivity</h2>
             </td>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  2. Connectivity
-                </h2>
-              )}
+            <td className="cell2-header">
+              {tableState.open && <h2 className="h2-small">2. Connectivity</h2>}
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  2. Connectivity
-                </h2>
-              )}
+            <td className="cell3-header">
+              {tableState.open && <h2 className="h2-small">2. Connectivity</h2>}
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
-              Synapses form sparse, dynamic, directed networks
+            <td className="cell1">
+              {
+                <Module
+                  title="Synapses"
+                  isOpen={tableState.open}
+                  imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                  description="Synapses form sparse, dynamic, directed networks"
+                />
+              }
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              Data buses connect CPU, memory, and I/O components
+            <td className="cell2">
+              <Module
+                title="Data Buses"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Data buses connect CPU, memory, and I/O components"
+              />
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
-              Event-based spiking connections with configurable topology
+            <td className="cell3">
+              <Module
+                title="Event-based Spiking Connections"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="Event-based spiking connections with configurable topology"
+              />
             </td>
           </tr>
-          <tr className="border-t border-black dark:border-gray-400">
-            <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">3. Memory</h2>
+          <tr className="row-border">
+            <td className="cell1-header">
+              <h2 className="h2-small">3. Memory</h2>
             </td>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  3. Memory
-                </h2>
-              )}
+            <td className="cell2-header">
+              {tableState.open && <h2 className="h2-small">3. Memory</h2>}
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  3. Memory
-                </h2>
-              )}
+            <td className="cell3-header">
+              {tableState.open && <h2 className="h2-small">3. Memory</h2>}
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="cell1">
               Distributed across the network; stored in synaptic weights
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="cell2">
               Centralized RAM and storage, separate from processing
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="cell3">
               Co-located with processing units; memory often embedded in
               synapses
             </td>
           </tr>
-          <tr className="border-t border-black dark:border-gray-400">
-            <td className="bg-teal-50 px-10 pt-16 dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold">
-                4. Computation &amp; Coordination
-              </h2>
+          <tr className="row-border">
+            <td className="cell1-header">
+              <h2 className="h2-small">4. Computation &amp; Coordination</h2>
             </td>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+            <td className="cell2-header">
               {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  4. Computation &amp; Coordination
-                </h2>
+                <h2 className="h2-small">4. Computation &amp; Coordination</h2>
               )}
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+            <td className="cell3-header">
               {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  4. Computation &amp; Coordination
-                </h2>
+                <h2 className="h2-small">4. Computation &amp; Coordination</h2>
               )}
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="cell1">
               Parallel, asynchronous, locally driven by neural activity
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="cell2">
               Centralized, synchronous, sequential instruction processing
               (clocked)
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="cell3">
               <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
                 Asynchronous, event-driven, massively parallel
               </h3>
               <p>TODO: link to SNN demo.</p>
             </td>
           </tr>
-          <tr className="border-t border-black dark:border-gray-400">
-            <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
-              <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                5. Learning
-              </h2>
-            </th>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  5. Learning
-                </h2>
-              )}
+          <tr className="row-border">
+            <td className="cell1-header">
+              <h2 className="h2-small">5. Learning</h2>
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
-              {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  5. Learning
-                </h2>
-              )}
+            <td className="cell2-header">
+              {tableState.open && <h2 className="h2-small">5. Learning</h2>}
+            </td>
+            <td className="cell3-header">
+              {tableState.open && <h2 className="h2-small">5. Learning</h2>}
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
-              <h3 className="text-lg font-bold text-blue-950 dark:text-slate-100">
-                Synaptic Plasticity
-              </h3>
-              <p>
-                The number of connections and the strength of the connections
-                between neurons allows the brain to learn, remember, and adapt
-                over time. When two neurons repeatedly activate together, their
-                synapse becomes stronger. If neurons rarely fire together, the
-                connection weakens over time. This process of strengthening and
-                weakening synapses is called synaptic plasticity.
-              </p>
+            <td className="cell1">
+              <Module
+                title="Synaptic Plasticity"
+                isOpen={tableState.open}
+                imgSrc="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+                description="The number of connections and the strength of the connections between neurons allows the brain to learn, remember, and adapt over time."
+              >
+                <p>
+                  When two neurons repeatedly activate together, their synapse
+                  becomes stronger. If neurons rarely fire together, the
+                  connection weakens over time. This process of strengthening
+                  and weakening synapses is called synaptic plasticity.
+                </p>
+              </Module>
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="cell2">
               External: Learning occurs via software/programming
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="cell3">
               On-chip learning (e.g., Hebbian, STDP); weights adapt in response
               to spikes
             </td>
           </tr>
-          <tr className="border-t border-black dark:border-gray-400">
-            <th className="bg-teal-50 px-10 pt-16 text-left text-2xl font-extrabold dark:bg-gray-700">
-              6. Efficiency &amp; Scale
-            </th>
-            <td className="bg-indigo-50 px-10 pt-16 dark:bg-gray-800">
+          <tr className="row-border">
+            <td className="cell1-header">
+              <h2 className="h2-small">6. Efficiency &amp; Scale</h2>
+            </td>
+            <td className="cell2-header">
               {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  6. Efficiency &amp; Scale
-                </h2>
+                <h2 className="h2-small">6. Efficiency &amp; Scale</h2>
               )}
             </td>
-            <td className="bg-pink-50 px-10 pt-16 dark:bg-gray-950">
+            <td className="cell3-header">
               {tableState.open && (
-                <h2 className="text-2xl font-extrabold transition-opacity duration-500 ease-in-out">
-                  6. Efficiency &amp; Scale
-                </h2>
+                <h2 className="h2-small">6. Efficiency &amp; Scale</h2>
               )}
             </td>
           </tr>
           <tr>
-            <td className="bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <td className="cell1">
               Ultra-low power (~20W), scales to ~86B neurons
             </td>
-            <td className="bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <td className="cell2">
               Power-hungry, limited by memory bandwidth and Moore&apos;s Law
             </td>
-            <td className="bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300">
+            <td className="cell3">
               Ultra-low power (e.g., &lt;1W), well-suited for edge computing and
               large-scale networks
             </td>
@@ -484,8 +393,6 @@ export default function MatrixPage({ children }) {
   return (
     <>
       <Navbar />
-      {/* {drawIntro()} */}
-      {/* {drawMatrix()} */}
       {drawTable()}
     </>
   )

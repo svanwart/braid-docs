@@ -46,3 +46,35 @@ body {
   height: 0;
   padding: 0;
 }
+
+.h2 {
+  @apply text-4xl font-extrabold text-black dark:text-white;
+}
+.h2-small {
+  @apply text-2xl font-extrabold transition-opacity duration-500 ease-in-out;
+}
+.arrow-button {
+  @apply flex items-center justify-center rounded-full border-2 border-black p-3 font-bold text-gray-900 dark:border-white dark:text-white;
+}
+
+.row-border {
+  @apply border-t border-black dark:border-gray-400;
+}
+.cell1-header {
+  @apply bg-teal-50 px-10 pt-16 dark:bg-gray-700;
+}
+.cell2-header {
+  @apply bg-indigo-50 px-10 pt-16 dark:bg-gray-800;
+}
+.cell3-header {
+  @apply bg-pink-50 px-10 pt-16 dark:bg-gray-950;
+}
+.cell1 {
+  @apply bg-teal-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300; 
+}
+.cell2 {
+ @apply bg-indigo-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300;
+}
+.cell3 {
+  @apply bg-pink-50 px-10 py-6 text-gray-700 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-300;
+}
